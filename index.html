@@ -301,14 +301,15 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
   <div class="la">Contacto</div>
   <h2>Inicie el proceso con una consulta sin compromiso.</h2>
   <p class="ld">Comparta el contexto de su búsqueda y un consultor se pondrá en contacto a la brevedad.</p>
-  <div class="fm">
+  <form class="fm" name="contacto" netlify>
+    <input type="hidden" name="form-name" value="contacto">
     <div class="fr">
-      <input type="text" id="fn" placeholder="Nombre">
-      <input type="text" id="fe" placeholder="Empresa">
+      <input type="text" name="nombre" id="fn" placeholder="Nombre" required>
+      <input type="text" name="empresa" id="fe" placeholder="Empresa">
     </div>
-    <input type="email" id="fc" placeholder="Correo corporativo">
-    <input type="text" id="ft" placeholder="Teléfono de contacto">
-    <select id="fa">
+    <input type="email" name="correo" id="fc" placeholder="Correo corporativo" required>
+    <input type="text" name="telefono" id="ft" placeholder="Teléfono de contacto">
+    <select name="area" id="fa">
       <option value="">Área de interés</option>
       <option>Reclutamiento y selección</option>
       <option>Desarrollo organizacional</option>
@@ -317,9 +318,9 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
       <option>Estudio socioeconómico</option>
       <option>Equipo consultivo</option>
     </select>
-    <textarea id="fm2" placeholder="Describa brevemente su necesidad de talento..."></textarea>
-    <button class="fb" onclick="enviar()">Enviar solicitud →</button>
-  </div>
+    <textarea name="mensaje" id="fm2" placeholder="Describa brevemente su necesidad de talento..."></textarea>
+    <button type="submit" class="fb">Enviar solicitud →</button>
+  </form>
 </section>
 
 <!-- FOOTER -->
@@ -353,19 +354,20 @@ function showToast(m){
   t.textContent=m;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),4000);
 }
-function enviar(){
-  const n=document.getElementById('fn').value.trim();
-  const e=document.getElementById('fe').value.trim();
-  const c=document.getElementById('fc').value.trim();
-  const t=document.getElementById('ft').value.trim();
-  const a=document.getElementById('fa').value;
-  const m=document.getElementById('fm2').value.trim();
-  if(!n||!c){showToast('Por favor ingresa tu nombre y correo.');return;}
-  const sub=encodeURIComponent('Solicitud de consulta — Estratego Talent');
-  const bod=encodeURIComponent(`Nombre: ${n}\nEmpresa: ${e}\nTeléfono: ${t}\nÁrea: ${a}\n\nMensaje:\n${m}\n\n---\nestrategotalent.com.mx`);
-  window.location.href=`mailto:alejandro@estratego.com.mx?subject=${sub}&body=${bod}`;
-  showToast('✓ Abriendo tu cliente de correo con la solicitud lista.');
-}
+document.querySelector('form[name="contacto"]').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const btn=this.querySelector('button[type="submit"]');
+  btn.disabled=true;btn.textContent='Enviando...';
+  try{
+    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(this)).toString()});
+    showToast('✓ Solicitud enviada. Te contactaremos a la brevedad.');
+    this.reset();
+  }catch(_){
+    showToast('Error al enviar. Escríbenos directo a alejandro@estratego.com.mx');
+  }finally{
+    btn.disabled=false;btn.textContent='Enviar solicitud →';
+  }
+});
 window.addEventListener('scroll',()=>{
   const pos=window.scrollY+100;
   const secs=[['metodologia'],['servicios'],['nosotros'],['contacto']];
