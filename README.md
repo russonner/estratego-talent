@@ -51,3 +51,17 @@ Configurados en `.claude/launch.json`:
 - Se detectaron y configuraron dev servers en `.claude/launch.json`
 - Se conectó el flujo Git → Netlify → producción
 - Se estableció workflow de commit/push automático tras cada cambio
+- Se creó `CLAUDE.md` con 30 agentes de comportamiento del proyecto
+- **Revisión general + 12 fixes aplicados:**
+  - Fix 1: Formulario con Netlify Forms (reemplaza mailto:)
+  - Fix 2: SEO — meta description, canonical, Open Graph, Twitter Card
+  - Fix 3: Menú hamburguesa para móvil
+  - Fix 4: Stat del hero corregido (C-Suite)
+  - Fix 5: Labels de accesibilidad en formulario
+  - Fix 6: Favicon SVG con el logo
+  - Fix 7: Sección "Casos representativos" por industria (6 casos anónimos)
+  - Fix 8: "Casos" e "Insights" en nav y footer
+  - Fix 9: CTA de WhatsApp en hero y sección de contacto
+  - Fix 10: Schema.org ProfessionalService con JSON-LD
+  - Fix 11: Google Analytics GA4 (pendiente reemplazar G-XXXXXXXXXX con ID real)
+  - Fix 12: Sección "Insights" con 3 artículos de mercado de talento
