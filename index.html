@@ -200,6 +200,21 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
 @media(max-width:600px){footer{flex-direction:column;align-items:flex-start;padding:28px 20px}}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease}
 .reveal.visible{opacity:1;transform:none}
+/* BENCHMARK SALARIAL */
+.bms{padding:64px 36px;background:var(--nv-dd)}
+.bm-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:32px;max-width:700px}
+.bm-sel{width:100%;font-size:13px;padding:11px 14px;border:0.5px solid rgba(123,167,176,0.25);border-radius:8px;background:rgba(255,255,255,0.05);color:white;font-family:inherit;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color 0.15s}
+.bm-sel option{background:#091929;color:white}
+.bm-sel:focus{border-color:var(--sal)}
+.bm-btn{margin-top:20px;font-size:13px;font-weight:600;padding:12px 32px;background:var(--sal);color:var(--nv-d);border:none;border-radius:8px;cursor:pointer;transition:opacity 0.15s}
+.bm-btn:hover{opacity:0.85}
+.bm-res{margin-top:28px;padding:28px 32px;background:rgba(232,180,160,0.06);border:0.5px solid rgba(232,180,160,0.25);border-radius:14px;display:none;max-width:620px}
+.bm-res.show{display:block}
+.bm-range{font-size:28px;font-weight:600;color:var(--sal-l);line-height:1.2;margin:8px 0 4px}
+.bm-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:14px}
+.bm-note{font-size:11px;color:rgba(255,255,255,0.3);line-height:1.65;padding-top:14px;border-top:0.5px solid rgba(255,255,255,0.08)}
+.bm-cta{margin-top:18px;font-size:12px;font-weight:600;padding:10px 24px;background:var(--sal);color:var(--nv-d);border:none;border-radius:8px;cursor:pointer}
+@media(max-width:600px){.bms{padding:44px 20px}.bm-res{padding:20px 18px}}
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCYEFGW93V"></script>
@@ -249,6 +264,7 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
     <a href="#casos" onclick="closeMenu()">Casos</a>
     <a href="#insights" onclick="closeMenu()">Insights</a>
+    <a href="#benchmark" onclick="closeMenu()">Benchmark</a>
     <a href="#contacto" onclick="closeMenu()">Contacto</a>
     <div class="lb">ES / EN</div>
     <button class="nb" onclick="closeMenu();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar consulta</button>
@@ -497,6 +513,54 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
   </div>
 </section>
 
+<!-- BENCHMARK SALARIAL -->
+<section class="bms" id="benchmark">
+  <div class="la la-w">Benchmark salarial</div>
+  <h2 class="hd">¿Sabe cuánto vale el talento que busca?</h2>
+  <p class="lw2">Rangos de compensación para mandos medios y C-Suite en México, basados en nuestra experiencia de mercado 2025–2026. Seleccione el perfil para obtener el rango de referencia.</p>
+  <div class="bm-g">
+    <select class="bm-sel" id="bm-p">
+      <option value="">Puesto</option>
+      <option value="ceo">Director General / CEO</option>
+      <option value="cfo">Director de Finanzas / CFO</option>
+      <option value="coo">Director de Operaciones / COO</option>
+      <option value="cco">Director Comercial</option>
+      <option value="chro">Director de RRHH / CHRO</option>
+      <option value="cto">Director de Tecnología / CTO</option>
+      <option value="gm">Gerente General</option>
+      <option value="gcom">Gerente Comercial</option>
+      <option value="gops">Gerente de Operaciones</option>
+      <option value="gfin">Gerente Financiero</option>
+      <option value="grrhh">Gerente de RRHH</option>
+    </select>
+    <select class="bm-sel" id="bm-i">
+      <option value="">Industria</option>
+      <option value="mfg">Manufactura / Industrial</option>
+      <option value="ret">Retail / Consumo</option>
+      <option value="fin">Servicios Financieros / Fintech</option>
+      <option value="log">Logística / Supply Chain</option>
+      <option value="tec">Tecnología / Software</option>
+      <option value="hlt">Healthcare / Salud</option>
+      <option value="con">Construcción / Real Estate</option>
+      <option value="agr">Agroindustria / Alimentos</option>
+    </select>
+    <select class="bm-sel" id="bm-t">
+      <option value="">Tamaño de empresa</option>
+      <option value="pyme">PyME (50–499 empleados)</option>
+      <option value="med">Mediana (500–2,000)</option>
+      <option value="corp">Corporativo (+2,000)</option>
+    </select>
+  </div>
+  <div><button class="bm-btn" onclick="calcBM()">Ver benchmark →</button></div>
+  <div class="bm-res" id="bm-res">
+    <div class="la la-w">Rango salarial estimado · México 2026</div>
+    <div class="bm-range" id="bm-range">—</div>
+    <div class="bm-sub" id="bm-sub"></div>
+    <div class="bm-note">Compensación mensual bruta. Incluye sueldo base + prestaciones de ley. No incluye bono variable ni beneficios adicionales. Referencia basada en posiciones cerradas por Estratego Talent en 2025–2026. Puede variar ±15% según perfil específico, zona geográfica y paquete total.</div>
+    <div style="margin-top:18px"><button class="bm-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">¿Necesita ajustar su oferta? Contáctenos →</button></div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <a class="lw" href="#hero" style="text-decoration:none">
@@ -509,6 +573,7 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     <a href="#nosotros">Nosotros</a>
     <a href="#casos">Casos</a>
     <a href="#insights">Insights</a>
+    <a href="#benchmark">Benchmark</a>
     <a href="#contacto">Contacto</a>
     <a href="mailto:alejandro@estratego.com.mx">Email</a>
     <a href="https://wa.me/5218183663346?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Estratego%20Talent." target="_blank" style="color:#25D366;opacity:1">WhatsApp</a>
@@ -562,11 +627,29 @@ document.querySelectorAll('.sp,.sv,.ni,.csc,.ip,.isc').forEach((el,i)=>{
   el.style.transitionDelay=(i%3)*0.08+'s';
   _rObs.observe(el);
 });
+// Benchmark salarial
+const _BMD={ceo:{pyme:[80,150],med:[160,280],corp:[280,550]},cfo:{pyme:[70,130],med:[130,240],corp:[240,450]},coo:{pyme:[65,120],med:[120,220],corp:[220,420]},cco:{pyme:[60,110],med:[100,200],corp:[180,380]},chro:{pyme:[55,100],med:[95,180],corp:[160,320]},cto:{pyme:[70,130],med:[130,240],corp:[220,420]},gm:{pyme:[50,90],med:[85,160],corp:[150,280]},gcom:{pyme:[40,75],med:[65,130],corp:[120,220]},gops:{pyme:[40,70],med:[60,120],corp:[110,200]},gfin:{pyme:[45,80],med:[70,130],corp:[120,220]},grrhh:{pyme:[35,65],med:[60,115],corp:[100,190]}};
+const _BMI={mfg:1.0,ret:0.9,fin:1.15,log:0.95,tec:1.1,hlt:1.05,con:0.95,agr:0.9};
+const _BML={ceo:'Director General / CEO',cfo:'Director de Finanzas / CFO',coo:'Director de Operaciones / COO',cco:'Director Comercial',chro:'Director de RRHH / CHRO',cto:'Director de Tecnología / CTO',gm:'Gerente General',gcom:'Gerente Comercial',gops:'Gerente de Operaciones',gfin:'Gerente Financiero',grrhh:'Gerente de RRHH'};
+const _BMIL={mfg:'Manufactura',ret:'Retail / Consumo',fin:'Servicios Financieros / Fintech',log:'Logística / Supply Chain',tec:'Tecnología / Software',hlt:'Healthcare / Salud',con:'Construcción / Real Estate',agr:'Agroindustria / Alimentos'};
+const _BMSL={pyme:'PyME',med:'Empresa mediana',corp:'Corporativo'};
+function calcBM(){
+  const p=document.getElementById('bm-p').value,i=document.getElementById('bm-i').value,t=document.getElementById('bm-t').value;
+  if(!p||!i||!t){showToast('Seleccione puesto, industria y tamaño de empresa.');return;}
+  const b=_BMD[p][t],m=_BMI[i];
+  const lo=Math.round(b[0]*m),hi=Math.round(b[1]*m);
+  const fmt=n=>'$'+(n*1000).toLocaleString('es-MX')+' MXN/mes';
+  document.getElementById('bm-range').textContent=fmt(lo)+' — '+fmt(hi);
+  document.getElementById('bm-sub').textContent=_BML[p]+' · '+_BMIL[i]+' · '+_BMSL[t];
+  const r=document.getElementById('bm-res');r.classList.add('show');
+  r.scrollIntoView({behavior:'smooth',block:'nearest'});
+  gtag('event','benchmark_consulta',{event_category:'herramienta',event_label:p+'_'+i+'_'+t});
+}
 function toggleMenu(){const b=document.getElementById('hb'),n=document.getElementById('nl');b.classList.toggle('open');n.classList.toggle('open');}
 function closeMenu(){document.getElementById('hb').classList.remove('open');document.getElementById('nl').classList.remove('open');}
 window.addEventListener('scroll',()=>{
   const pos=window.scrollY+100;
-  const secs=[['metodologia'],['servicios'],['nosotros'],['casos'],['insights'],['contacto']];
+  const secs=[['metodologia'],['servicios'],['nosotros'],['casos'],['insights'],['benchmark'],['contacto']];
   let cur='';
   secs.forEach(([id])=>{const el=document.getElementById(id);if(el&&el.offsetTop<=pos)cur=id;});
   document.querySelectorAll('.nl a').forEach(a=>{
