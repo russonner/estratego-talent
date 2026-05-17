@@ -39,7 +39,18 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:12px 3
 .nl a:hover,.nl a.active{background:rgba(255,255,255,0.1);color:white}
 .nb{font-size:11px;font-weight:600;padding:8px 18px;background:var(--sal);color:var(--nv-d);border:none;border-radius:8px;cursor:pointer;margin-left:6px;white-space:nowrap}
 .lb{font-size:10px;color:var(--tl-l);border:0.5px solid rgba(255,255,255,0.25);padding:5px 10px;border-radius:20px;margin-left:4px;white-space:nowrap;line-height:1}
-@media(max-width:680px){.nl{display:none}}
+/* Hamburger */
+.hb{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hb span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:transform 0.25s,opacity 0.25s}
+.hb.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hb.open span:nth-child(2){opacity:0}
+.hb.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:680px){
+  .nl{display:none;position:absolute;top:57px;left:0;right:0;background:#091929;flex-direction:column;padding:12px 20px 20px;border-bottom:0.5px solid rgba(255,255,255,0.1);gap:4px;z-index:99}
+  .nl.open{display:flex}
+  .hb{display:flex}
+  .lb{display:none}
+}
 
 /* HERO */
 .hero{padding:72px 36px 64px;background:var(--nv);text-align:center;position:relative;overflow:hidden}
@@ -176,13 +187,16 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     </svg>
     <div><span class="lt">Estratego</span><span class="ls">Talent</span></div>
   </a>
-  <div class="nl">
-    <a href="#metodologia">Metodología</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#nosotros">Nosotros</a>
-    <a href="#contacto">Contacto</a>
+  <button class="hb" id="hb" aria-label="Menú" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nl" id="nl">
+    <a href="#metodologia" onclick="closeMenu()">Metodología</a>
+    <a href="#servicios" onclick="closeMenu()">Servicios</a>
+    <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
+    <a href="#contacto" onclick="closeMenu()">Contacto</a>
     <div class="lb">ES / EN</div>
-    <button class="nb" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar consulta</button>
+    <button class="nb" onclick="closeMenu();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar consulta</button>
   </div>
 </nav>
 
@@ -381,6 +395,8 @@ document.querySelector('form[name="contacto"]').addEventListener('submit',async 
     btn.disabled=false;btn.textContent='Enviar solicitud →';
   }
 });
+function toggleMenu(){const b=document.getElementById('hb'),n=document.getElementById('nl');b.classList.toggle('open');n.classList.toggle('open');}
+function closeMenu(){document.getElementById('hb').classList.remove('open');document.getElementById('nl').classList.remove('open');}
 window.addEventListener('scroll',()=>{
   const pos=window.scrollY+100;
   const secs=[['metodologia'],['servicios'],['nosotros'],['contacto']];
