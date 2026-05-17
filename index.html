@@ -69,6 +69,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:12px 3
 .cs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
 .cp{font-size:12px;font-weight:600;padding:12px 28px;background:var(--sal);color:var(--nv-d);border:none;border-radius:8px;cursor:pointer}
 .cc{font-size:12px;padding:12px 28px;background:transparent;color:white;border:0.5px solid rgba(255,255,255,0.35);border-radius:8px;cursor:pointer}
+.cw{font-size:12px;display:flex;align-items:center;gap:7px;padding:12px 20px;background:rgba(37,211,102,0.12);color:#4ade80;border:0.5px solid rgba(37,211,102,0.3);border-radius:8px;cursor:pointer;text-decoration:none;transition:background 0.15s}
+.cw:hover{background:rgba(37,211,102,0.2)}
 .hs{display:flex;gap:56px;justify-content:center;margin-top:56px;flex-wrap:wrap;border-top:0.5px solid rgba(255,255,255,0.15);padding-top:36px;position:relative;z-index:1}
 .st .n{font-size:22px;font-weight:600;color:var(--sal-l)}
 .st .l{font-size:10px;color:rgba(255,255,255,0.6);margin-top:3px;letter-spacing:0.06em;text-transform:uppercase;line-height:1.5}
@@ -176,6 +178,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:12px 3
 .toast{position:fixed;bottom:92px;right:28px;background:var(--nv);color:white;font-size:12px;padding:12px 20px;border-radius:10px;border-left:3px solid var(--sal);z-index:300;opacity:0;transform:translateY(10px);transition:opacity 0.3s,transform 0.3s;max-width:280px;line-height:1.5;pointer-events:none;font-family:inherit}
 .toast.show{opacity:1;transform:translateY(0)}
 
+/* INSIGHTS */
+.isg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:32px}
+.isc{background:white;border:0.5px solid rgba(0,0,0,0.08);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.isc-top{padding:24px 22px 16px;flex:1}
+.isc-cat{font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--tl-d);margin-bottom:10px}
+.isc-title{font-size:14px;font-weight:600;color:var(--nv);line-height:1.4;margin-bottom:10px}
+.isc-desc{font-size:12px;color:#555;line-height:1.65}
+.isc-foot{padding:14px 22px;border-top:0.5px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;align-items:center}
+.isc-date{font-size:11px;color:#999}
+.isc-lk{font-size:11px;font-weight:600;color:var(--tl-d);text-decoration:none}
+.isc-lk:hover{text-decoration:underline}
 /* FOOTER */
 footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:0.5px solid rgba(255,255,255,0.08)}
 .ft-l{display:flex;gap:20px;flex-wrap:wrap}
@@ -185,6 +198,32 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
 .ft-c{font-size:11px;color:rgba(255,255,255,0.5)}
 @media(max-width:600px){footer{flex-direction:column;align-items:flex-start;padding:28px 20px}}
 </style>
+<!-- Google Analytics — reemplaza G-XXXXXXXXXX con tu Measurement ID real -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Estratego Talent",
+  "description": "Consultoría especializada en atracción y desarrollo de talento. Reclutamiento y selección para mandos medios, gerenciales y directivos en México y Latinoamérica.",
+  "url": "https://estratego.com.mx",
+  "email": "alejandro@estratego.com.mx",
+  "areaServed": ["México", "Latinoamérica", "Estados Unidos"],
+  "knowsLanguage": ["es", "en"],
+  "foundingDate": "2004",
+  "slogan": "No llenamos vacantes. Construimos equipos.",
+  "serviceType": [
+    "Reclutamiento y selección",
+    "Desarrollo organizacional",
+    "Psicometría",
+    "Análisis de sueldos y salarios",
+    "Estudios socioeconómicos",
+    "Equipo consultivo"
+  ],
+  "sameAs": ["https://wa.link/estratego"]
+}
+</script>
 </head>
 <body>
 
@@ -205,6 +244,8 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     <a href="#metodologia" onclick="closeMenu()">Metodología</a>
     <a href="#servicios" onclick="closeMenu()">Servicios</a>
     <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
+    <a href="#casos" onclick="closeMenu()">Casos</a>
+    <a href="#insights" onclick="closeMenu()">Insights</a>
     <a href="#contacto" onclick="closeMenu()">Contacto</a>
     <div class="lb">ES / EN</div>
     <button class="nb" onclick="closeMenu();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar consulta</button>
@@ -231,6 +272,10 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
   <div class="cs">
     <button class="cp" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar consulta estratégica</button>
     <button class="cc" onclick="document.getElementById('metodologia').scrollIntoView({behavior:'smooth'})">Conoce nuestra metodología</button>
+    <a class="cw" href="https://wa.link/estratego" target="_blank">
+      <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.649 4.8 1.785 6.813L2 30l7.418-1.744A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.334 19.336c-.346-.174-2.046-1.01-2.364-1.124-.317-.116-.548-.174-.778.174-.232.346-.894 1.124-1.096 1.354-.202.232-.404.26-.75.086-.346-.174-1.462-.538-2.786-1.718-1.03-.918-1.724-2.052-1.926-2.398-.202-.346-.022-.532.152-.706.156-.154.346-.404.52-.606.174-.202.232-.346.346-.578.116-.232.058-.434-.028-.608-.086-.174-.778-1.876-1.066-2.568-.28-.674-.566-.582-.778-.594-.202-.012-.434-.014-.666-.014-.232 0-.608.086-.926.434-.318.346-1.21 1.184-1.21 2.886s1.238 3.348 1.412 3.578c.174.232 2.436 3.72 5.902 5.214.824.356 1.468.568 1.97.728.828.264 1.582.226 2.178.138.664-.1 2.046-.836 2.336-1.642.288-.808.288-1.5.202-1.644-.086-.144-.318-.232-.664-.406z"/></svg>
+      Escríbenos por WhatsApp
+    </a>
   </div>
   <div class="hs">
     <div class="st"><div class="n">20+</div><div class="l">Años de experiencia</div></div>
@@ -383,7 +428,7 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
 <section class="sc sa" id="contacto">
   <div class="la">Contacto</div>
   <h2>Inicie el proceso con una consulta sin compromiso.</h2>
-  <p class="ld">Comparta el contexto de su búsqueda y un consultor se pondrá en contacto a la brevedad.</p>
+  <p class="ld">Comparta el contexto de su búsqueda y un consultor se pondrá en contacto a la brevedad. También puede escribirnos directamente por <a href="https://wa.link/estratego" target="_blank" style="color:#25D366;text-decoration:none;font-weight:600">WhatsApp</a>.</p>
   <form class="fm" name="contacto" netlify>
     <input type="hidden" name="form-name" value="contacto">
     <div class="fr">
@@ -406,6 +451,48 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
   </form>
 </section>
 
+<!-- INSIGHTS -->
+<section class="sc sa" id="insights">
+  <div class="la">Insights</div>
+  <h2>Perspectiva del mercado de talento.</h2>
+  <p class="ld">Reflexiones prácticas sobre reclutamiento, liderazgo y mercado laboral en México y LATAM.</p>
+  <div class="isg">
+    <div class="isc">
+      <div class="isc-top">
+        <div class="isc-cat">Reclutamiento ejecutivo</div>
+        <div class="isc-title">Por qué los procesos de C-Suite fracasan antes de la primera entrevista</div>
+        <p class="isc-desc">El perfil de papel no es el perfil real. La mayoría de los procesos directivos fallan en la definición, no en la búsqueda. Lo que pocas firmas se atreven a preguntar al cliente antes de arrancar.</p>
+      </div>
+      <div class="isc-foot">
+        <span class="isc-date">Mayo 2026</span>
+        <a class="isc-lk" href="#contacto">Conversemos →</a>
+      </div>
+    </div>
+    <div class="isc">
+      <div class="isc-top">
+        <div class="isc-cat">Mercado salarial</div>
+        <div class="isc-title">Tendencias de compensación para mandos medios en México: 2026</div>
+        <p class="isc-desc">Los esquemas salariales para gerencias están cambiando más rápido que los tabuladores internos de las empresas. Qué espera el talento, qué ofrecen las organizaciones y dónde está la brecha.</p>
+      </div>
+      <div class="isc-foot">
+        <span class="isc-date">Abril 2026</span>
+        <a class="isc-lk" href="#contacto">Conversemos →</a>
+      </div>
+    </div>
+    <div class="isc">
+      <div class="isc-top">
+        <div class="isc-cat">Talento internacional</div>
+        <div class="isc-title">El talento latino en empresas americanas: ventajas que van más allá del costo</div>
+        <p class="isc-desc">Las empresas de EE.UU. que operan con equipos en México no solo buscan arbitraje de costos. La compatibilidad cultural, el nivel técnico y la disposición a trabajar en zonas horarias compartidas son los factores reales.</p>
+      </div>
+      <div class="isc-foot">
+        <span class="isc-date">Marzo 2026</span>
+        <a class="isc-lk" href="#contacto">Conversemos →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <a class="lw" href="#hero" style="text-decoration:none">
@@ -416,6 +503,8 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     <a href="#metodologia">Metodología</a>
     <a href="#servicios">Servicios</a>
     <a href="#nosotros">Nosotros</a>
+    <a href="#casos">Casos</a>
+    <a href="#insights">Insights</a>
     <a href="#contacto">Contacto</a>
     <a href="mailto:alejandro@estratego.com.mx">Email</a>
     <a href="https://wa.link/estratego" target="_blank" style="color:#25D366;opacity:1">WhatsApp</a>
@@ -455,7 +544,7 @@ function toggleMenu(){const b=document.getElementById('hb'),n=document.getElemen
 function closeMenu(){document.getElementById('hb').classList.remove('open');document.getElementById('nl').classList.remove('open');}
 window.addEventListener('scroll',()=>{
   const pos=window.scrollY+100;
-  const secs=[['metodologia'],['servicios'],['nosotros'],['contacto']];
+  const secs=[['metodologia'],['servicios'],['nosotros'],['casos'],['insights'],['contacto']];
   let cur='';
   secs.forEach(([id])=>{const el=document.getElementById(id);if(el&&el.offsetTop<=pos)cur=id;});
   document.querySelectorAll('.nl a').forEach(a=>{
