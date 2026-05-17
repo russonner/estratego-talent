@@ -63,5 +63,6 @@ Configurados en `.claude/launch.json`:
   - Fix 8: "Casos" e "Insights" en nav y footer
   - Fix 9: CTA de WhatsApp en hero y sección de contacto
   - Fix 10: Schema.org ProfessionalService con JSON-LD
-  - Fix 11: Google Analytics GA4 (pendiente reemplazar G-XXXXXXXXXX con ID real)
+  - Fix 11: Google Analytics GA4 — Measurement ID `G-JCYEFGW93V` activo en producción
   - Fix 12: Sección "Insights" con 3 artículos de mercado de talento
+- **GA4 completamente configurado:** cuenta "Estratego Talent", propiedad "estratego.com.mx", stream web activo
