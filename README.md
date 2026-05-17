@@ -66,3 +66,13 @@ Configurados en `.claude/launch.json`:
   - Fix 11: Google Analytics GA4 — Measurement ID `G-JCYEFGW93V` activo en producción
   - Fix 12: Sección "Insights" con 3 artículos de mercado de talento
 - **GA4 completamente configurado:** cuenta "Estratego Talent", propiedad "estratego.com.mx", stream web activo
+
+### Sesión 2 — 2026-05-17
+- **Fix: Netlify Forms** — se agregó `data-netlify="true"`, `netlify-honeypot="bot-field"` y campo honeypot oculto para que el formulario sea detectado correctamente por Netlify
+- **Fix: Links de WhatsApp** — reemplazados todos los `wa.link/estratego` por `wa.me/5218183663346` con mensaje pre-llenado
+- **Nuevo: `/gracias`** — página de confirmación post-envío de formulario (`gracias.html`) con checkmark, CTA de WhatsApp y meta noindex
+- **Nuevo: GA4 eventos** — `form_submit`, `whatsapp_click`, `scroll_contacto` + evento `conversion` en `/gracias`
+- **Nuevo: `sitemap.xml`** — incluye index y `/gracias` con prioridades correctas
+- **Nuevo: `robots.txt`** — permite todo el sitio, bloquea `/gracias` de indexación, apunta al sitemap
+- **Nuevo: Animaciones scroll** — `.reveal` / `.visible` con IntersectionObserver en tarjetas de servicios, casos e insights
+- **Netlify email notification** — configurada notificación a alejandro@estratego.com.mx para cada envío del formulario "contacto"
