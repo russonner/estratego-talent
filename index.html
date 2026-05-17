@@ -146,6 +146,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:12px 3
 /* FORMULARIO */
 .fm{max-width:480px;margin-top:32px;display:flex;flex-direction:column;gap:12px}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fm label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+.fm .fi{position:relative}
 .fm input,.fm select,.fm textarea{width:100%;font-size:13px;padding:10px 14px;border:0.5px solid rgba(123,167,176,0.3);border-radius:8px;background:var(--dc);color:var(--tl-l);font-family:inherit;outline:none;transition:border-color 0.15s}
 .fm input::placeholder,.fm textarea::placeholder{color:var(--tl-l);opacity:0.7}
 .fm select option{background:var(--dc);color:var(--tl-l)}
@@ -331,12 +333,12 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
   <form class="fm" name="contacto" netlify>
     <input type="hidden" name="form-name" value="contacto">
     <div class="fr">
-      <input type="text" name="nombre" id="fn" placeholder="Nombre" required>
-      <input type="text" name="empresa" id="fe" placeholder="Empresa">
+      <div class="fi"><label for="fn">Nombre</label><input type="text" name="nombre" id="fn" placeholder="Nombre" required></div>
+      <div class="fi"><label for="fe">Empresa</label><input type="text" name="empresa" id="fe" placeholder="Empresa"></div>
     </div>
-    <input type="email" name="correo" id="fc" placeholder="Correo corporativo" required>
-    <input type="text" name="telefono" id="ft" placeholder="Teléfono de contacto">
-    <select name="area" id="fa">
+    <div class="fi"><label for="fc">Correo corporativo</label><input type="email" name="correo" id="fc" placeholder="Correo corporativo" required></div>
+    <div class="fi"><label for="ft">Teléfono</label><input type="text" name="telefono" id="ft" placeholder="Teléfono de contacto"></div>
+    <div class="fi"><label for="fa">Área de interés</label><select name="area" id="fa">
       <option value="">Área de interés</option>
       <option>Reclutamiento y selección</option>
       <option>Desarrollo organizacional</option>
@@ -344,8 +346,8 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
       <option>Psicometría</option>
       <option>Estudio socioeconómico</option>
       <option>Equipo consultivo</option>
-    </select>
-    <textarea name="mensaje" id="fm2" placeholder="Describa brevemente su necesidad de talento..."></textarea>
+    </select></div>
+    <div class="fi"><label for="fm2">Mensaje</label><textarea name="mensaje" id="fm2" placeholder="Describa brevemente su necesidad de talento..."></textarea></div>
     <button type="submit" class="fb">Enviar solicitud →</button>
   </form>
 </section>
