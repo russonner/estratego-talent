@@ -169,6 +169,33 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:12px 3
 .fb:hover{background:#2A527A}
 @media(max-width:600px){.fr{grid-template-columns:1fr}}
 
+/* PORTAL ACCESS */
+.portal-nav{position:relative}
+.pn-btn{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:6px 12px;background:rgba(123,167,176,0.12);color:var(--tl-l);border:0.5px solid rgba(123,167,176,0.25);border-radius:8px;cursor:pointer;margin-left:6px;transition:background 0.15s,color 0.15s;white-space:nowrap;text-decoration:none}
+.pn-btn:hover{background:rgba(123,167,176,0.22);color:white}
+.pn-drop{position:absolute;top:calc(100% + 8px);right:0;background:#0F2540;border:0.5px solid rgba(255,255,255,0.12);border-radius:12px;padding:8px;min-width:230px;z-index:200;box-shadow:0 8px 32px rgba(0,0,0,0.4);display:none}
+.pn-drop.open{display:block}
+.pd-item{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;transition:background 0.12s;cursor:pointer}
+.pd-item:hover{background:rgba(255,255,255,0.07)}
+.pd-label{font-size:12px;font-weight:600;color:white;display:block;margin-bottom:2px}
+.pd-desc{font-size:10px;color:rgba(255,255,255,0.45);display:block}
+.pd-div{height:0.5px;background:rgba(255,255,255,0.08);margin:4px 0}
+
+/* SECCIÓN PORTAL */
+.ps{background:#0A1E33;padding:64px 36px}
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;max-width:680px}
+.pc{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:14px;padding:28px 24px;text-decoration:none;display:block;transition:background 0.15s,border-color 0.15s;position:relative;overflow:hidden}
+.pc:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.2)}
+.pc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.pc-admin .pc-icon{background:rgba(232,180,160,0.12);border:0.5px solid rgba(232,180,160,0.2)}
+.pc-client .pc-icon{background:rgba(123,167,176,0.12);border:0.5px solid rgba(123,167,176,0.2)}
+.pc-title{font-size:14px;font-weight:600;color:white;margin-bottom:6px}
+.pc-desc{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:16px}
+.pc-cta{font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px}
+.pc-admin .pc-cta{color:var(--sal)}
+.pc-client .pc-cta{color:var(--tl-l)}
+@media(max-width:600px){.ps{padding:44px 20px}.ps-grid{grid-template-columns:1fr}}
+
 /* WhatsApp flotante */
 .wa{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;text-decoration:none;transition:transform 0.2s;box-shadow:0 4px 16px rgba(37,211,102,0.35)}
 .wa:hover{transform:scale(1.08)}
@@ -266,8 +293,26 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     <a href="#insights" onclick="closeMenu()">Insights</a>
     <a href="#benchmark" onclick="closeMenu()">Benchmark</a>
     <a href="#contacto" onclick="closeMenu()">Contacto</a>
+    <a href="#portal" onclick="closeMenu()">Portal</a>
     <div class="lb">ES / EN</div>
     <button class="nb" onclick="closeMenu();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Agendar consulta</button>
+    <div class="portal-nav" id="portal-nav">
+      <a class="pn-btn" onclick="togglePortal(event)">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="8" width="12" height="7" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 8V5.5a3 3 0 016 0V8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Portal
+      </a>
+      <div class="pn-drop" id="pn-drop">
+        <a class="pd-item" href="https://estratego-app.vercel.app/login" target="_blank">
+          <span class="pd-label">Panel de administración</span>
+          <span class="pd-desc">Equipo interno Estratego Talent</span>
+        </a>
+        <div class="pd-div"></div>
+        <a class="pd-item" href="https://estratego-app.vercel.app/login" target="_blank">
+          <span class="pd-label">Portal de clientes</span>
+          <span class="pd-desc">Seguimiento de candidatos y vacantes</span>
+        </a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -561,6 +606,31 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
   </div>
 </section>
 
+<!-- PORTAL DE ACCESO -->
+<section class="ps" id="portal">
+  <div class="la la-w">Acceso al portal</div>
+  <h2 class="hd">Ingrese a su espacio de trabajo.</h2>
+  <p class="lw2">El portal de Estratego Talent centraliza toda la información del proceso de búsqueda: candidatos, etapas, feedback y seguimiento en tiempo real.</p>
+  <div class="ps-grid">
+    <a class="pc pc-admin" href="https://estratego-app.vercel.app/login" target="_blank">
+      <div class="pc-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2l1.8 4.2H15l-3.6 2.6 1.4 4.2L9 10.6l-3.8 2.4 1.4-4.2L3 6.2h4.2z" stroke="#E8B4A0" stroke-width="1.1" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="pc-title">Panel de administración</div>
+      <p class="pc-desc">Gestión de vacantes, candidatos, pipeline y reportes para el equipo interno de Estratego Talent.</p>
+      <div class="pc-cta">Ingresar <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+    <a class="pc pc-client" href="https://estratego-app.vercel.app/login" target="_blank">
+      <div class="pc-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="10" rx="1.5" stroke="#7BA7B0" stroke-width="1.2"/><path d="M6 5V4a3 3 0 016 0v1" stroke="#7BA7B0" stroke-width="1.2" stroke-linecap="round"/><circle cx="9" cy="11" r="1.5" fill="#7BA7B0"/></svg>
+      </div>
+      <div class="pc-title">Portal de clientes</div>
+      <p class="pc-desc">Consulte el avance de sus vacantes, revise candidatos presentados y deje retroalimentación en cada perfil.</p>
+      <div class="pc-cta">Ingresar <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </a>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <a class="lw" href="#hero" style="text-decoration:none">
@@ -575,6 +645,7 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
     <a href="#insights">Insights</a>
     <a href="#benchmark">Benchmark</a>
     <a href="#contacto">Contacto</a>
+    <a href="#portal">Portal</a>
     <a href="mailto:alejandro@estratego.com.mx">Email</a>
     <a href="https://wa.me/5218183663346?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Estratego%20Talent." target="_blank" style="color:#25D366;opacity:1">WhatsApp</a>
     <a class="en-lk">EN</a>
@@ -647,6 +718,8 @@ function calcBM(){
 }
 function toggleMenu(){const b=document.getElementById('hb'),n=document.getElementById('nl');b.classList.toggle('open');n.classList.toggle('open');}
 function closeMenu(){document.getElementById('hb').classList.remove('open');document.getElementById('nl').classList.remove('open');}
+function togglePortal(e){e.stopPropagation();document.getElementById('pn-drop').classList.toggle('open');}
+document.addEventListener('click',()=>document.getElementById('pn-drop').classList.remove('open'));
 window.addEventListener('scroll',()=>{
   const pos=window.scrollY+100;
   const secs=[['metodologia'],['servicios'],['nosotros'],['casos'],['insights'],['benchmark'],['contacto']];
