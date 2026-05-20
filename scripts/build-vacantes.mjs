@@ -1,14 +1,14 @@
 /**
- * Static job-board generator for estratego.com.mx
+ * Static SEO build for estratego.com.mx
  *
- * Runs at Netlify build time. Fetches published vacancies from Supabase
- * and writes:
- *   /vacantes/index.html              → job listing (SEO)
- *   /vacantes/<slug>.html             → one page per vacancy with JobPosting JSON-LD (Google Jobs)
- *   /sitemap.xml                      → regenerated to include all job pages
+ * Runs at Netlify build time. Generates:
+ *   /<slug>.html            → service/zone landing pages (unique content + Service/FAQ schema)
+ *   /vacantes/index.html    → job listing (SEO)
+ *   /vacantes/<slug>.html   → one page per published vacancy with JobPosting JSON-LD (Google Jobs)
+ *   /sitemap.xml            → unified sitemap (home + landings + job pages)
  *
  * Env vars (Netlify): SUPABASE_URL, SUPABASE_ANON_KEY
- * If env vars are missing, it still generates an empty board so the build never fails.
+ * If missing, still generates landings + empty job board so the build never fails.
  */
 import { createClient } from '@supabase/supabase-js'
 import { mkdir, writeFile } from 'node:fs/promises'
@@ -20,111 +20,37 @@ const SITE = 'https://estratego.com.mx'
 const ORG  = 'Estratego Talent'
 const LOGO = `${SITE}/logo.png`
 
-const EMPLOYMENT = {
-  tiempo_completo: 'FULL_TIME',
-  medio_tiempo:    'PART_TIME',
-  temporal:        'TEMPORARY',
-  practicas:       'INTERN',
-  por_proyecto:    'CONTRACTOR',
-}
-const MODALIDAD = { presencial: 'Presencial', hibrido: 'Híbrido', remoto: 'Remoto' }
-
-/* ---------- data ---------- */
-async function fetchVacantes() {
-  const url = process.env.SUPABASE_URL
-  const key = process.env.SUPABASE_ANON_KEY
-  if (!url || !key) {
-    console.warn('⚠ SUPABASE_URL / SUPABASE_ANON_KEY no configuradas — generando bolsa vacía.')
-    return []
-  }
-  const supabase = createClient(url, key, { auth: { persistSession: false } })
-  const { data, error } = await supabase
-    .from('vacantes')
-    .select('*, clientes(company_name)')
-    .eq('publica', true)
-    .eq('status', 'activa')
-    .order('publicada_at', { ascending: false })
-  if (error) { console.error('Error Supabase:', error.message); return [] }
-  return data ?? []
-}
-
-/* ---------- helpers ---------- */
+/* ===========================================================
+   Shared shell
+   =========================================================== */
 const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
-const fmtMoney = n => n ? `$${Number(n).toLocaleString('es-MX')}` : null
-function parseLocation(loc) {
-  // "Monterrey, NL" → { city, region }
-  const [city, region] = (loc || 'Monterrey, NL').split(',').map(s => s.trim())
-  return { city: city || 'Monterrey', region: region || 'NL' }
-}
-function slugFor(v) {
-  return v.slug || (v.title || 'vacante').toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + String(v.id).slice(0, 6)
-}
 
-/* ---------- JobPosting JSON-LD ---------- */
-function jobPostingLD(v) {
-  const { city, region } = parseLocation(v.location)
-  const datePosted = (v.publicada_at || v.created_at || new Date().toISOString()).slice(0, 10)
-  const validThrough = v.expira_at
-    ? v.expira_at.slice(0, 10)
-    : new Date(Date.now() + 60 * 864e5).toISOString().slice(0, 10)
-  const hiring = v.mostrar_empresa && v.clientes?.company_name ? v.clientes.company_name : ORG
-  const desc = v.descripcion_publica || v.ideal_profile || `Posición de ${v.title} en ${city}, ${region}.`
-
-  const ld = {
-    '@context': 'https://schema.org/',
-    '@type': 'JobPosting',
-    title: v.title,
-    description: `<p>${esc(desc).replace(/\n/g, '</p><p>')}</p>`,
-    datePosted,
-    validThrough,
-    employmentType: EMPLOYMENT[v.tipo_contrato] || 'FULL_TIME',
-    hiringOrganization: { '@type': 'Organization', name: hiring, sameAs: SITE, logo: LOGO },
-    jobLocation: {
-      '@type': 'Place',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: city,
-        addressRegion: region,
-        addressCountry: 'MX',
-      },
-    },
-    directApply: true,
-  }
-  if (v.modalidad === 'remoto') ld.jobLocationType = 'TELECOMMUTE'
-  if (v.mostrar_salario && v.salary_min) {
-    ld.baseSalary = {
-      '@type': 'MonetaryAmount',
-      currency: 'MXN',
-      value: {
-        '@type': 'QuantitativeValue',
-        minValue: Number(v.salary_min),
-        maxValue: Number(v.salary_max || v.salary_min),
-        unitText: 'MONTH',
-      },
-    }
-  }
-  return ld
-}
-
-/* ---------- shared shell ---------- */
 const NAV = `
-<nav style="display:flex;align-items:center;justify-content:space-between;padding:12px 36px;background:#091929;position:sticky;top:0;z-index:100">
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:14px 36px;background:#091929;position:sticky;top:0;z-index:100">
   <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none">
     <svg width="26" height="26" viewBox="0 0 100 100"><polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#E8B4A0"/><rect x="24" y="24" width="52" height="52" fill="#7BA7B0" rx="3"/><circle cx="50" cy="50" r="16" fill="#1B3A5C"/></svg>
     <span style="font-size:13px;font-weight:600;letter-spacing:.18em;color:#fff;text-transform:uppercase">Estratego Talent</span>
   </a>
-  <a href="/vacantes/" style="font-size:12px;color:#B8D3D8;text-decoration:none">Vacantes</a>
+  <div style="display:flex;gap:18px;align-items:center">
+    <a href="/vacantes/" style="font-size:13px;color:#B8D3D8;text-decoration:none">Vacantes</a>
+    <a href="https://portal.estratego.com.mx/contacto-empresas" style="font-size:12px;font-weight:600;background:#E8B4A0;color:#0F2540;padding:8px 16px;border-radius:8px;text-decoration:none">Solicitar propuesta</a>
+  </div>
 </nav>`
 
 const FOOT = `
-<footer style="background:#091929;color:rgba(255,255,255,.6);padding:32px 36px;text-align:center;font-size:13px">
-  © ${new Date().getFullYear()} Estratego Talent · Reclutamiento y selección en Monterrey ·
-  <a href="/" style="color:#E8B4A0;text-decoration:none">Inicio</a>
+<footer style="background:#091929;color:rgba(255,255,255,.6);padding:36px;text-align:center;font-size:13px;line-height:1.9">
+  <div style="margin-bottom:8px">
+    <a href="/reclutamiento-y-seleccion-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Reclutamiento Monterrey</a> ·
+    <a href="/headhunting-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Headhunting</a> ·
+    <a href="/estudios-socioeconomicos-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Estudios socioeconómicos</a> ·
+    <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
+    <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
+  </div>
+  © ${new Date().getFullYear()} Estratego Talent · Reclutamiento y selección de personal en Monterrey, Nuevo León.
 </footer>`
 
-function page({ title, description, canonical, body, jsonLd }) {
+function page({ title, description, canonical, body, jsonLd = [] }) {
+  const blocks = (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boolean)
   return `<!DOCTYPE html><html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
@@ -134,132 +60,315 @@ function page({ title, description, canonical, body, jsonLd }) {
 <meta property="og:type" content="website"><meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${canonical}">
 <meta property="og:locale" content="es_MX">
+<meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E8B4A0'/%3E%3Crect x='24' y='24' width='52' height='52' fill='%237BA7B0' rx='3'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%231B3A5C'/%3E%3C/svg%3E">
-${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}
+${blocks.map(b => `<script type="application/ld+json">${JSON.stringify(b)}</script>`).join('\n')}
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAF8F6;color:#1B2A38;line-height:1.6}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAF8F6;color:#1B2A38;line-height:1.7}
 a{color:#1B3A5C}
-.wrap{max-width:880px;margin:0 auto;padding:40px 24px}
-.card{background:#fff;border:1px solid #ECE7DF;border-radius:16px;padding:24px;box-shadow:0 1px 2px rgba(27,42,56,.04)}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:500;background:#E7EDF3;color:#1B3A5C}
-.btn{display:inline-flex;align-items:center;gap:8px;background:#1B3A5C;color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:12px 22px;border-radius:12px}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px}
+.hero{background:#1B3A5C;color:#fff;padding:56px 24px}
+.hero .in{max-width:880px;margin:0 auto}
+.tag{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#E8B4A0;margin-bottom:14px}
+h1{font-size:34px;font-weight:800;line-height:1.2}
+.hero p{font-size:17px;color:rgba(255,255,255,.85);margin-top:14px;max-width:640px}
+h2{font-size:22px;font-weight:700;color:#1B3A5C;margin:34px 0 12px}
+h3{font-size:16px;font-weight:700;color:#1B2A38;margin:20px 0 6px}
+p{margin-bottom:14px}
+ul{margin:0 0 14px 22px}
+li{margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:#1B3A5C;color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:14px 26px;border-radius:12px;margin-top:8px}
 .btn:hover{background:#0F2540}
-h1{font-size:30px;font-weight:800;color:#1B3A5C;line-height:1.2}
-h2{font-size:20px;font-weight:700;color:#1B3A5C;margin:24px 0 10px}
+.btn-sal{background:#E8B4A0;color:#0F2540}
+.card{background:#fff;border:1px solid #ECE7DF;border-radius:16px;padding:24px;box-shadow:0 1px 2px rgba(27,42,56,.04);margin-bottom:14px}
+.faq summary{cursor:pointer;font-weight:600;color:#1B3A5C;padding:14px 0;border-bottom:1px solid #ECE7DF;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq p{padding:10px 0 16px;color:#5C6B78}
 .muted{color:#5C6B78}
 </style></head><body>
 ${NAV}
-<div class="wrap">${body}</div>
+${body}
 ${FOOT}
 </body></html>`
 }
 
-/* ---------- listing page ---------- */
-function listingPage(vacantes) {
+/* ===========================================================
+   Service / zone landing pages (unique content)
+   =========================================================== */
+const LANDINGS = [
+  {
+    slug: 'reclutamiento-y-seleccion-monterrey',
+    title: 'Reclutamiento y Selección de Personal en Monterrey | Estratego Talent',
+    description: 'Agencia de reclutamiento y selección en Monterrey especializada en mandos medios y posiciones directivas. Metodología propia, tiempo de cierre promedio de 30 días.',
+    h1: 'Reclutamiento y selección de personal en Monterrey',
+    lead: 'Encontramos al talento que tu empresa necesita en Monterrey y su zona metropolitana, con una metodología propia que va más allá del CV: evaluamos competencias, fit cultural e integridad.',
+    sections: [
+      { h: '¿Qué hacemos?', html: `<p>En Estratego Talent nos especializamos en <strong>reclutamiento y selección de personal especializado, gerencial y directivo</strong> para empresas en Monterrey, San Pedro, Apodaca, Santa Catarina y todo Nuevo León. No llenamos vacantes: construimos equipos.</p>
+      <p>Cada proceso incluye definición del perfil real (no el de papel), búsqueda activa de candidatos pasivos, entrevistas por competencias, pruebas psicométricas y verificación de referencias.</p>` },
+      { h: 'Industrias que atendemos', html: `<ul>
+        <li>Manufactura y producción</li>
+        <li>Servicios financieros y fintech</li>
+        <li>Logística y supply chain</li>
+        <li>Tecnología y software</li>
+        <li>Retail y consumo</li>
+        <li>Construcción y real estate</li>
+      </ul>` },
+      { h: '¿Por qué Estratego Talent?', html: `<ul>
+        <li><strong>Tiempo de cierre promedio de 30 días</strong> por vacante.</li>
+        <li>Más de 5,000 perfiles en nuestra base de talento.</li>
+        <li>95% de candidatos colocados con retención mayor a 12 meses.</li>
+        <li>Garantía de reposición incluida en cada búsqueda.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿Cuánto cuesta una agencia de reclutamiento en Monterrey?', a: 'El costo se calcula como un porcentaje del sueldo anual de la posición, y varía según el nivel del puesto y la dificultad de la búsqueda. Solicita una propuesta sin costo y te damos una cotización clara.' },
+      { q: '¿Cuánto tarda el proceso de reclutamiento?', a: 'Nuestro tiempo de cierre promedio es de 30 días desde el levantamiento del perfil hasta la presentación de candidatos finalistas. Las posiciones directivas pueden tomar un poco más.' },
+      { q: '¿Ofrecen garantía?', a: 'Sí. Cada búsqueda incluye una garantía de reposición sin costo si el candidato no concluye su periodo de prueba.' },
+      { q: '¿Atienden empresas fuera de Monterrey?', a: 'Sí, atendemos toda la zona metropolitana de Monterrey y posiciones en el resto de México y Latinoamérica.' },
+    ],
+    serviceType: 'Reclutamiento y selección de personal',
+  },
+  {
+    slug: 'headhunting-monterrey',
+    title: 'Headhunting y Búsqueda de Ejecutivos en Monterrey | Estratego Talent',
+    description: 'Headhunting especializado en Monterrey para posiciones directivas y C-Suite. Búsqueda discreta de candidatos pasivos de alto nivel.',
+    h1: 'Headhunting y búsqueda de ejecutivos en Monterrey',
+    lead: 'Búsqueda directa y confidencial de líderes para posiciones críticas. Llegamos a los ejecutivos que no están buscando empleo pero que pueden transformar tu organización.',
+    sections: [
+      { h: 'Búsqueda de ejecutivos de alto nivel', html: `<p>El <strong>headhunting</strong> es distinto al reclutamiento tradicional: el mejor candidato para una dirección rara vez está aplicando a vacantes. Nuestra labor es identificarlo, contactarlo con discreción y despertar su interés en tu proyecto.</p>
+      <p>Trabajamos posiciones de <strong>Dirección General, Finanzas, Operaciones, Comercial, Recursos Humanos y Tecnología</strong> en Monterrey y Nuevo León.</p>` },
+      { h: 'Nuestro proceso de executive search', html: `<ul>
+        <li>Mapeo de mercado y empresas objetivo.</li>
+        <li>Identificación de candidatos pasivos calificados.</li>
+        <li>Primer contacto confidencial y manejo de la relación.</li>
+        <li>Evaluación profunda de competencias y motivaciones.</li>
+        <li>Acompañamiento en oferta, contraoferta y cierre.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿Qué diferencia al headhunting del reclutamiento normal?', a: 'El headhunting busca de forma directa y confidencial a candidatos pasivos de alto nivel, en lugar de esperar postulaciones. Es ideal para posiciones directivas y críticas.' },
+      { q: '¿Manejan la búsqueda con confidencialidad?', a: 'Sí. Tanto la identidad de tu empresa como la de los candidatos se manejan con total discreción durante todo el proceso.' },
+    ],
+    serviceType: 'Headhunting ejecutivo',
+  },
+  {
+    slug: 'estudios-socioeconomicos-monterrey',
+    title: 'Estudios Socioeconómicos en Monterrey | Estratego Talent',
+    description: 'Estudios socioeconómicos profesionales en Monterrey para procesos de selección y contratación. Visita domiciliaria, verificación de referencias y reporte detallado.',
+    h1: 'Estudios socioeconómicos en Monterrey',
+    lead: 'Verifica la información de tus candidatos antes de contratar. Estudios socioeconómicos confiables que reducen el riesgo de una mala contratación.',
+    sections: [
+      { h: '¿Qué incluye un estudio socioeconómico?', html: `<ul>
+        <li>Visita domiciliaria y verificación de entorno.</li>
+        <li>Validación de datos personales y laborales.</li>
+        <li>Verificación de referencias laborales y personales.</li>
+        <li>Análisis de situación económica y patrimonial.</li>
+        <li>Reporte profesional con observaciones y nivel de riesgo.</li>
+      </ul>` },
+      { h: '¿Por qué hacer un estudio socioeconómico?', html: `<p>Una contratación equivocada cuesta tiempo, dinero y clima laboral. El estudio socioeconómico confirma que la información del candidato es veraz y detecta señales de riesgo antes de la contratación, especialmente en posiciones de confianza y manejo de recursos.</p>` },
+    ],
+    faq: [
+      { q: '¿Cuánto tarda un estudio socioeconómico?', a: 'Normalmente entre 3 y 5 días hábiles desde que se agenda la visita, dependiendo de la ubicación y disponibilidad del candidato.' },
+      { q: '¿Atienden estudios en toda la zona de Monterrey?', a: 'Sí, cubrimos toda la zona metropolitana de Monterrey y podemos coordinar estudios en otras ciudades de México.' },
+    ],
+    serviceType: 'Estudios socioeconómicos',
+  },
+  {
+    slug: 'pruebas-psicometricas-monterrey',
+    title: 'Pruebas Psicométricas en Monterrey | Estratego Talent',
+    description: 'Aplicación e interpretación de pruebas psicométricas en Monterrey: Cleaver DISC, aptitud cognitiva y valores. Reportes claros para tu decisión de contratación.',
+    h1: 'Pruebas psicométricas en Monterrey',
+    lead: 'Evalúa el comportamiento, la aptitud y los valores de tus candidatos con pruebas psicométricas aplicadas e interpretadas por especialistas.',
+    sections: [
+      { h: 'Pruebas que aplicamos', html: `<ul>
+        <li><strong>Cleaver DISC</strong> — perfil de comportamiento y estilos (natural, adaptado y bajo estrés).</li>
+        <li><strong>Aptitud cognitiva</strong> — razonamiento verbal, numérico, abstracto y práctico.</li>
+        <li><strong>Valores e integridad</strong> — ética, apego a normas y factores de riesgo.</li>
+      </ul>` },
+      { h: 'Interpretación profesional', html: `<p>No entregamos solo números: cada evaluación incluye una interpretación en lenguaje claro con fortalezas, áreas de atención, fit con el puesto y preguntas sugeridas para la entrevista. Las pruebas se aplican en línea, desde cualquier dispositivo.</p>` },
+    ],
+    faq: [
+      { q: '¿Las pruebas psicométricas se pueden aplicar en línea?', a: 'Sí, todas nuestras pruebas se aplican en línea mediante un enlace único, desde computadora o celular, y los resultados se procesan automáticamente.' },
+      { q: '¿Qué entregan al final?', a: 'Un reporte por candidato con puntajes, gráficas e interpretación profesional, además de recomendaciones para la entrevista.' },
+    ],
+    serviceType: 'Pruebas psicométricas',
+  },
+]
+
+function landingLD(l) {
+  const service = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: l.serviceType,
+    serviceType: l.serviceType,
+    provider: { '@type': 'Organization', name: ORG, url: SITE },
+    areaServed: { '@type': 'City', name: 'Monterrey' },
+    url: `${SITE}/${l.slug}.html`,
+    description: l.description,
+  }
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: l.faq.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: l.h1, item: `${SITE}/${l.slug}.html` },
+    ],
+  }
+  return [service, faq, breadcrumb]
+}
+
+function landingPage(l) {
+  const body = `
+  <header class="hero"><div class="in">
+    <span class="tag">${esc(l.serviceType)} · Monterrey</span>
+    <h1>${esc(l.h1)}</h1>
+    <p>${esc(l.lead)}</p>
+    <a class="btn btn-sal" href="https://portal.estratego.com.mx/contacto-empresas" style="margin-top:22px">Solicitar propuesta sin costo →</a>
+  </div></header>
+  <div class="wrap">
+    ${l.sections.map(s => `<h2>${esc(s.h)}</h2>${s.html}`).join('')}
+
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq">
+      ${l.faq.map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}
+    </div>
+
+    <div class="card" style="margin-top:32px;text-align:center">
+      <h3 style="margin-top:0">¿Listo para empezar?</h3>
+      <p class="muted">Cuéntanos qué buscas y te contactamos en menos de 24 horas.</p>
+      <a class="btn" href="https://portal.estratego.com.mx/contacto-empresas">Solicitar propuesta →</a>
+    </div>
+  </div>`
+  return page({
+    title: l.title,
+    description: l.description,
+    canonical: `${SITE}/${l.slug}.html`,
+    body,
+    jsonLd: landingLD(l),
+  })
+}
+
+/* ===========================================================
+   Job board (from Supabase)
+   =========================================================== */
+const EMPLOYMENT = { tiempo_completo:'FULL_TIME', medio_tiempo:'PART_TIME', temporal:'TEMPORARY', practicas:'INTERN', por_proyecto:'CONTRACTOR' }
+const MODALIDAD = { presencial:'Presencial', hibrido:'Híbrido', remoto:'Remoto' }
+const fmtMoney = n => n ? `$${Number(n).toLocaleString('es-MX')}` : null
+function parseLocation(loc) { const [city, region] = (loc || 'Monterrey, NL').split(',').map(s => s.trim()); return { city: city || 'Monterrey', region: region || 'NL' } }
+function slugFor(v) {
+  return v.slug || (v.title || 'vacante').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '-' + String(v.id).slice(0,6)
+}
+
+async function fetchVacantes() {
+  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_ANON_KEY
+  if (!url || !key) { console.warn('⚠ SUPABASE creds ausentes — bolsa vacía.'); return [] }
+  const supabase = createClient(url, key, { auth: { persistSession: false } })
+  const { data, error } = await supabase.from('vacantes').select('*, clientes(company_name)')
+    .eq('publica', true).eq('status', 'activa').order('publicada_at', { ascending: false })
+  if (error) { console.error('Supabase:', error.message); return [] }
+  return data ?? []
+}
+
+function jobPostingLD(v) {
+  const { city, region } = parseLocation(v.location)
+  const datePosted = (v.publicada_at || v.created_at || new Date().toISOString()).slice(0,10)
+  const validThrough = v.expira_at ? v.expira_at.slice(0,10) : new Date(Date.now()+60*864e5).toISOString().slice(0,10)
+  const hiring = v.mostrar_empresa && v.clientes?.company_name ? v.clientes.company_name : ORG
+  const desc = v.descripcion_publica || v.ideal_profile || `Posición de ${v.title} en ${city}, ${region}.`
+  const ld = {
+    '@context':'https://schema.org/', '@type':'JobPosting', title:v.title,
+    description:`<p>${esc(desc).replace(/\n/g,'</p><p>')}</p>`, datePosted, validThrough,
+    employmentType: EMPLOYMENT[v.tipo_contrato] || 'FULL_TIME',
+    hiringOrganization:{ '@type':'Organization', name:hiring, sameAs:SITE, logo:LOGO },
+    jobLocation:{ '@type':'Place', address:{ '@type':'PostalAddress', addressLocality:city, addressRegion:region, addressCountry:'MX' } },
+    directApply:true,
+  }
+  if (v.modalidad === 'remoto') ld.jobLocationType = 'TELECOMMUTE'
+  if (v.mostrar_salario && v.salary_min) ld.baseSalary = { '@type':'MonetaryAmount', currency:'MXN', value:{ '@type':'QuantitativeValue', minValue:Number(v.salary_min), maxValue:Number(v.salary_max||v.salary_min), unitText:'MONTH' } }
+  return ld
+}
+
+function jobListing(vacantes) {
   const items = vacantes.length === 0
-    ? `<div class="card"><p class="muted">Por el momento no hay vacantes publicadas. Vuelve pronto o <a href="/postulacion">únete a nuestra bolsa de talento</a>.</p></div>`
+    ? `<div class="card"><p class="muted">Por el momento no hay vacantes publicadas. <a href="https://portal.estratego.com.mx/postulacion">Únete a nuestra bolsa de talento</a> y te contactamos cuando haya una posición para ti.</p></div>`
     : vacantes.map(v => {
         const { city, region } = parseLocation(v.location)
-        const salary = v.mostrar_salario && fmtMoney(v.salary_min)
-          ? `${fmtMoney(v.salary_min)}${v.salary_max ? '–' + fmtMoney(v.salary_max) : ''} MXN/mes`
-          : 'Sueldo competitivo'
-        return `<a href="/vacantes/${slugFor(v)}.html" class="card" style="display:block;text-decoration:none;margin-bottom:14px">
+        const salary = v.mostrar_salario && fmtMoney(v.salary_min) ? `${fmtMoney(v.salary_min)}${v.salary_max?'–'+fmtMoney(v.salary_max):''} MXN/mes` : 'Sueldo competitivo'
+        return `<a href="/vacantes/${slugFor(v)}.html" class="card" style="display:block;text-decoration:none">
           <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-            <div>
-              <h2 style="margin:0 0 6px;font-size:18px">${esc(v.title)}</h2>
-              <div class="muted" style="font-size:14px">${esc(city)}, ${esc(region)}${v.area_publica ? ' · ' + esc(v.area_publica) : ''}</div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-              ${v.modalidad ? `<span class="pill">${MODALIDAD[v.modalidad]}</span>` : ''}
-              <span class="muted" style="font-size:13px">${salary}</span>
-            </div>
-          </div>
-        </a>`
+            <div><h3 style="margin:0 0 4px;color:#1B3A5C">${esc(v.title)}</h3><div class="muted" style="font-size:14px">${esc(city)}, ${esc(region)}${v.area_publica?' · '+esc(v.area_publica):''}</div></div>
+            <div class="muted" style="font-size:13px;text-align:right">${salary}</div>
+          </div></a>`
       }).join('')
-
   return page({
     title: 'Vacantes en Monterrey | Bolsa de empleo — Estratego Talent',
-    description: 'Vacantes activas de reclutamiento y selección en Monterrey y NL: posiciones gerenciales, directivas y especializadas. Postúlate con Estratego Talent.',
+    description: 'Vacantes activas en Monterrey y Nuevo León: posiciones gerenciales, directivas y especializadas. Postúlate con Estratego Talent.',
     canonical: `${SITE}/vacantes/`,
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'CollectionPage',
-      name: 'Vacantes — Estratego Talent',
-      url: `${SITE}/vacantes/`,
-    },
-    body: `
-      <p class="muted" style="font-size:14px;margin-bottom:6px">Bolsa de empleo</p>
-      <h1>Vacantes en Monterrey</h1>
-      <p class="muted" style="margin:10px 0 28px">${vacantes.length} ${vacantes.length === 1 ? 'posición activa' : 'posiciones activas'} en reclutamiento especializado, gerencial y directivo.</p>
-      ${items}
-    `,
+    jsonLd: { '@context':'https://schema.org', '@type':'CollectionPage', name:'Vacantes — Estratego Talent', url:`${SITE}/vacantes/` },
+    body: `<header class="hero"><div class="in"><span class="tag">Bolsa de empleo</span><h1>Vacantes en Monterrey</h1><p>${vacantes.length} ${vacantes.length===1?'posición activa':'posiciones activas'} en reclutamiento especializado, gerencial y directivo.</p></div></header><div class="wrap">${items}</div>`,
   })
 }
 
-/* ---------- detail page ---------- */
-function detailPage(v) {
+function jobDetail(v) {
   const { city, region } = parseLocation(v.location)
   const slug = slugFor(v)
-  const salary = v.mostrar_salario && fmtMoney(v.salary_min)
-    ? `${fmtMoney(v.salary_min)}${v.salary_max ? '–' + fmtMoney(v.salary_max) : ''} MXN / mes`
-    : 'Sueldo competitivo según experiencia'
-  const desc = (v.descripcion_publica || v.ideal_profile || '')
-    .split('\n').filter(Boolean).map(p => `<p style="margin-bottom:10px">${esc(p)}</p>`).join('')
+  const salary = v.mostrar_salario && fmtMoney(v.salary_min) ? `${fmtMoney(v.salary_min)}${v.salary_max?'–'+fmtMoney(v.salary_max):''} MXN / mes` : 'Sueldo competitivo según experiencia'
+  const desc = (v.descripcion_publica || v.ideal_profile || '').split('\n').filter(Boolean).map(p => `<p>${esc(p)}</p>`).join('')
   const empresa = v.mostrar_empresa && v.clientes?.company_name ? v.clientes.company_name : 'Empresa confidencial (cliente de Estratego Talent)'
-
   return page({
     title: `${v.title} en ${city} | Vacante — Estratego Talent`,
-    description: `Vacante de ${v.title} en ${city}, ${region}. ${(v.descripcion_publica || v.ideal_profile || '').slice(0, 120)}`.trim(),
+    description: `Vacante de ${v.title} en ${city}, ${region}. ${(v.descripcion_publica||v.ideal_profile||'').slice(0,120)}`.trim(),
     canonical: `${SITE}/vacantes/${slug}.html`,
     jsonLd: jobPostingLD(v),
-    body: `
-      <a href="/vacantes/" class="muted" style="font-size:13px;text-decoration:none">← Todas las vacantes</a>
-      <h1 style="margin-top:14px">${esc(v.title)}</h1>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px">
-        <span class="pill">📍 ${esc(city)}, ${esc(region)}</span>
-        ${v.modalidad ? `<span class="pill">${MODALIDAD[v.modalidad]}</span>` : ''}
-        ${v.tipo_contrato ? `<span class="pill">${esc(v.tipo_contrato.replace(/_/g,' '))}</span>` : ''}
-        <span class="pill">${salary}</span>
-      </div>
-      <div class="card">
-        ${desc || '<p class="muted">Descripción disponible al postularte.</p>'}
-        <h2>Empresa</h2>
-        <p class="muted">${esc(empresa)}</p>
-        <div style="margin-top:24px">
-          <a class="btn" href="https://portal.estratego.com.mx/postulacion?vacante=${encodeURIComponent(slug)}">Postularme a esta vacante →</a>
-        </div>
-      </div>
-      <p class="muted" style="font-size:13px;margin-top:20px">Publicada por Estratego Talent · Reclutamiento y selección de personal en Monterrey.</p>
-    `,
+    body: `<header class="hero"><div class="in"><a href="/vacantes/" style="color:#B8D3D8;font-size:13px;text-decoration:none">← Todas las vacantes</a><h1 style="margin-top:12px">${esc(v.title)}</h1><p>${esc(city)}, ${esc(region)} · ${esc(salary)}</p></div></header>
+    <div class="wrap"><div class="card">${desc || '<p class="muted">Descripción disponible al postularte.</p>'}<h3>Empresa</h3><p class="muted">${esc(empresa)}</p><a class="btn" href="https://portal.estratego.com.mx/postulacion?vacante=${encodeURIComponent(slug)}" style="margin-top:18px">Postularme a esta vacante →</a></div></div>`,
   })
 }
 
-/* ---------- sitemap ---------- */
+/* ===========================================================
+   Sitemap (unified)
+   =========================================================== */
 function sitemap(vacantes) {
   const urls = [
-    { loc: `${SITE}/`, pri: '1.0' },
-    { loc: `${SITE}/vacantes/`, pri: '0.9' },
-    ...vacantes.map(v => ({ loc: `${SITE}/vacantes/${slugFor(v)}.html`, pri: '0.8' })),
+    { loc:`${SITE}/`, pri:'1.0' },
+    ...LANDINGS.map(l => ({ loc:`${SITE}/${l.slug}.html`, pri:'0.9' })),
+    { loc:`${SITE}/vacantes/`, pri:'0.8' },
+    ...vacantes.map(v => ({ loc:`${SITE}/vacantes/${slugFor(v)}.html`, pri:'0.7' })),
   ]
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url><loc>${u.loc}</loc><changefreq>daily</changefreq><priority>${u.pri}</priority></url>`).join('\n')}
+${urls.map(u => `  <url><loc>${u.loc}</loc><changefreq>weekly</changefreq><priority>${u.pri}</priority></url>`).join('\n')}
 </urlset>`
 }
 
-/* ---------- main ---------- */
+/* ===========================================================
+   Main
+   =========================================================== */
 async function main() {
+  // Landing pages
+  for (const l of LANDINGS) await writeFile(join(ROOT, `${l.slug}.html`), landingPage(l))
+
+  // Job board
   const vacantes = await fetchVacantes()
   await mkdir(join(ROOT, 'vacantes'), { recursive: true })
+  await writeFile(join(ROOT, 'vacantes', 'index.html'), jobListing(vacantes))
+  for (const v of vacantes) await writeFile(join(ROOT, 'vacantes', `${slugFor(v)}.html`), jobDetail(v))
 
-  await writeFile(join(ROOT, 'vacantes', 'index.html'), listingPage(vacantes))
-  for (const v of vacantes) {
-    await writeFile(join(ROOT, 'vacantes', `${slugFor(v)}.html`), detailPage(v))
-  }
+  // Sitemap
   await writeFile(join(ROOT, 'sitemap.xml'), sitemap(vacantes))
 
-  console.log(`✓ Bolsa de empleo generada: ${vacantes.length} vacante(s) + listado + sitemap`)
+  console.log(`✓ SEO build: ${LANDINGS.length} landings + ${vacantes.length} vacante(s) + sitemap`)
 }
 
-main().catch(e => { console.error(e); process.exit(0) }) // never fail the build
+main().catch(e => { console.error(e); process.exit(0) })
