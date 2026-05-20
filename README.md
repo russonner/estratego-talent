@@ -1,12 +1,41 @@
-# Estratego Talent — Sitio Web
+# Estratego Talent — Sitio público / SEO
+
+> 📌 **Memoria viva completa del proyecto (ambos repos):** ver el README de
+> **estratego-app** (`C:\Users\aleja\estratego-app\README.md`). Ahí está todo el
+> contexto del portal admin/cliente, base de datos, features de IA, design system,
+> decisiones de la conversación y pendientes. Este README cubre solo el sitio público.
 
 ## Producción
 - **URL:** estratego.com.mx
-- **Deploy:** Netlify (auto-deploy al hacer push a `main`)
-- **Repo:** `C:\Users\aleja\estratego-talent`
+- **Deploy:** **Vercel** (migrado de Netlify; auto-deploy al hacer push a `main`)
+- **Repo:** `C:\Users\aleja\estratego-talent` · GitHub `russonner/estratego-talent`
+- **Supabase:** proyecto `qszeiosdlgaloncuqcpu` (compartido con el portal)
 
 ## Estructura del proyecto
-Un solo archivo: `index.html` — todo el CSS y JS está inline.
+- `index.html` — landing principal (CSS y JS inline)
+- `scripts/build-vacantes.mjs` — **motor SEO** (Node): genera landings de servicios/locales,
+  hub + guías de sueldos, bolsa de empleo y sitemap. Ver sección "Motor SEO".
+- `vercel.json` — `{ buildCommand: "npm run build", outputDirectory: ".", framework: null }`
+- Salidas generadas: `sueldos/*.html`, `vacantes/*.html`, `*.html` de landings, `sitemap.xml`
+
+## Motor SEO (`scripts/build-vacantes.mjs`)
+Se ejecuta en el build de Vercel (`npm run build`). Lee de Supabase con `SUPABASE_URL` /
+`SUPABASE_ANON_KEY`:
+- **Guías de sueldos** ← tabla `sueldos_mercado` (filas `publicado = true`). Si no hay creds o la
+  tabla está vacía, usa `SUELDOS_FALLBACK` (array estático). Genera FAQPage + BreadcrumbList JSON-LD.
+- **Bolsa de empleo** ← tabla `vacantes` (`publica = true`, `status = activa`). Genera **JobPosting**
+  schema para Google Jobs.
+- **Landings** de servicios + locales (reclutamiento, headhunting, psicometría, estudios — Monterrey).
+- **Sitemap unificado** + `index.html` con Organization + LocalBusiness JSON-LD.
+
+> ⚠️ Editar un benchmark en el portal (`/admin/sueldos`) actualiza la base, pero la guía estática se
+> regenera solo al re-ejecutar el build. **Pendiente:** Deploy Hook en Vercel + webhook de Supabase
+> para rebuild automático.
+
+**Objetivo:** que estratego.com.mx sea la página más visitada de forma orgánica en reclutamiento y
+selección de personal en Monterrey.
+
+## Secciones de index.html
 
 | Sección        | ID             | Líneas aprox. |
 |----------------|----------------|---------------|
@@ -30,9 +59,9 @@ Un solo archivo: `index.html` — todo el CSS y JS está inline.
 
 ## Flujo de trabajo con Claude Code
 1. Abrir sesión en Claude Code con el proyecto `C:\Users\aleja\estratego-talent`
-2. Pedir cambios — Claude edita `index.html` directamente
+2. Pedir cambios — Claude edita `index.html` o `scripts/build-vacantes.mjs`
 3. Claude hace `git commit + git push origin main` automáticamente tras cada cambio
-4. Netlify despliega en ~30 segundos a estratego.com.mx
+4. Vercel despliega en ~30 segundos a estratego.com.mx (corre `npm run build`)
 
 **No se necesita confirmación para el push** — cada cambio aprobado va directo a producción.
 
@@ -76,3 +105,9 @@ Configurados en `.claude/launch.json`:
 - **Nuevo: `robots.txt`** — permite todo el sitio, bloquea `/gracias` de indexación, apunta al sitemap
 - **Nuevo: Animaciones scroll** — `.reveal` / `.visible` con IntersectionObserver en tarjetas de servicios, casos e insights
 - **Netlify email notification** — configurada notificación a alejandro@estratego.com.mx para cada envío del formulario "contacto"
+
+### Sesión 3 — 2026-05-20
+- **Migración Netlify → Vercel** del sitio público (Netlify cobró demasiado rápido). DNS en Akky con nameservers actualizados; MX/SPF de Google Workspace pre-cargados en Vercel DNS para no perder correo.
+- **Motor SEO** (`scripts/build-vacantes.mjs`): landings de servicios/locales, hub + guías de sueldos, bolsa de empleo con JobPosting schema, sitemap unificado.
+- **Guías de sueldos en vivo desde Supabase** — el build ahora lee la tabla `sueldos_mercado` (gestionada desde el portal `/admin/sueldos`); fallback al array estático si no hay datos.
+- **README actualizado** + puntero al README "memoria viva" en estratego-app.
