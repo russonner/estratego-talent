@@ -201,6 +201,14 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:12px 3
 .fb{font-size:13px;font-weight:600;padding:12px;background:var(--nv);color:white;border:none;border-radius:8px;cursor:pointer;width:100%;transition:background 0.15s}
 .fb:hover{background:#2A527A}
 @media(max-width:600px){.fr{grid-template-columns:1fr}}
+/* CONTACTO directo */
+.ctc-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.ctc-wa{display:inline-flex;align-items:center;gap:9px;background:#25D366;color:#fff;font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;transition:background 0.15s}
+.ctc-wa:hover{background:#1ea855}
+.ctc-mail{display:inline-flex;align-items:center;background:var(--nv);color:#fff;font-size:14px;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;transition:background 0.15s}
+.ctc-mail:hover{background:#2A527A}
+.ctc-meta{margin-top:18px;font-size:13px;color:var(--bd);font-weight:600}
+@media(max-width:600px){.ctc-actions{flex-direction:column}.ctc-wa,.ctc-mail{justify-content:center}}
 
 /* PORTAL ACCESS */
 .portal-nav{position:relative}
@@ -489,28 +497,15 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
 <section class="sc sa" id="contacto">
   <div class="la">Contacto</div>
   <h2>Inicie el proceso con una consulta sin compromiso.</h2>
-  <p class="ld">Comparta el contexto de su búsqueda y un consultor se pondrá en contacto a la brevedad. También puede escribirnos directamente por <a href="https://wa.me/5218183663346?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Estratego%20Talent." target="_blank" style="color:#25D366;text-decoration:none;font-weight:600">WhatsApp</a>.</p>
-  <form class="fm" name="contacto" netlify data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="contacto">
-    <p style="display:none"><label>No llenar: <input name="bot-field"></label></p>
-    <div class="fr">
-      <div class="fi"><label for="fn">Nombre</label><input type="text" name="nombre" id="fn" placeholder="Nombre" required></div>
-      <div class="fi"><label for="fe">Empresa</label><input type="text" name="empresa" id="fe" placeholder="Empresa"></div>
-    </div>
-    <div class="fi"><label for="fc">Correo corporativo</label><input type="email" name="correo" id="fc" placeholder="Correo corporativo" required></div>
-    <div class="fi"><label for="ft">Teléfono</label><input type="text" name="telefono" id="ft" placeholder="Teléfono de contacto"></div>
-    <div class="fi"><label for="fa">Área de interés</label><select name="area" id="fa">
-      <option value="">Área de interés</option>
-      <option>Reclutamiento y selección</option>
-      <option>Desarrollo organizacional</option>
-      <option>Análisis de sueldos y salarios</option>
-      <option>Psicometría</option>
-      <option>Estudio socioeconómico</option>
-      <option>Equipo consultivo</option>
-    </select></div>
-    <div class="fi"><label for="fm2">Mensaje</label><textarea name="mensaje" id="fm2" placeholder="Describa brevemente su necesidad de talento..."></textarea></div>
-    <button type="submit" class="fb">Enviar solicitud →</button>
-  </form>
+  <p class="ld">La forma más rápida de contactarnos es por WhatsApp — un consultor le atiende a la brevedad. También puede escribirnos por correo o llamarnos directamente.</p>
+  <div class="ctc-actions">
+    <a class="ctc-wa" href="https://wa.me/5218183663346?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Estratego%20Talent." target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.13h-.01a8.2 8.2 0 01-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.2 8.2 0 01-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 012.41 5.82c0 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.76-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+      Escríbenos por WhatsApp
+    </a>
+    <a class="ctc-mail" href="mailto:alejandro@estratego.com.mx?subject=Consulta%20-%20Estratego%20Talent">Enviar correo</a>
+  </div>
+  <p class="ctc-meta">+52 81 8366 3346 &nbsp;·&nbsp; alejandro@estratego.com.mx</p>
 </section>
 
 <!-- INSIGHTS -->
@@ -663,19 +658,6 @@ function showToast(m){
   t.textContent=m;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),4000);
 }
-document.querySelector('form[name="contacto"]').addEventListener('submit',async function(e){
-  e.preventDefault();
-  const btn=this.querySelector('button[type="submit"]');
-  btn.disabled=true;btn.textContent='Enviando...';
-  try{
-    await fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(this)).toString()});
-    gtag('event','form_submit',{event_category:'contacto',event_label:'formulario_web'});
-    window.location.href='/gracias';
-  }catch(_){
-    showToast('Error al enviar. Escríbenos directo a alejandro@estratego.com.mx');
-    btn.disabled=false;btn.textContent='Enviar solicitud →';
-  }
-});
 // GA4: WhatsApp clicks
 document.querySelectorAll('a[href*="wa.me"]').forEach(el=>{
   el.addEventListener('click',()=>gtag('event','whatsapp_click',{event_category:'contacto'}));
