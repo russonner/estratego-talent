@@ -264,7 +264,7 @@ function landingPage(l) {
    High search volume, low competition. Ranges are Estratego
    market estimates for the Monterrey metro area (MXN gross/month).
    =========================================================== */
-const SUELDOS = [
+const SUELDOS_FALLBACK = [
   { slug:'gerente-de-operaciones', puesto:'Gerente de Operaciones', area:'Operaciones',
     rangos:{ junior:[35000,50000], medio:[50000,80000], senior:[80000,130000] },
     resumen:'El gerente de operaciones lidera la producción, logística y mejora continua de una planta o unidad de negocio. En Monterrey, polo industrial del país, es una de las posiciones mejor pagadas y con mayor demanda.',
@@ -306,7 +306,41 @@ const SUELDOS = [
     factores:['Dominio de SQL, Python y BI (Power BI, Tableau)','Experiencia en modelado y machine learning','Inglés','Industria y volumen de datos'],
     demanda:'Creciente y transversal a todas las industrias.' },
 ]
-const fmtRange = ([a,b]) => `$${a.toLocaleString('es-MX')} – $${b.toLocaleString('es-MX')}`
+// Live benchmarks are loaded from Supabase in main(); falls back to the static array.
+let SUELDOS = SUELDOS_FALLBACK
+const fmtRange = (r) => {
+  const [a, b] = Array.isArray(r) ? r : []
+  if (a == null && b == null) return 'Sueldo competitivo'
+  const f = n => n == null ? '' : `$${Number(n).toLocaleString('es-MX')}`
+  return a != null && b != null ? `${f(a)} – ${f(b)}` : (f(a) || f(b))
+}
+
+// Pull published salary benchmarks from Supabase (table: sueldos_mercado).
+async function fetchSueldos() {
+  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_ANON_KEY
+  if (!url || !key) { console.warn('⚠ SUPABASE creds ausentes — usando sueldos estáticos.'); return SUELDOS_FALLBACK }
+  try {
+    const supabase = createClient(url, key, { auth: { persistSession: false } })
+    const { data, error } = await supabase.from('sueldos_mercado')
+      .select('*').eq('publicado', true).order('puesto')
+    if (error) { console.warn('⚠ sueldos_mercado:', error.message, '— usando estáticos.'); return SUELDOS_FALLBACK }
+    if (!data || data.length === 0) return SUELDOS_FALLBACK
+    return data.map(r => ({
+      slug: r.slug, puesto: r.puesto, area: r.area || '',
+      rangos: {
+        junior: [r.junior_min, r.junior_max],
+        medio:  [r.medio_min,  r.medio_max],
+        senior: [r.senior_min, r.senior_max],
+      },
+      resumen: r.resumen || '',
+      factores: Array.isArray(r.factores) ? r.factores : [],
+      demanda: r.demanda || '',
+    }))
+  } catch (e) {
+    console.warn('⚠ fetchSueldos falló:', e.message, '— usando estáticos.')
+    return SUELDOS_FALLBACK
+  }
+}
 
 function sueldoLD(s) {
   const year = new Date().getFullYear()
@@ -493,7 +527,9 @@ async function main() {
   // Landing pages
   for (const l of LANDINGS) await writeFile(join(ROOT, `${l.slug}.html`), landingPage(l))
 
-  // Salary guides
+  // Salary guides (live benchmarks from Supabase, fallback to static)
+  SUELDOS = await fetchSueldos()
+  console.log(`  ${SUELDOS.length} guías de sueldos`)
   await mkdir(join(ROOT, 'sueldos'), { recursive: true })
   await writeFile(join(ROOT, 'sueldos', 'index.html'), sueldosHub())
   for (const s of SUELDOS) await writeFile(join(ROOT, 'sueldos', `${s.slug}-monterrey.html`), sueldoPage(s))
