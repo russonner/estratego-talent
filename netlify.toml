@@ -1,0 +1,14 @@
+# Netlify build config for Estratego Talent
+# The build step generates the public job board (/vacantes) from Supabase
+# with JobPosting structured data, then publishes the whole site root.
+#
+# Required environment variables (Netlify dashboard → Site settings → Env vars):
+#   SUPABASE_URL       = https://xxxx.supabase.co
+#   SUPABASE_ANON_KEY  = eyJ...   (anon key; RLS only exposes published vacancies)
+
+[build]
+  command = "npm install && npm run build"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "20"
