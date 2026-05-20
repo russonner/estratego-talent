@@ -44,6 +44,7 @@ const FOOT = `
     <a href="/headhunting-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Headhunting</a> ·
     <a href="/estudios-socioeconomicos-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Estudios socioeconómicos</a> ·
     <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
+    <a href="/sueldos/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Sueldos</a> ·
     <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
   </div>
   © ${new Date().getFullYear()} Estratego Talent · Reclutamiento y selección de personal en Monterrey, Nuevo León.
@@ -259,6 +260,137 @@ function landingPage(l) {
 }
 
 /* ===========================================================
+   Salary guides  /sueldos/<slug>-monterrey
+   High search volume, low competition. Ranges are Estratego
+   market estimates for the Monterrey metro area (MXN gross/month).
+   =========================================================== */
+const SUELDOS = [
+  { slug:'gerente-de-operaciones', puesto:'Gerente de Operaciones', area:'Operaciones',
+    rangos:{ junior:[35000,50000], medio:[50000,80000], senior:[80000,130000] },
+    resumen:'El gerente de operaciones lidera la producción, logística y mejora continua de una planta o unidad de negocio. En Monterrey, polo industrial del país, es una de las posiciones mejor pagadas y con mayor demanda.',
+    factores:['Tamaño de la planta y número de personas a cargo','Experiencia en lean manufacturing / Six Sigma','Industria (automotriz y acero pagan por encima del promedio)','Manejo de inglés para reportar a corporativos'],
+    demanda:'Alta. La concentración de manufactura en Apodaca, Santa Catarina y García mantiene una demanda constante de líderes de operaciones.' },
+  { slug:'gerente-de-recursos-humanos', puesto:'Gerente de Recursos Humanos', area:'Recursos Humanos',
+    rangos:{ junior:[35000,55000], medio:[55000,85000], senior:[85000,130000] },
+    resumen:'Responsable de atracción de talento, relaciones laborales, compensaciones y cultura. En Monterrey la función de RH se ha vuelto estratégica ante la competencia por talento.',
+    factores:['Número de colaboradores en la organización','Experiencia en relaciones laborales y sindicato','Especialización (atracción, compensaciones, desarrollo)','Certificaciones y manejo de inglés'],
+    demanda:'Alta, especialmente perfiles con experiencia en atracción de talento y relaciones laborales.' },
+  { slug:'contralor', puesto:'Contralor', area:'Finanzas y Contabilidad',
+    rangos:{ junior:[40000,60000], medio:[60000,90000], senior:[90000,140000] },
+    resumen:'El contralor supervisa la contabilidad, los controles internos, la información financiera y el cumplimiento fiscal. Es una posición de alta confianza y responsabilidad.',
+    factores:['Tamaño y complejidad de la empresa','Experiencia en NIF/US GAAP y consolidación','Manejo de ERP (SAP, Oracle)','Inglés para corporativos extranjeros'],
+    demanda:'Constante. Las empresas extranjeras instaladas en Nuevo León buscan contralores bilingües con experiencia en normas internacionales.' },
+  { slug:'ingeniero-de-procesos', puesto:'Ingeniero de Procesos', area:'Ingeniería',
+    rangos:{ junior:[22000,35000], medio:[35000,55000], senior:[55000,80000] },
+    resumen:'Diseña, optimiza y estandariza procesos productivos. Es un perfil técnico muy solicitado en la industria manufacturera del área metropolitana.',
+    factores:['Dominio de herramientas de mejora continua','Experiencia en la industria específica','Manejo de software CAD/simulación','Inglés técnico'],
+    demanda:'Muy alta en el corredor industrial de Monterrey.' },
+  { slug:'gerente-de-ventas', puesto:'Gerente de Ventas', area:'Comercial',
+    rangos:{ junior:[30000,50000], medio:[50000,80000], senior:[80000,120000] },
+    resumen:'Lidera al equipo comercial, define la estrategia de ventas y es responsable del cumplimiento de cuota. La compensación suele incluir un esquema variable importante.',
+    factores:['Esquema de comisiones y bonos (puede duplicar el fijo)','Industria y ticket promedio','Tamaño del equipo a cargo','Cartera de clientes y relaciones'],
+    demanda:'Alta. Suele complementarse con comisiones, por lo que el ingreso total puede superar el rango base.' },
+  { slug:'desarrollador-de-software', puesto:'Desarrollador de Software', area:'Tecnología',
+    rangos:{ junior:[25000,45000], medio:[45000,75000], senior:[75000,110000] },
+    resumen:'Construye y mantiene aplicaciones y sistemas. Monterrey se ha consolidado como hub de tecnología y los perfiles senior compiten con ofertas remotas internacionales.',
+    factores:['Stack tecnológico y especialización','Inglés (abre ofertas remotas en USD)','Experiencia en cloud y arquitectura','Modalidad remota vs presencial'],
+    demanda:'Muy alta. La competencia con empleadores remotos presiona los sueldos al alza.' },
+  { slug:'gerente-financiero', puesto:'Gerente Financiero', area:'Finanzas y Contabilidad',
+    rangos:{ junior:[45000,70000], medio:[70000,100000], senior:[100000,160000] },
+    resumen:'Dirige la planeación financiera, tesorería, financiamiento y relación con inversionistas. Es una de las posiciones gerenciales mejor remuneradas.',
+    factores:['Tamaño de la empresa y complejidad financiera','Experiencia en M&A, financiamiento y FP&A','Inglés y manejo de corporativos','Industria'],
+    demanda:'Constante para perfiles bilingües con experiencia en planeación financiera.' },
+  { slug:'analista-de-datos', puesto:'Analista de Datos', area:'Tecnología',
+    rangos:{ junior:[25000,40000], medio:[40000,60000], senior:[60000,90000] },
+    resumen:'Convierte datos en información para la toma de decisiones. Una de las funciones de mayor crecimiento en empresas de Monterrey de todos los sectores.',
+    factores:['Dominio de SQL, Python y BI (Power BI, Tableau)','Experiencia en modelado y machine learning','Inglés','Industria y volumen de datos'],
+    demanda:'Creciente y transversal a todas las industrias.' },
+]
+const fmtRange = ([a,b]) => `$${a.toLocaleString('es-MX')} – $${b.toLocaleString('es-MX')}`
+
+function sueldoLD(s) {
+  const year = new Date().getFullYear()
+  const faqItems = [
+    { q:`¿Cuánto gana un ${s.puesto.toLowerCase()} en Monterrey?`, a:`En Monterrey, un ${s.puesto.toLowerCase()} gana entre ${fmtRange(s.rangos.junior)} (nivel inicial) y ${fmtRange(s.rangos.senior)} MXN brutos al mes (nivel senior), según experiencia, industria y tamaño de la empresa.` },
+    { q:`¿Qué factores influyen en el sueldo?`, a: s.factores.join('. ') + '.' },
+    { q:`¿Hay demanda de ${s.puesto.toLowerCase()} en Monterrey?`, a: s.demanda },
+  ]
+  return [
+    { '@context':'https://schema.org', '@type':'FAQPage', mainEntity: faqItems.map(f => ({ '@type':'Question', name:f.q, acceptedAnswer:{ '@type':'Answer', text:f.a } })) },
+    { '@context':'https://schema.org', '@type':'BreadcrumbList', itemListElement:[
+      { '@type':'ListItem', position:1, name:'Inicio', item:`${SITE}/` },
+      { '@type':'ListItem', position:2, name:'Sueldos', item:`${SITE}/sueldos/` },
+      { '@type':'ListItem', position:3, name:`Sueldo de ${s.puesto} en Monterrey`, item:`${SITE}/sueldos/${s.slug}-monterrey.html` },
+    ] },
+  ]
+}
+
+function sueldoPage(s) {
+  const year = new Date().getFullYear()
+  const niveles = [
+    ['Nivel inicial (0–3 años)', s.rangos.junior],
+    ['Nivel intermedio (3–7 años)', s.rangos.medio],
+    ['Nivel senior (+7 años)', s.rangos.senior],
+  ]
+  const body = `
+  <header class="hero"><div class="in">
+    <span class="tag">Guía de sueldos · Monterrey ${year}</span>
+    <h1>Sueldo de ${esc(s.puesto)} en Monterrey (${year})</h1>
+    <p>${esc(s.resumen)}</p>
+  </div></header>
+  <div class="wrap">
+    <h2>Rango salarial en Monterrey</h2>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:#F4F1EC"><th style="text-align:left;padding:14px 18px;font-size:13px;color:#5C6B78">Nivel de experiencia</th><th style="text-align:right;padding:14px 18px;font-size:13px;color:#5C6B78">Sueldo bruto mensual (MXN)</th></tr></thead>
+        <tbody>${niveles.map(([n,r]) => `<tr style="border-top:1px solid #ECE7DF"><td style="padding:14px 18px">${n}</td><td style="padding:14px 18px;text-align:right;font-weight:600">${fmtRange(r)}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:13px">Cifras estimadas por Estratego Talent con base en el mercado del área metropolitana de Monterrey. El ingreso total puede variar por bonos, prestaciones superiores y esquema variable.</p>
+
+    <h2>¿Qué influye en el sueldo?</h2>
+    <ul>${s.factores.map(f => `<li>${esc(f)}</li>`).join('')}</ul>
+
+    <h2>Demanda en Monterrey</h2>
+    <p>${esc(s.demanda)}</p>
+
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq">
+      <details><summary>¿Cuánto gana un ${esc(s.puesto.toLowerCase())} en Monterrey?</summary><p>Entre ${fmtRange(s.rangos.junior)} (inicial) y ${fmtRange(s.rangos.senior)} MXN brutos al mes (senior), según experiencia e industria.</p></details>
+      <details><summary>¿El rango incluye bonos y comisiones?</summary><p>No. Los rangos son sueldo base bruto mensual; el ingreso total puede ser mayor con esquema variable y prestaciones.</p></details>
+    </div>
+
+    <div class="card" style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div><h3 style="margin-top:0">¿Eres empresa?</h3><p class="muted" style="font-size:14px">Te ayudamos a definir una oferta competitiva y atraer al mejor talento.</p><a class="btn" href="https://portal.estratego.com.mx/contacto-empresas">Solicitar propuesta →</a></div>
+      <div><h3 style="margin-top:0">¿Buscas empleo?</h3><p class="muted" style="font-size:14px">Únete a nuestra bolsa de talento y entérate de vacantes para tu perfil.</p><a class="btn btn-sal" href="https://portal.estratego.com.mx/postulacion">Postularme →</a></div>
+    </div>
+  </div>`
+  return page({
+    title: `Sueldo de ${s.puesto} en Monterrey ${year} | Estratego Talent`,
+    description: `¿Cuánto gana un ${s.puesto.toLowerCase()} en Monterrey? Rango salarial ${year}: ${fmtRange(s.rangos.junior)} a ${fmtRange(s.rangos.senior)} MXN/mes según experiencia.`,
+    canonical: `${SITE}/sueldos/${s.slug}-monterrey.html`,
+    jsonLd: sueldoLD(s),
+    body,
+  })
+}
+
+function sueldosHub() {
+  const year = new Date().getFullYear()
+  const items = SUELDOS.map(s => `<a href="/sueldos/${s.slug}-monterrey.html" class="card" style="display:block;text-decoration:none">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div><h3 style="margin:0 0 4px;color:#1B3A5C">${esc(s.puesto)}</h3><div class="muted" style="font-size:14px">${esc(s.area)}</div></div>
+      <div class="muted" style="font-size:13px;text-align:right">${fmtRange(s.rangos.medio)} MXN/mes</div>
+    </div></a>`).join('')
+  return page({
+    title: `Sueldos en Monterrey ${year} — Guía salarial por puesto | Estratego Talent`,
+    description: `Guía de sueldos en Monterrey ${year}: cuánto gana cada puesto por nivel de experiencia. Datos de mercado de Estratego Talent.`,
+    canonical: `${SITE}/sueldos/`,
+    jsonLd: { '@context':'https://schema.org', '@type':'CollectionPage', name:'Guía de sueldos en Monterrey', url:`${SITE}/sueldos/` },
+    body: `<header class="hero"><div class="in"><span class="tag">Guía salarial · Monterrey ${year}</span><h1>¿Cuánto se gana en Monterrey?</h1><p>Rangos salariales por puesto y nivel de experiencia, basados en el mercado del área metropolitana.</p></div></header><div class="wrap">${items}</div>`,
+  })
+}
+
+/* ===========================================================
    Job board (from Supabase)
    =========================================================== */
 const EMPLOYMENT = { tiempo_completo:'FULL_TIME', medio_tiempo:'PART_TIME', temporal:'TEMPORARY', practicas:'INTERN', por_proyecto:'CONTRACTOR' }
@@ -343,6 +475,8 @@ function sitemap(vacantes) {
   const urls = [
     { loc:`${SITE}/`, pri:'1.0' },
     ...LANDINGS.map(l => ({ loc:`${SITE}/${l.slug}.html`, pri:'0.9' })),
+    { loc:`${SITE}/sueldos/`, pri:'0.8' },
+    ...SUELDOS.map(s => ({ loc:`${SITE}/sueldos/${s.slug}-monterrey.html`, pri:'0.8' })),
     { loc:`${SITE}/vacantes/`, pri:'0.8' },
     ...vacantes.map(v => ({ loc:`${SITE}/vacantes/${slugFor(v)}.html`, pri:'0.7' })),
   ]
@@ -358,6 +492,11 @@ ${urls.map(u => `  <url><loc>${u.loc}</loc><changefreq>weekly</changefreq><prior
 async function main() {
   // Landing pages
   for (const l of LANDINGS) await writeFile(join(ROOT, `${l.slug}.html`), landingPage(l))
+
+  // Salary guides
+  await mkdir(join(ROOT, 'sueldos'), { recursive: true })
+  await writeFile(join(ROOT, 'sueldos', 'index.html'), sueldosHub())
+  for (const s of SUELDOS) await writeFile(join(ROOT, 'sueldos', `${s.slug}-monterrey.html`), sueldoPage(s))
 
   // Job board
   const vacantes = await fetchVacantes()
