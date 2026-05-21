@@ -541,6 +541,103 @@ function jobDetail(v) {
    =========================================================== */
 const ARTICLES = [
   {
+    slug: 'cuanto-cuesta-estudio-socioeconomico-monterrey',
+    title: '¿Cuánto cuesta un estudio socioeconómico en Monterrey?',
+    description: 'Cuánto cuesta un estudio socioeconómico en Monterrey, qué incluye, qué hace variar el precio y cuándo conviene aplicarlo antes de contratar.',
+    date: '2026-05-20', cat: 'Estudios socioeconómicos',
+    lead: 'El precio de un estudio socioeconómico depende de qué tan a fondo necesites validar al candidato. Esto es lo que pagas y lo que recibes a cambio.',
+    sections: [
+      { h: '¿Qué incluye el precio?', html: `<p>Un estudio socioeconómico profesional cubre <strong>visita domiciliaria, validación de datos personales y laborales, verificación de referencias y un reporte con nivel de riesgo</strong>. El costo refleja el trabajo de campo de un investigador, no solo una consulta en línea.</p>` },
+      { h: '¿Qué hace variar el costo?', html: `<ul>
+        <li>Profundidad: básico (validación documental) vs. integral (visita + patrimonial + referencias extendidas).</li>
+        <li>Ubicación del candidato: zonas alejadas o foráneas implican traslado.</li>
+        <li>Tiempo de entrega: un estudio urgente cuesta más que uno con 3 a 5 días hábiles.</li>
+        <li>Volumen: a mayor número de estudios al mes, mejor precio por unidad.</li>
+      </ul>` },
+      { h: '¿Cuándo conviene aplicarlo?', html: `<p>En posiciones de confianza, manejo de efectivo, acceso a información sensible o trato directo con clientes. El costo del estudio es marginal frente al de una contratación equivocada en un puesto crítico.</p>` },
+    ],
+    faq: [
+      { q: '¿Cuánto tarda un estudio socioeconómico?', a: 'Normalmente entre 3 y 5 días hábiles desde que se agenda la visita, dependiendo de la ubicación del candidato.' },
+      { q: '¿Puedo solicitar estudios en línea?', a: 'Sí. Puedes solicitar y dar seguimiento a tus estudios socioeconómicos en línea con Estratego Talent, con reporte digital al finalizar.' },
+    ],
+  },
+  {
+    slug: 'nom-035-que-es-y-como-cumplirla',
+    title: 'NOM-035: qué es y cómo cumplirla en tu empresa',
+    description: 'Guía rápida de la NOM-035: qué obliga, a quién aplica y cómo cumplir con la identificación de factores de riesgo psicosocial en el trabajo.',
+    date: '2026-05-15', cat: 'Cumplimiento',
+    lead: 'La NOM-035 obliga a las empresas en México a identificar y prevenir factores de riesgo psicosocial. Cumplirla es más sencillo de lo que parece si lo abordas por pasos.',
+    sections: [
+      { h: '¿Qué es la NOM-035?', html: `<p>Es la Norma Oficial Mexicana que obliga a los centros de trabajo a <strong>identificar, analizar y prevenir los factores de riesgo psicosocial</strong> y a promover un entorno organizacional favorable. Aplica a todas las empresas, con requisitos que escalan según el número de trabajadores.</p>` },
+      { h: '¿Qué tienes que hacer?', html: `<ul>
+        <li>Aplicar los cuestionarios de identificación de factores de riesgo psicosocial.</li>
+        <li>Analizar los resultados y definir acciones de control.</li>
+        <li>Difundir una política de prevención de riesgos psicosociales.</li>
+        <li>Conservar los registros como evidencia ante una inspección.</li>
+      </ul>` },
+      { h: 'Cómo simplificar el cumplimiento', html: `<p>La parte más operativa es aplicar y procesar los cuestionarios. Con una herramienta en línea que los aplique, califique automáticamente y genere el reporte por nivel de riesgo, el cumplimiento deja de ser una carga administrativa.</p>` },
+    ],
+    faq: [
+      { q: '¿A qué empresas aplica la NOM-035?', a: 'A todos los centros de trabajo en México. Los requisitos aumentan según el número de trabajadores: hasta 15, de 16 a 50, y más de 50.' },
+      { q: '¿Cómo se identifican los factores de riesgo psicosocial?', a: 'Mediante cuestionarios estandarizados que evalúan condiciones del entorno, carga de trabajo, liderazgo y relaciones. Estratego Talent los aplica e interpreta en línea.' },
+    ],
+  },
+  {
+    slug: 'como-reducir-la-rotacion-de-personal',
+    title: 'Cómo reducir la rotación de personal en tu empresa',
+    description: 'Causas reales de la rotación de personal y acciones concretas para reducirla: selección, onboarding, liderazgo y compensación.',
+    date: '2026-05-10', cat: 'Gestión de talento',
+    lead: 'La rotación alta drena dinero y conocimiento. La buena noticia es que la mayoría de sus causas son atacables desde la selección y los primeros 90 días.',
+    sections: [
+      { h: 'Empieza por la selección', html: `<p>Gran parte de la rotación temprana viene de contratar por urgencia y solo con el CV. Evaluar <strong>fit cultural, motivación e integridad</strong> desde el inicio reduce las salidas en los primeros meses.</p>` },
+      { h: 'Los primeros 90 días deciden', html: `<p>Un onboarding estructurado con objetivos claros a 30, 60 y 90 días acelera la productividad y reduce el abandono temprano. La falta de claridad en las primeras semanas es una causa común de salida.</p>` },
+      { h: 'Liderazgo y compensación', html: `<ul>
+        <li>La gente renuncia a jefes, no a empresas: forma a tus líderes.</li>
+        <li>Compara tu compensación con el mercado real de Monterrey para no perder talento por sueldo.</li>
+        <li>Da retroalimentación y plan de crecimiento; la falta de futuro es un motor de rotación.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿Qué se considera una rotación alta?', a: 'Depende de la industria, pero una rotación que supera de forma sostenida el promedio de tu sector suele indicar problemas de selección, liderazgo o compensación.' },
+      { q: '¿Cómo ayuda la psicometría a reducir la rotación?', a: 'Permite evaluar comportamiento, valores y fit con el puesto antes de contratar, reduciendo las salidas tempranas por desajuste cultural o de motivación.' },
+    ],
+  },
+  {
+    slug: 'que-prueba-psicometrica-aplicar-por-puesto',
+    title: 'Qué prueba psicométrica aplicar según el puesto',
+    description: 'Guía para elegir la prueba psicométrica correcta según el puesto: comportamiento, aptitud cognitiva, valores, liderazgo y juicio situacional.',
+    date: '2026-05-06', cat: 'Psicometría',
+    lead: 'No todas las pruebas miden lo mismo. Elegir la correcta según el puesto te da información útil en lugar de un reporte que nadie usa.',
+    sections: [
+      { h: 'Posiciones operativas y de confianza', html: `<p>Prioriza <strong>valores e integridad</strong> y un perfil de comportamiento. Para puestos con manejo de recursos, complementa con un estudio socioeconómico.</p>` },
+      { h: 'Mandos medios y especialistas', html: `<p>Combina <strong>perfil de comportamiento (Cleaver DISC)</strong> con <strong>aptitud cognitiva</strong> para medir cómo trabaja y cómo resuelve problemas. Para roles comerciales, añade aptitud comercial.</p>` },
+      { h: 'Posiciones directivas', html: `<p>Suma <strong>liderazgo, juicio situacional</strong> y un perfil más profundo de personalidad. Aquí lo importante no es solo la aptitud, sino la toma de decisiones y el manejo de personas bajo presión.</p>` },
+    ],
+    faq: [
+      { q: '¿Cuántas pruebas conviene aplicar por candidato?', a: 'Para la mayoría de los puestos, una batería de dos o tres pruebas complementarias da una visión completa sin saturar al candidato.' },
+      { q: '¿Las pruebas se aplican en línea?', a: 'Sí. Con Estratego Talent se aplican mediante un enlace único desde cualquier dispositivo y se califican automáticamente.' },
+    ],
+  },
+  {
+    slug: 'cuanto-tarda-contratar-en-mexico',
+    title: '¿Cuánto tarda contratar a alguien en México?',
+    description: 'Cuánto tarda un proceso de contratación en México por nivel de puesto y qué hacer para reducir el tiempo de cierre sin sacrificar calidad.',
+    date: '2026-05-03', cat: 'Reclutamiento',
+    lead: 'El tiempo de contratación varía mucho según el nivel del puesto. Conocer el promedio te ayuda a planear y a no perder a los mejores candidatos por lentitud.',
+    sections: [
+      { h: 'Tiempos típicos por nivel', html: `<ul>
+        <li><strong>Operativo:</strong> de días a un par de semanas, con buena oferta de talento activo.</li>
+        <li><strong>Mandos medios y especialistas:</strong> alrededor de 30 días desde el levantamiento del perfil.</li>
+        <li><strong>Directivos y C-Suite:</strong> de uno a tres meses, por la búsqueda de candidatos pasivos.</li>
+      </ul>` },
+      { h: 'Qué alarga el proceso', html: `<p>Perfiles mal definidos, demasiados entrevistadores, agendas lentas y decisiones que se posponen. El cuello de botella suele estar del lado de la empresa, no del candidato.</p>` },
+      { h: 'Cómo acelerar sin perder calidad', html: `<p>Define el perfil real desde el inicio, acota a pocos tomadores de decisión, agiliza las agendas y apóyate en evaluaciones en línea para filtrar rápido. Una agencia con red de candidatos pasivos reduce el tiempo de búsqueda.</p>` },
+    ],
+    faq: [
+      { q: '¿Cuál es el tiempo de cierre promedio de Estratego Talent?', a: 'Nuestro promedio es de alrededor de 30 días para mandos medios, desde el levantamiento del perfil hasta la presentación de finalistas. Las posiciones directivas pueden tomar más.' },
+    ],
+  },
+  {
     slug: 'como-elegir-agencia-de-reclutamiento-monterrey',
     title: 'Cómo elegir una agencia de reclutamiento en Monterrey',
     description: 'Guía práctica para elegir agencia de reclutamiento en Monterrey: qué preguntar, cómo comparar honorarios, garantías y metodología antes de contratar.',
