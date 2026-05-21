@@ -45,6 +45,7 @@ const FOOT = `
     <a href="/estudios-socioeconomicos-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Estudios socioeconómicos</a> ·
     <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
     <a href="/sueldos/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Sueldos</a> ·
+    <a href="/insights/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Insights</a> ·
     <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
   </div>
   © ${new Date().getFullYear()} Estratego Talent · Reclutamiento y selección de personal en Monterrey, Nuevo León.
@@ -535,12 +536,115 @@ function jobDetail(v) {
 /* ===========================================================
    Sitemap (unified)
    =========================================================== */
+/* ===========================================================
+   Insights / Blog (SEO de contenido)
+   =========================================================== */
+const ARTICLES = [
+  {
+    slug: 'como-elegir-agencia-de-reclutamiento-monterrey',
+    title: 'Cómo elegir una agencia de reclutamiento en Monterrey',
+    description: 'Guía práctica para elegir agencia de reclutamiento en Monterrey: qué preguntar, cómo comparar honorarios, garantías y metodología antes de contratar.',
+    date: '2026-05-01', cat: 'Reclutamiento',
+    lead: 'No todas las agencias de reclutamiento trabajan igual. Estos son los criterios que separan a un proveedor que llena vacantes de un socio que construye equipos.',
+    sections: [
+      { h: '1. Metodología, no base de datos', html: `<p>Pregunta cómo definen el perfil y cómo buscan. Una agencia seria <strong>levanta el perfil real</strong> (no el de papel), busca candidatos pasivos y evalúa competencias e integridad, no solo revisa CVs de una base preexistente.</p>` },
+      { h: '2. Honorarios y garantía claros', html: `<p>El estándar en México es un porcentaje del sueldo anual del puesto. Exige por escrito el porcentaje, los hitos de pago y la <strong>garantía de reposición</strong> si el candidato no concluye su periodo de prueba.</p>` },
+      { h: '3. Tiempo de cierre y comunicación', html: `<p>Pide su tiempo de cierre promedio (un buen referente son ~30 días para mandos medios) y cómo te reportan el avance. La falta de comunicación es la queja #1 de las empresas.</p>` },
+      { h: '4. Evaluación más allá del CV', html: `<p>Psicometría validada, verificación de referencias y, para posiciones de confianza, estudios socioeconómicos. Una mala contratación cuesta mucho más que el honorario.</p>` },
+    ],
+    faq: [
+      { q: '¿Cuánto cobra una agencia de reclutamiento en Monterrey?', a: 'Generalmente un porcentaje del sueldo anual del puesto, que varía según el nivel y la dificultad de la búsqueda. Pide una propuesta sin costo.' },
+      { q: '¿Conviene una agencia o reclutar internamente?', a: 'Para posiciones especializadas, gerenciales o directivas, una agencia con metodología y red de candidatos pasivos suele ser más rápida y reduce el riesgo de una mala contratación.' },
+    ],
+  },
+  {
+    slug: 'costo-de-una-mala-contratacion',
+    title: 'El costo oculto de una mala contratación',
+    description: 'Una mala contratación cuesta mucho más que el sueldo: rotación, capacitación perdida, impacto en el equipo y en el cliente. Cómo reducir el riesgo.',
+    date: '2026-04-15', cat: 'Gestión de talento',
+    lead: 'Contratar a la persona equivocada es uno de los errores más caros para una empresa, y casi nunca se mide. Desglosamos el costo real y cómo evitarlo.',
+    sections: [
+      { h: '¿Qué incluye el costo de una mala contratación?', html: `<ul><li>Sueldo y prestaciones pagados sin retorno.</li><li>Tiempo de reclutamiento y capacitación perdido.</li><li>Caída de productividad del equipo y del área.</li><li>Impacto en clientes y en el clima laboral.</li><li>Costo de volver a buscar y reentrenar.</li></ul>` },
+      { h: 'Las causas más comunes', html: `<p>La mayoría de las malas contrataciones no fallan por falta de habilidad técnica, sino por <strong>fit cultural, motivación o integridad</strong>. Por eso evaluar solo el CV no basta.</p>` },
+      { h: 'Cómo reducir el riesgo', html: `<p>Definición precisa del perfil, entrevistas por competencias, <strong>pruebas psicométricas</strong>, verificación de referencias y, en posiciones de confianza, estudios socioeconómicos. La inversión en evaluación es marginal frente al costo de equivocarse.</p>` },
+    ],
+    faq: [
+      { q: '¿Cuánto cuesta una mala contratación?', a: 'Diversos estudios la estiman entre varias veces el sueldo mensual y hasta el equivalente a un año de sueldo del puesto, sumando rotación, capacitación e impacto en el equipo.' },
+    ],
+  },
+  {
+    slug: 'headhunting-vs-bolsa-de-trabajo',
+    title: 'Headhunting vs. bolsa de trabajo: cuándo usar cada uno',
+    description: 'Para posiciones directivas, el mejor candidato rara vez está aplicando. Diferencias entre headhunting y bolsa de trabajo y cuándo conviene cada uno.',
+    date: '2026-03-20', cat: 'Headhunting',
+    lead: 'Publicar una vacante funciona para muchos puestos, pero para el talento crítico suele no alcanzar. Esta es la diferencia.',
+    sections: [
+      { h: 'Bolsa de trabajo: candidatos activos', html: `<p>Funciona bien para posiciones operativas y algunos mandos medios, donde hay suficiente talento buscando empleo de forma activa.</p>` },
+      { h: 'Headhunting: candidatos pasivos', html: `<p>Para dirección, C-Suite y perfiles escasos, el mejor candidato <strong>ya tiene trabajo y no está buscando</strong>. El headhunting lo identifica, lo contacta con discreción y despierta su interés en tu proyecto.</p>` },
+      { h: '¿Cuál necesitas?', html: `<p>Si la posición es crítica, confidencial o el perfil es escaso, headhunting. Si hay oferta amplia de talento activo, una buena bolsa de trabajo bien gestionada es suficiente.</p>` },
+    ],
+    faq: [
+      { q: '¿Qué es el headhunting?', a: 'Es la búsqueda directa y confidencial de candidatos pasivos de alto nivel, en lugar de esperar postulaciones. Es ideal para posiciones directivas y críticas.' },
+    ],
+  },
+]
+
+function articleLD(a) {
+  const fechaISO = a.date
+  return [
+    { '@context':'https://schema.org', '@type':'Article', headline:a.title, description:a.description,
+      datePublished:fechaISO, dateModified:fechaISO, author:{ '@type':'Organization', name:ORG },
+      publisher:{ '@type':'Organization', name:ORG, logo:{ '@type':'ImageObject', url:LOGO } },
+      mainEntityOfPage:`${SITE}/insights/${a.slug}.html` },
+    { '@context':'https://schema.org', '@type':'FAQPage', mainEntity:(a.faq||[]).map(f => ({ '@type':'Question', name:f.q, acceptedAnswer:{ '@type':'Answer', text:f.a } })) },
+    { '@context':'https://schema.org', '@type':'BreadcrumbList', itemListElement:[
+      { '@type':'ListItem', position:1, name:'Inicio', item:`${SITE}/` },
+      { '@type':'ListItem', position:2, name:'Insights', item:`${SITE}/insights/` },
+      { '@type':'ListItem', position:3, name:a.title, item:`${SITE}/insights/${a.slug}.html` },
+    ] },
+  ]
+}
+
+function articlePage(a) {
+  const fecha = new Date(a.date + 'T12:00:00').toLocaleDateString('es-MX', { day:'2-digit', month:'long', year:'numeric' })
+  const body = `
+  <header class="hero"><div class="in">
+    <a href="/insights/" style="color:#B8D3D8;font-size:13px;text-decoration:none">← Insights</a>
+    <span class="tag" style="margin-top:12px">${esc(a.cat)} · ${fecha}</span>
+    <h1>${esc(a.title)}</h1>
+    <p>${esc(a.lead)}</p>
+  </div></header>
+  <div class="wrap">
+    ${a.sections.map(s => `<h2>${esc(s.h)}</h2>${s.html}`).join('')}
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq">${(a.faq||[]).map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>
+    <div class="card" style="margin-top:32px"><h3 style="margin-top:0">¿Buscas talento o asesoría?</h3><p class="muted" style="font-size:14px">Cuéntanos tu necesidad y un consultor te contacta.</p><a class="btn" href="https://portal.estratego.com.mx/contacto-empresas">Solicitar propuesta →</a></div>
+  </div>`
+  return page({ title: `${a.title} | Estratego Talent`, description: a.description, canonical: `${SITE}/insights/${a.slug}.html`, jsonLd: articleLD(a), body })
+}
+
+function insightsHub() {
+  const items = ARTICLES.map(a => `<a href="/insights/${a.slug}.html" class="card" style="display:block;text-decoration:none">
+    <div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#4A7D88">${esc(a.cat)}</div>
+    <h3 style="margin:6px 0 6px;color:#1B3A5C">${esc(a.title)}</h3>
+    <p class="muted" style="font-size:14px">${esc(a.description)}</p></a>`).join('')
+  return page({
+    title: 'Insights — Reclutamiento y talento en Monterrey | Estratego Talent',
+    description: 'Artículos prácticos sobre reclutamiento, selección, headhunting y gestión de talento en Monterrey y México.',
+    canonical: `${SITE}/insights/`,
+    jsonLd: { '@context':'https://schema.org', '@type':'CollectionPage', name:'Insights — Estratego Talent', url:`${SITE}/insights/` },
+    body: `<header class="hero"><div class="in"><span class="tag">Insights</span><h1>Perspectiva del mercado de talento</h1><p>Ideas prácticas sobre reclutamiento, selección y liderazgo en Monterrey y México.</p></div></header><div class="wrap">${items}</div>`,
+  })
+}
+
 function sitemap(vacantes) {
   const urls = [
     { loc:`${SITE}/`, pri:'1.0' },
     ...LANDINGS.map(l => ({ loc:`${SITE}/${l.slug}.html`, pri:'0.9' })),
     { loc:`${SITE}/sueldos/`, pri:'0.8' },
     ...SUELDOS.map(s => ({ loc:`${SITE}/sueldos/${s.slug}-monterrey.html`, pri:'0.8' })),
+    { loc:`${SITE}/insights/`, pri:'0.7' },
+    ...ARTICLES.map(a => ({ loc:`${SITE}/insights/${a.slug}.html`, pri:'0.7' })),
     { loc:`${SITE}/vacantes/`, pri:'0.8' },
     ...vacantes.map(v => ({ loc:`${SITE}/vacantes/${slugFor(v)}.html`, pri:'0.7' })),
   ]
@@ -563,6 +667,11 @@ async function main() {
   await mkdir(join(ROOT, 'sueldos'), { recursive: true })
   await writeFile(join(ROOT, 'sueldos', 'index.html'), sueldosHub())
   for (const s of SUELDOS) await writeFile(join(ROOT, 'sueldos', `${s.slug}-monterrey.html`), sueldoPage(s))
+
+  // Insights / blog
+  await mkdir(join(ROOT, 'insights'), { recursive: true })
+  await writeFile(join(ROOT, 'insights', 'index.html'), insightsHub())
+  for (const a of ARTICLES) await writeFile(join(ROOT, 'insights', `${a.slug}.html`), articlePage(a))
 
   // Job board
   const vacantes = await fetchVacantes()
