@@ -197,6 +197,36 @@ const LANDINGS = [
   },
 ]
 
+// Landings locales por zona (SEO local "reclutamiento en <zona>")
+const slugZona = z => z.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+function localLanding(zona) {
+  return {
+    slug: `reclutamiento-en-${slugZona(zona)}`,
+    title: `Reclutamiento y Selección en ${zona} | Estratego Talent`,
+    description: `Agencia de reclutamiento y selección de personal en ${zona}, Nuevo León. Especialistas en mandos medios, gerenciales y directivos. Solicita una propuesta sin costo.`,
+    h1: `Reclutamiento y selección de personal en ${zona}`,
+    lead: `Atraemos al mejor talento para empresas en ${zona} y toda la zona metropolitana de Monterrey, con una metodología que evalúa competencias, fit cultural e integridad.`,
+    sections: [
+      { h: `Reclutamiento especializado en ${zona}`, html: `<p>En Estratego Talent ayudamos a las empresas de <strong>${zona}</strong> a cubrir posiciones especializadas, gerenciales y directivas con candidatos evaluados a profundidad. Conocemos el mercado laboral local y la dinámica industrial de la región.</p>
+      <p>Cada búsqueda incluye definición del perfil real, búsqueda de candidatos pasivos, entrevistas por competencias, psicometría y verificación de referencias.</p>` },
+      { h: `Servicios para empresas en ${zona}`, html: `<ul>
+        <li>Reclutamiento y selección de personal</li>
+        <li>Headhunting de posiciones directivas</li>
+        <li>Estudios socioeconómicos con visita domiciliaria</li>
+        <li>Pruebas psicométricas validadas</li>
+        <li>Encuestas y benchmarking de sueldos</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: `¿Atienden empresas en ${zona}?`, a: `Sí. Damos servicio de reclutamiento y selección a empresas en ${zona} y toda la zona metropolitana de Monterrey, Nuevo León.` },
+      { q: '¿Cuánto tarda el proceso?', a: 'Nuestro tiempo de cierre promedio es de 30 días desde el levantamiento del perfil hasta la presentación de finalistas.' },
+      { q: '¿Ofrecen garantía de reposición?', a: 'Sí, cada búsqueda incluye garantía de reposición sin costo si el candidato no concluye su periodo de prueba.' },
+    ],
+    serviceType: 'Reclutamiento y selección de personal',
+  }
+}
+LANDINGS.push(...['San Pedro Garza García', 'Apodaca', 'Santa Catarina', 'Guadalupe', 'San Nicolás de los Garza', 'García'].map(localLanding))
+
 function landingLD(l) {
   const service = {
     '@context': 'https://schema.org',
