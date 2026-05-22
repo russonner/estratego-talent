@@ -274,6 +274,27 @@ const LANDINGS = [
     ],
     serviceType: 'Reclutamiento de TI y tecnología',
   },
+  {
+    slug: 'headhunting-san-pedro-garza-garcia',
+    title: 'Headhunting en San Pedro Garza García | Estratego Talent',
+    description: 'Headhunting y búsqueda de ejecutivos en San Pedro Garza García. Búsqueda directa y confidencial de directivos y C-Suite para corporativos de la zona.',
+    h1: 'Headhunting en San Pedro Garza García',
+    lead: 'San Pedro concentra a los corporativos más importantes del norte del país. Buscamos de forma directa y confidencial a los líderes que pueden transformar tu organización.',
+    sections: [
+      { h: 'Executive search para corporativos', html: `<p>En <strong>San Pedro Garza García</strong> se ubican las matrices de algunas de las empresas más grandes de México. Para esas posiciones directivas, el mejor candidato rara vez está buscando: hay que ir por él con discreción y método.</p>` },
+      { h: 'Posiciones que cubrimos', html: `<ul>
+        <li>Dirección General y dirección de unidad de negocio.</li>
+        <li>Direcciones de Finanzas, Operaciones, Comercial y RH.</li>
+        <li>Posiciones de consejo y reportes a corporativo.</li>
+      </ul>` },
+      { h: 'Confidencialidad total', html: `<p>Tanto la identidad de tu empresa como la de los candidatos se manejan con absoluta discreción. Es indispensable en una comunidad empresarial tan conectada como la de San Pedro.</p>` },
+    ],
+    faq: [
+      { q: '¿Atienden corporativos en San Pedro Garza García?', a: 'Sí. Hacemos headhunting de posiciones directivas y ejecutivas para empresas con sede en San Pedro y toda la zona metropolitana de Monterrey.' },
+      { q: '¿El proceso es confidencial?', a: 'Totalmente. La identidad de la empresa y de los candidatos se maneja con discreción durante todo el proceso.' },
+    ],
+    serviceType: 'Headhunting ejecutivo',
+  },
 ]
 
 // Landings locales por zona (SEO local "reclutamiento en <zona>")
@@ -414,6 +435,36 @@ const SUELDOS_FALLBACK = [
     resumen:'Convierte datos en información para la toma de decisiones. Una de las funciones de mayor crecimiento en empresas de Monterrey de todos los sectores.',
     factores:['Dominio de SQL, Python y BI (Power BI, Tableau)','Experiencia en modelado y machine learning','Inglés','Industria y volumen de datos'],
     demanda:'Creciente y transversal a todas las industrias.' },
+  { slug:'contador', puesto:'Contador', area:'Finanzas y Contabilidad',
+    rangos:{ junior:[18000,28000], medio:[28000,45000], senior:[45000,70000] },
+    resumen:'Responsable de la contabilidad, las obligaciones fiscales y la información financiera de la empresa. Es uno de los perfiles más buscados de forma constante en Monterrey.',
+    factores:['Experiencia en contabilidad fiscal y NIF','Manejo de ERP (SAP, Contpaqi, Aspel)','Especialización (fiscal, costos, auditoría)','Inglés para empresas extranjeras'],
+    demanda:'Alta y constante en empresas de todos los tamaños.' },
+  { slug:'ingeniero-industrial', puesto:'Ingeniero Industrial', area:'Ingeniería',
+    rangos:{ junior:[20000,32000], medio:[32000,50000], senior:[50000,78000] },
+    resumen:'Optimiza procesos, productividad y calidad en plantas y operaciones. Perfil base de la industria manufacturera del área metropolitana de Monterrey.',
+    factores:['Herramientas de mejora continua (Lean, Six Sigma)','Experiencia en la industria específica','Manejo de indicadores y análisis de datos','Inglés técnico'],
+    demanda:'Muy alta en el corredor industrial de Apodaca, Santa Catarina y García.' },
+  { slug:'gerente-de-logistica', puesto:'Gerente de Logística', area:'Logística y Cadena de Suministro',
+    rangos:{ junior:[35000,52000], medio:[52000,80000], senior:[80000,125000] },
+    resumen:'Dirige el almacenamiento, transporte y distribución para que el producto llegue a tiempo y al menor costo. Posición clave por la ubicación estratégica de Monterrey.',
+    factores:['Tamaño de la operación y red de distribución','Experiencia en comercio exterior e importación/exportación','Manejo de WMS/TMS y optimización de costos','Inglés para corporativos'],
+    demanda:'Alta. La cercanía con la frontera y el nearshoring impulsan la demanda.' },
+  { slug:'comprador', puesto:'Comprador', area:'Compras y Abastecimiento',
+    rangos:{ junior:[22000,35000], medio:[35000,55000], senior:[55000,85000] },
+    resumen:'Gestiona proveedores, negocia precios y asegura el abasto de materiales e insumos. Función estratégica para el control de costos en la industria.',
+    factores:['Experiencia en negociación y desarrollo de proveedores','Compras nacionales vs. internacionales','Manejo de ERP y análisis de costos','Inglés para proveedores extranjeros'],
+    demanda:'Alta, especialmente perfiles con experiencia en compras internacionales.' },
+  { slug:'gerente-de-calidad', puesto:'Gerente de Calidad', area:'Calidad',
+    rangos:{ junior:[30000,46000], medio:[46000,72000], senior:[72000,115000] },
+    resumen:'Asegura que productos y procesos cumplan estándares y certificaciones. Crítico en industrias automotriz, alimentaria y de manufactura de exportación.',
+    factores:['Certificaciones (ISO 9001, IATF 16949, etc.)','Industria y exigencia del cliente','Experiencia en auditorías y sistemas de gestión','Inglés para corporativos y clientes'],
+    demanda:'Alta en manufactura de exportación y proveeduría automotriz.' },
+  { slug:'gerente-de-marketing', puesto:'Gerente de Marketing', area:'Marketing',
+    rangos:{ junior:[30000,48000], medio:[48000,75000], senior:[75000,120000] },
+    resumen:'Lidera la estrategia de marca, generación de demanda y posicionamiento. La función se ha vuelto más digital y medible en las empresas de Monterrey.',
+    factores:['Experiencia en marketing digital y analítica','Industria (B2B vs. B2C)','Manejo de presupuesto y equipos','Inglés y herramientas de automatización'],
+    demanda:'Creciente, con fuerte peso en perfiles digitales y orientados a datos.' },
 ]
 // Live benchmarks are loaded from Supabase in main(); falls back to the static array.
 let SUELDOS = SUELDOS_FALLBACK
