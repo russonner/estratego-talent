@@ -196,6 +196,71 @@ const LANDINGS = [
     ],
     serviceType: 'Pruebas psicométricas',
   },
+  {
+    slug: 'agencia-de-empleo-monterrey',
+    title: 'Agencia de Empleo en Monterrey | Estratego Talent',
+    description: 'Agencia de empleo en Monterrey que conecta a empresas con talento evaluado para posiciones operativas, especializadas y de mando. Bolsa de talento activa.',
+    h1: 'Agencia de empleo en Monterrey',
+    lead: 'Conectamos a las empresas de Monterrey con el talento que necesitan y a los profesionales con las oportunidades correctas, con un proceso de evaluación serio en ambos lados.',
+    sections: [
+      { h: 'Para empresas', html: `<p>Como <strong>agencia de empleo en Monterrey</strong>, te ayudamos a cubrir vacantes con candidatos previamente evaluados en competencias, comportamiento e integridad. Cubrimos desde posiciones operativas hasta perfiles especializados y de mando.</p>` },
+      { h: 'Para candidatos', html: `<p>Si buscas empleo en Monterrey, únete a nuestra bolsa de talento. Te consideramos para vacantes que coinciden con tu perfil y te acompañamos durante el proceso de selección, sin costo para ti.</p>` },
+      { h: '¿Por qué una agencia y no buscar por tu cuenta?', html: `<ul>
+        <li>Acceso a vacantes que no se publican abiertamente.</li>
+        <li>Evaluación profesional que respalda tu candidatura.</li>
+        <li>Acompañamiento real durante todo el proceso.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿Cobran a los candidatos?', a: 'No. El servicio para candidatos es gratuito. A las empresas se les cobra por la búsqueda y selección.' },
+      { q: '¿Qué tipo de vacantes manejan?', a: 'Posiciones operativas, especializadas, gerenciales y directivas en Monterrey y su zona metropolitana.' },
+    ],
+    serviceType: 'Agencia de empleo',
+  },
+  {
+    slug: 'reclutamiento-de-personal-operativo-monterrey',
+    title: 'Reclutamiento de Personal Operativo en Monterrey | Estratego Talent',
+    description: 'Reclutamiento de personal operativo y de planta en Monterrey para manufactura, logística y producción. Procesos por volumen, rápidos y confiables.',
+    h1: 'Reclutamiento de personal operativo en Monterrey',
+    lead: 'Cubrimos tus necesidades de personal operativo y de planta en Monterrey con procesos ágiles por volumen, sin sacrificar la verificación que evita rotación.',
+    sections: [
+      { h: 'Reclutamiento por volumen', html: `<p>El corredor industrial de Monterrey demanda <strong>personal operativo de forma constante</strong>. Manejamos procesos masivos para manufactura, logística y producción con tiempos de respuesta cortos.</p>` },
+      { h: 'Rápido, pero verificado', html: `<p>Velocidad no significa improvisar. Validamos datos, referencias y, cuando aplica, aplicamos estudio socioeconómico para reducir la rotación temprana que tanto cuesta en operaciones.</p>` },
+      { h: 'Perfiles que cubrimos', html: `<ul>
+        <li>Operadores de producción y maquinaria.</li>
+        <li>Personal de almacén y logística.</li>
+        <li>Técnicos de mantenimiento.</li>
+        <li>Supervisores de línea y de turno.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿Manejan contrataciones por volumen?', a: 'Sí. Tenemos procesos diseñados para cubrir múltiples posiciones operativas en plazos cortos, frecuentes en la industria de Monterrey.' },
+      { q: '¿Cómo reducen la rotación en personal operativo?', a: 'Con verificación de datos y referencias, evaluación de permanencia y, cuando aplica, estudio socioeconómico antes de la contratación.' },
+    ],
+    serviceType: 'Reclutamiento de personal operativo',
+  },
+  {
+    slug: 'reclutamiento-ti-tecnologia-monterrey',
+    title: 'Reclutamiento de TI y Tecnología en Monterrey | Estratego Talent',
+    description: 'Reclutamiento especializado de perfiles de TI y tecnología en Monterrey: desarrolladores, datos, infraestructura y liderazgo tech. Compite por el mejor talento.',
+    h1: 'Reclutamiento de TI y tecnología en Monterrey',
+    lead: 'El talento tech tiene ofertas remotas internacionales sobre la mesa. Te ayudamos a identificarlo, atraerlo y cerrarlo antes que la competencia.',
+    sections: [
+      { h: 'Un mercado distinto', html: `<p>Monterrey es un hub tecnológico y los perfiles senior <strong>compiten con ofertas remotas en dólares</strong>. Reclutar tech requiere entender el stack, el mercado y las motivaciones de estos candidatos.</p>` },
+      { h: 'Perfiles que reclutamos', html: `<ul>
+        <li>Desarrollo de software (frontend, backend, full stack, móvil).</li>
+        <li>Datos: analistas, ingenieros de datos y científicos de datos.</li>
+        <li>Infraestructura, DevOps y ciberseguridad.</li>
+        <li>Liderazgo: Tech Leads, Engineering Managers, CTO.</li>
+      </ul>` },
+      { h: 'Cómo atraemos al talento pasivo', html: `<p>La mayoría de los buenos ingenieros no está aplicando. Los identificamos, los contactamos con un mensaje que respeta su tiempo y conectamos tu proyecto con lo que realmente buscan: reto técnico, crecimiento y buen liderazgo.</p>` },
+    ],
+    faq: [
+      { q: '¿Reclutan perfiles para trabajo remoto?', a: 'Sí. Reclutamos perfiles de TI presenciales, híbridos y remotos, en Monterrey y para equipos distribuidos.' },
+      { q: '¿Entienden los perfiles técnicos?', a: 'Sí. Levantamos el perfil con base en el stack y el contexto técnico real del rol, no solo con palabras clave.' },
+    ],
+    serviceType: 'Reclutamiento de TI y tecnología',
+  },
 ]
 
 // Landings locales por zona (SEO local "reclutamiento en <zona>")
@@ -540,6 +605,95 @@ function jobDetail(v) {
    Insights / Blog (SEO de contenido)
    =========================================================== */
 const ARTICLES = [
+  {
+    slug: 'entrevista-por-competencias-metodo-star',
+    title: 'Entrevista por competencias: cómo aplicarla con el método STAR',
+    description: 'Qué es la entrevista por competencias y cómo usar el método STAR para predecir el desempeño real de un candidato, con ejemplos de preguntas.',
+    date: '2026-05-21', cat: 'Reclutamiento',
+    lead: 'Las preguntas hipotéticas miden imaginación, no desempeño. La entrevista por competencias evalúa lo que el candidato ya hizo, que es el mejor predictor de lo que hará.',
+    sections: [
+      { h: '¿Qué es una entrevista por competencias?', html: `<p>Es una entrevista estructurada que indaga <strong>situaciones reales del pasado</strong> del candidato para evaluar competencias específicas: liderazgo, resolución de problemas, trabajo en equipo. Reduce el sesgo de la simpatía y la improvisación.</p>` },
+      { h: 'El método STAR', html: `<p>Para cada competencia, pide al candidato que describa una <strong>Situación</strong>, la <strong>Tarea</strong> que tenía, la <strong>Acción</strong> que tomó y el <strong>Resultado</strong> que obtuvo. Cuando una respuesta es vaga, pregunta por el detalle hasta llegar a la acción concreta que esa persona ejecutó.</p>` },
+      { h: 'Ejemplos de preguntas', html: `<ul>
+        <li>Cuéntame de una vez que tuviste que sacar un proyecto con un plazo imposible.</li>
+        <li>Describe un conflicto con un colega y cómo lo resolviste.</li>
+        <li>Háblame de una decisión difícil que tomaste sin toda la información.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿En qué se diferencia de una entrevista normal?', a: 'En lugar de opiniones o hipótesis, pide hechos verificables del pasado. El comportamiento previo es el mejor predictor del desempeño futuro.' },
+      { q: '¿Sustituye a las pruebas psicométricas?', a: 'No, se complementan. La entrevista por competencias evalúa conductas; la psicometría aporta una medida objetiva de aptitud, comportamiento y valores.' },
+    ],
+  },
+  {
+    slug: 'onboarding-30-60-90-dias-directivos',
+    title: 'Onboarding de 30, 60 y 90 días para posiciones directivas',
+    description: 'Cómo diseñar un plan de onboarding de 30/60/90 días para directivos: objetivos por etapa, actividades clave y métricas de éxito.',
+    date: '2026-05-19', cat: 'Gestión de talento',
+    lead: 'Los primeros 90 días definen si una contratación directiva funciona. Un plan claro acelera el impacto y reduce el riesgo de una salida temprana costosa.',
+    sections: [
+      { h: 'Primeros 30 días: aprender', html: `<p>El foco es <strong>entender el negocio, al equipo y a los stakeholders</strong>. Reuniones uno a uno, lectura del contexto y diagnóstico inicial. La meta no es cambiar nada todavía, sino comprender.</p>` },
+      { h: 'Días 30 a 60: diagnosticar y priorizar', html: `<p>Con el panorama claro, el directivo define <strong>las dos o tres prioridades</strong> donde puede generar valor pronto y alinea expectativas con su jefe y su equipo.</p>` },
+      { h: 'Días 60 a 90: ejecutar', html: `<p>Primeras victorias visibles y un plan a mediano plazo. Aquí ya debe haber <strong>resultados medibles</strong> y un equipo que confía en el liderazgo.</p>` },
+    ],
+    faq: [
+      { q: '¿Por qué es clave el onboarding directivo?', a: 'Una salida directiva temprana es de las contrataciones más caras. Un plan estructurado de 90 días acelera el impacto y reduce ese riesgo.' },
+    ],
+  },
+  {
+    slug: 'como-escribir-descripcion-de-puesto-que-atrae',
+    title: 'Cómo escribir una descripción de puesto que atrae al talento correcto',
+    description: 'Guía para redactar descripciones de puesto que atraen al perfil exacto y no al masivo: objetivo del rol, responsabilidades reales y propuesta de valor.',
+    date: '2026-05-17', cat: 'Reclutamiento',
+    lead: 'Una vacante mal redactada atrae a cientos de candidatos equivocados y ahuyenta a los correctos. La descripción es tu primer filtro y tu primer anuncio.',
+    sections: [
+      { h: 'Empieza por el objetivo del rol', html: `<p>Antes de la lista de requisitos, explica <strong>para qué existe el puesto</strong> y qué resultado debe lograr. El buen candidato decide si aplica por el reto, no por la lista de viñetas.</p>` },
+      { h: 'Responsabilidades reales, no genéricas', html: `<p>Describe lo que la persona realmente hará en su día a día. Evita el copiar y pegar de funciones genéricas: el talento senior detecta de inmediato una vacante escrita sin pensar.</p>` },
+      { h: 'Vende la propuesta de valor', html: `<ul>
+        <li>Qué ofrece la empresa: crecimiento, proyecto, cultura, compensación.</li>
+        <li>Sé honesto con los retos del rol; atraes a quien los quiere.</li>
+        <li>Incluye rango salarial cuando puedas: filtra y genera confianza.</li>
+      </ul>` },
+    ],
+    faq: [
+      { q: '¿Conviene poner el sueldo en la vacante?', a: 'Sí. Publicar un rango filtra candidatos fuera de presupuesto, genera confianza y mejora la tasa de respuesta de los perfiles correctos.' },
+    ],
+  },
+  {
+    slug: 'salario-emocional-como-retener-talento',
+    title: 'Salario emocional: qué es y cómo usarlo para retener talento',
+    description: 'Qué es el salario emocional y qué elementos no monetarios ayudan a retener talento cuando no puedes competir solo con el sueldo.',
+    date: '2026-05-13', cat: 'Gestión de talento',
+    lead: 'No siempre puedes ganar la guerra del sueldo, pero sí la de las razones para quedarse. El salario emocional es lo que retiene cuando la oferta económica está pareja.',
+    sections: [
+      { h: '¿Qué es el salario emocional?', html: `<p>Es el conjunto de <strong>beneficios no monetarios</strong> que hacen valioso trabajar en tu empresa: flexibilidad, desarrollo, reconocimiento, propósito y buen liderazgo.</p>` },
+      { h: 'Qué sí mueve la aguja', html: `<ul>
+        <li>Flexibilidad real de horario y modalidad.</li>
+        <li>Plan de crecimiento y aprendizaje visible.</li>
+        <li>Reconocimiento frecuente y específico.</li>
+        <li>Autonomía y confianza, no microgestión.</li>
+      </ul>` },
+      { h: 'Cuándo no basta', html: `<p>El salario emocional retiene cuando la compensación es justa frente al mercado. Si pagas por debajo del rango de Monterrey, ningún beneficio compensa esa brecha de forma sostenida.</p>` },
+    ],
+    faq: [
+      { q: '¿El salario emocional sustituye al sueldo?', a: 'No. Funciona como diferenciador cuando la compensación es competitiva; no compensa un sueldo por debajo del mercado.' },
+    ],
+  },
+  {
+    slug: 'como-manejar-una-contraoferta',
+    title: 'Cómo manejar una contraoferta sin perder al candidato',
+    description: 'Qué hacer cuando tu candidato recibe una contraoferta de su empresa actual y cómo reducir el riesgo de que la acepte, desde el inicio del proceso.',
+    date: '2026-05-08', cat: 'Reclutamiento',
+    lead: 'La contraoferta tumba procesos en la recta final. La mejor forma de ganarla es prevenirla desde la primera conversación, no improvisar al final.',
+    sections: [
+      { h: 'Entiende la motivación real', html: `<p>Desde el inicio, identifica <strong>por qué el candidato consideraría moverse</strong>. Si solo busca más dinero, la contraoferta lo retiene. Si busca crecimiento o un mejor entorno, tu propuesta gana.</p>` },
+      { h: 'Prepara el terreno antes de la oferta', html: `<p>Habla abiertamente de la contraoferta antes de que ocurra. Un candidato que ya reflexionó por qué se va resiste mejor la tentación de quedarse.</p>` },
+      { h: 'Haz una oferta que no dependa solo del sueldo', html: `<p>Conecta tu oferta con sus motivaciones reales: proyecto, rol, desarrollo y cultura. Una decisión basada solo en dinero siempre es vulnerable a otra cifra.</p>` },
+    ],
+    faq: [
+      { q: '¿Conviene igualar la contraoferta?', a: 'Rara vez. Si el candidato se queda solo por dinero, suele irse meses después. Es mejor competir por las razones de fondo que lo hicieron buscar un cambio.' },
+    ],
+  },
   {
     slug: 'cuanto-cuesta-estudio-socioeconomico-monterrey',
     title: '¿Cuánto cuesta un estudio socioeconómico en Monterrey?',
