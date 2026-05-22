@@ -668,7 +668,7 @@ function togglePortal(e){e.stopPropagation();document.getElementById('pn-drop').
 document.addEventListener('click',()=>document.getElementById('pn-drop').classList.remove('open'));
 window.addEventListener('scroll',()=>{
   const pos=window.scrollY+100;
-  const secs=[['metodologia'],['servicios'],['nosotros'],['casos'],['insights'],['benchmark'],['contacto']];
+  const secs=[['metodologia'],['servicios'],['nosotros'],['insights'],['benchmark'],['contacto']];
   let cur='';
   secs.forEach(([id])=>{const el=document.getElementById(id);if(el&&el.offsetTop<=pos)cur=id;});
   document.querySelectorAll('.nl a').forEach(a=>{
