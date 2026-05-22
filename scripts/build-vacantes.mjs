@@ -37,13 +37,25 @@ const NAV = `
   </div>
 </nav>`
 
+const WA_NUM = '5218183663346'
+const WA_MSG = 'Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20servicios%20de%20Estratego%20Talent.'
+const WA_FLOAT = `
+<a href="https://wa.me/${WA_NUM}?text=${WA_MSG}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"
+  style="position:fixed;right:18px;bottom:18px;z-index:200;display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-weight:600;font-size:14px;text-decoration:none;padding:12px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.22)">
+  <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.649 4.8 1.785 6.813L2 30l7.418-1.744A13.94 13.94 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm6.334 19.336c-.346-.174-2.046-1.01-2.364-1.124-.317-.116-.548-.174-.778.174-.232.346-.894 1.124-1.096 1.354-.202.232-.404.26-.75.086-.346-.174-1.462-.538-2.786-1.718-1.03-.918-1.724-2.052-1.926-2.398-.202-.346-.022-.532.152-.706.156-.154.346-.404.52-.606.174-.202.232-.346.346-.578.116-.232.058-.434-.028-.608-.086-.174-.778-1.876-1.066-2.568-.28-.674-.566-.582-.778-.594-.202-.012-.434-.014-.666-.014-.232 0-.608.086-.926.434-.318.346-1.21 1.184-1.21 2.886s1.238 3.348 1.412 3.578c.174.232 2.436 3.72 5.902 5.214.824.356 1.468.568 1.97.728.828.264 1.582.226 2.178.138.664-.1 2.046-.836 2.336-1.642.288-.808.288-1.5.202-1.644-.086-.144-.318-.232-.664-.406z"/></svg>
+  <span style="white-space:nowrap">WhatsApp</span>
+</a>`
+
 const FOOT = `
 <footer style="background:#091929;color:rgba(255,255,255,.6);padding:36px;text-align:center;font-size:13px;line-height:1.9">
   <div style="margin-bottom:8px">
     <a href="/reclutamiento-y-seleccion-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Reclutamiento Monterrey</a> ·
     <a href="/headhunting-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Headhunting</a> ·
+    <a href="/reclutamiento-de-personal-operativo-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Personal operativo</a> ·
+    <a href="/reclutamiento-ti-tecnologia-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Reclutamiento TI</a> ·
     <a href="/estudios-socioeconomicos-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Estudios socioeconómicos</a> ·
     <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
+    <a href="/agencia-de-empleo-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Agencia de empleo</a> ·
     <a href="/sueldos/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Sueldos</a> ·
     <a href="/insights/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Insights</a> ·
     <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
@@ -92,6 +104,7 @@ li{margin-bottom:6px}
 ${NAV}
 ${body}
 ${FOOT}
+${WA_FLOAT}
 </body></html>`
 }
 
