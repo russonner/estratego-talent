@@ -1,13 +1,13 @@
 /**
  * Static SEO build for estratego.com.mx
  *
- * Runs at Netlify build time. Generates:
+ * Runs at Vercel build time. Generates:
  *   /<slug>.html            → service/zone landing pages (unique content + Service/FAQ schema)
  *   /vacantes/index.html    → job listing (SEO)
  *   /vacantes/<slug>.html   → one page per published vacancy with JobPosting JSON-LD (Google Jobs)
  *   /sitemap.xml            → unified sitemap (home + landings + job pages)
  *
- * Env vars (Netlify): SUPABASE_URL, SUPABASE_ANON_KEY
+ * Env vars (Vercel): SUPABASE_URL, SUPABASE_ANON_KEY
  * If missing, still generates landings + empty job board so the build never fails.
  */
 import { createClient } from '@supabase/supabase-js'

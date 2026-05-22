@@ -6,7 +6,7 @@ Instrucciones de comportamiento para todas las sesiones de este proyecto.
 
 ## Proyecto
 Sitio web de Estratego Talent en `index.html`. Single-file HTML+CSS+JS.
-- **Producción:** estratego.com.mx vía Netlify (auto-deploy al push a `main`)
+- **Producción:** estratego.com.mx vía Vercel (auto-deploy al push a `main`)
 - **Flujo:** editar → commit → push directo, sin pedir confirmación
 
 ---
