@@ -60,6 +60,12 @@ const FOOT = `
     <a href="/insights/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Insights</a> ·
     <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
   </div>
+  <div style="margin-bottom:12px;display:flex;gap:16px;justify-content:center">
+    <a href="https://www.linkedin.com/company/2554474/" target="_blank" rel="noopener" aria-label="LinkedIn" style="color:#B8D3D8"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 8.98h4v12H3v-12zM9 8.98h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v6.31h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96v5.7H9v-12z"/></svg></a>
+    <a href="https://www.instagram.com/estrategotalent/" target="_blank" rel="noopener" aria-label="Instagram" style="color:#B8D3D8"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://www.facebook.com/ESTRATEGOTALENT/" target="_blank" rel="noopener" aria-label="Facebook" style="color:#B8D3D8"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.6l.4-3h-3V8.1c0-.87.24-1.46 1.5-1.46H17V3.96c-.28-.04-1.23-.12-2.34-.12-2.32 0-3.9 1.42-3.9 4.02V10H8.2v3h2.56v8h2.74z"/></svg></a>
+    <a href="https://x.com/estrategotalent" target="_blank" rel="noopener" aria-label="X" style="color:#B8D3D8"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h2.9l-6.34 7.25L21.5 21h-5.84l-4.57-5.98L5.86 21H2.96l6.78-7.75L2.5 3h6l4.13 5.46L17.5 3zm-1.02 16.2h1.6L7.6 4.7H5.88l10.6 14.5z"/></svg></a>
+  </div>
   © ${new Date().getFullYear()} Estratego Talent · Reclutamiento y selección de personal en Monterrey, Nuevo León.
 </footer>`
 
