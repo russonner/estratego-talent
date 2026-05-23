@@ -933,7 +933,13 @@ function articlePage(a) {
     ${a.sections.map(s => `<h2>${esc(s.h)}</h2>${s.html}`).join('')}
     <h2>Preguntas frecuentes</h2>
     <div class="faq">${(a.faq||[]).map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>
-    <div class="card" style="margin-top:32px"><h3 style="margin-top:0">¿Buscas talento o asesoría?</h3><p class="muted" style="font-size:14px">Cuéntanos tu necesidad y un consultor te contacta.</p><a class="btn" href="https://portal.estratego.com.mx/contacto-empresas">Solicitar propuesta →</a></div>
+    <div style="margin-top:28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-size:13px;font-weight:600;color:#5C6B78">Compartir:</span>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${SITE}/insights/${a.slug}.html`)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:#1B3A5C;text-decoration:none;border:1px solid #ECE7DF;border-radius:8px;padding:7px 14px">LinkedIn</a>
+      <a href="https://wa.me/?text=${encodeURIComponent(a.title)}%20${encodeURIComponent(`${SITE}/insights/${a.slug}.html`)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:#1B3A5C;text-decoration:none;border:1px solid #ECE7DF;border-radius:8px;padding:7px 14px">WhatsApp</a>
+      <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(a.title)}&url=${encodeURIComponent(`${SITE}/insights/${a.slug}.html`)}" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:600;color:#1B3A5C;text-decoration:none;border:1px solid #ECE7DF;border-radius:8px;padding:7px 14px">X</a>
+    </div>
+    <div class="card" style="margin-top:24px"><h3 style="margin-top:0">¿Buscas talento o asesoría?</h3><p class="muted" style="font-size:14px">Cuéntanos tu necesidad y un consultor te contacta.</p><a class="btn" href="https://portal.estratego.com.mx/contacto-empresas">Solicitar propuesta →</a></div>
   </div>`
   return page({ title: `${a.title} | Estratego Talent`, description: a.description, canonical: `${SITE}/insights/${a.slug}.html`, jsonLd: articleLD(a), body })
 }
