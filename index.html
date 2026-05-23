@@ -542,7 +542,10 @@ footer{padding:32px 36px;background:#091929;display:flex;justify-content:space-b
       <option value="corp">Corporativo (+2,000)</option>
     </select>
   </div>
-  <div><button class="bm-btn" onclick="calcBM()">Ver benchmark →</button></div>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+    <button class="bm-btn" onclick="calcBM()">Ver benchmark →</button>
+    <a href="https://portal.estratego.com.mx/tabulador" style="margin-top:20px;font-size:13px;font-weight:600;color:#B8D3D8;text-decoration:none;border:0.5px solid rgba(184,211,216,0.4);padding:12px 24px;border-radius:8px">Explorar tabulador completo →</a>
+  </div>
   <div class="bm-res" id="bm-res">
     <div class="la la-w">Rango salarial estimado · México 2026</div>
     <div class="bm-range" id="bm-range">—</div>
