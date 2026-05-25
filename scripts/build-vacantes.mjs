@@ -674,6 +674,27 @@ function jobDetail(v) {
 /* ===========================================================
    Insights / Blog (SEO de contenido)
    =========================================================== */
+// Artículos generados desde el admin (tabla articulos, solo publicados).
+async function fetchArticulos() {
+  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_ANON_KEY
+  if (!url || !key) return []
+  try {
+    const supabase = createClient(url, key, { auth: { persistSession: false } })
+    const { data, error } = await supabase.from('articulos').select('*').eq('publicado', true).order('published_at', { ascending: false })
+    if (error) { console.warn('⚠ articulos:', error.message); return [] }
+    return (data || []).map(a => ({
+      slug: a.slug,
+      title: a.titulo,
+      description: a.descripcion || '',
+      date: String(a.published_at || a.created_at || new Date().toISOString()).slice(0, 10),
+      cat: a.categoria || 'Insights',
+      lead: a.descripcion || '',
+      bodyHtml: a.contenido || '',
+      faq: Array.isArray(a.faq) ? a.faq : [],
+    }))
+  } catch (e) { console.warn('⚠ articulos:', e.message); return [] }
+}
+
 const ARTICLES = [
   {
     slug: 'entrevista-por-competencias-metodo-star',
@@ -936,7 +957,7 @@ function articlePage(a) {
     <p>${esc(a.lead)}</p>
   </div></header>
   <div class="wrap">
-    ${a.sections.map(s => `<h2>${esc(s.h)}</h2>${s.html}`).join('')}
+    ${a.bodyHtml ? a.bodyHtml : (a.sections || []).map(s => `<h2>${esc(s.h)}</h2>${s.html}`).join('')}
     <h2>Preguntas frecuentes</h2>
     <div class="faq">${(a.faq||[]).map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>
     <div style="margin-top:28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -950,8 +971,8 @@ function articlePage(a) {
   return page({ title: `${a.title} | Estratego Talent`, description: a.description, canonical: `${SITE}/insights/${a.slug}.html`, jsonLd: articleLD(a), body })
 }
 
-function insightsHub() {
-  const items = ARTICLES.map(a => `<a href="/insights/${a.slug}.html" class="card" style="display:block;text-decoration:none">
+function insightsHub(articles = ARTICLES) {
+  const items = articles.map(a => `<a href="/insights/${a.slug}.html" class="card" style="display:block;text-decoration:none">
     <div class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#4A7D88">${esc(a.cat)}</div>
     <h3 style="margin:6px 0 6px;color:#1B3A5C">${esc(a.title)}</h3>
     <p class="muted" style="font-size:14px">${esc(a.description)}</p></a>`).join('')
@@ -964,14 +985,14 @@ function insightsHub() {
   })
 }
 
-function sitemap(vacantes) {
+function sitemap(vacantes, articles = ARTICLES) {
   const urls = [
     { loc:`${SITE}/`, pri:'1.0' },
     ...LANDINGS.map(l => ({ loc:`${SITE}/${l.slug}.html`, pri:'0.9' })),
     { loc:`${SITE}/sueldos/`, pri:'0.8' },
     ...SUELDOS.map(s => ({ loc:`${SITE}/sueldos/${s.slug}-monterrey.html`, pri:'0.8' })),
     { loc:`${SITE}/insights/`, pri:'0.7' },
-    ...ARTICLES.map(a => ({ loc:`${SITE}/insights/${a.slug}.html`, pri:'0.7' })),
+    ...articles.map(a => ({ loc:`${SITE}/insights/${a.slug}.html`, pri:'0.7' })),
     { loc:`${SITE}/vacantes/`, pri:'0.8' },
     ...vacantes.map(v => ({ loc:`${SITE}/vacantes/${slugFor(v)}.html`, pri:'0.7' })),
   ]
@@ -995,10 +1016,13 @@ async function main() {
   await writeFile(join(ROOT, 'sueldos', 'index.html'), sueldosHub())
   for (const s of SUELDOS) await writeFile(join(ROOT, 'sueldos', `${s.slug}-monterrey.html`), sueldoPage(s))
 
-  // Insights / blog
+  // Insights / blog (artículos del admin + estáticos)
+  const articulosDb = await fetchArticulos()
+  const allArticles = [...articulosDb, ...ARTICLES]
+  console.log(`  ${articulosDb.length} artículo(s) del admin + ${ARTICLES.length} estáticos`)
   await mkdir(join(ROOT, 'insights'), { recursive: true })
-  await writeFile(join(ROOT, 'insights', 'index.html'), insightsHub())
-  for (const a of ARTICLES) await writeFile(join(ROOT, 'insights', `${a.slug}.html`), articlePage(a))
+  await writeFile(join(ROOT, 'insights', 'index.html'), insightsHub(allArticles))
+  for (const a of allArticles) await writeFile(join(ROOT, 'insights', `${a.slug}.html`), articlePage(a))
 
   // Job board
   const vacantes = await fetchVacantes()
