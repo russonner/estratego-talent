@@ -16,6 +16,12 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+// Saca el valor de env limpiando BOM (U+FEFF), zero-width y espacios. Un BOM al
+// inicio de SUPABASE_ANON_KEY rompe la conversión a header HTTP (ByteString) y
+// hace fallar TODAS las lecturas a Supabase (sueldos, artículos, vacantes).
+const ZW = new RegExp('[' + [0xFEFF, 0x200B, 0x200C, 0x200D, 0x2060].map(c => String.fromCharCode(c)).join('') + ']', 'g')
+const cleanEnv = v => (v || '').replace(ZW, '').trim()
+const supaCreds = () => ({ url: cleanEnv(process.env.SUPABASE_URL), key: cleanEnv(process.env.SUPABASE_ANON_KEY) })
 const SITE = 'https://estratego.com.mx'
 const ORG  = 'Estratego Talent'
 const LOGO = `${SITE}/logo.png`
@@ -483,7 +489,7 @@ const fmtRange = (r) => {
 
 // Pull published salary benchmarks from Supabase (table: sueldos_mercado).
 async function fetchSueldos() {
-  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_ANON_KEY
+  const { url, key } = supaCreds()
   if (!url || !key) { console.warn('⚠ SUPABASE creds ausentes — usando sueldos estáticos.'); return SUELDOS_FALLBACK }
   try {
     const supabase = createClient(url, key, { auth: { persistSession: false } })
@@ -603,7 +609,7 @@ function slugFor(v) {
 }
 
 async function fetchVacantes() {
-  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_ANON_KEY
+  const { url, key } = supaCreds()
   if (!url || !key) { console.warn('⚠ SUPABASE creds ausentes — bolsa vacía.'); return [] }
   const supabase = createClient(url, key, { auth: { persistSession: false } })
   const { data, error } = await supabase.from('vacantes').select('*, clientes(company_name)')
@@ -676,7 +682,7 @@ function jobDetail(v) {
    =========================================================== */
 // Artículos generados desde el admin (tabla articulos, solo publicados).
 async function fetchArticulos() {
-  const url = process.env.SUPABASE_URL, key = process.env.SUPABASE_ANON_KEY
+  const { url, key } = supaCreds()
   if (!url || !key) return []
   try {
     const supabase = createClient(url, key, { auth: { persistSession: false } })
