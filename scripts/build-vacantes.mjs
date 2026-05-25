@@ -1031,7 +1031,7 @@ async function main() {
   for (const v of vacantes) await writeFile(join(ROOT, 'vacantes', `${slugFor(v)}.html`), jobDetail(v))
 
   // Sitemap
-  await writeFile(join(ROOT, 'sitemap.xml'), sitemap(vacantes))
+  await writeFile(join(ROOT, 'sitemap.xml'), sitemap(vacantes, allArticles))
 
   console.log(`✓ SEO build: ${LANDINGS.length} landings + ${vacantes.length} vacante(s) + sitemap`)
 }
