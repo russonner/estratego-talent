@@ -63,6 +63,7 @@ const FOOT = `
     <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
     <a href="/agencia-de-empleo-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Agencia de empleo</a> ·
     <a href="/sueldos/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Sueldos</a> ·
+    <a href="/calculadoras/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Calculadoras</a> ·
     <a href="/insights/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Insights</a> ·
     <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
   </div>

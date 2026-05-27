@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora de sueldo bruto a neto 2026 — México (ISR e IMSS) | Estratego Talent</title>
+<meta name="description" content="Calcula cuánto te queda en la mano de tu sueldo bruto en México 2026. ISR mensual SAT + cuotas obrero IMSS. Sin registro.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://estratego.com.mx/calculadoras/sueldo-neto.html">
+<meta property="og:type" content="website"><meta property="og:title" content="Calculadora de sueldo neto 2026 — México | Estratego Talent">
+<meta property="og:description" content="Cuánto te queda neto al mes después de ISR e IMSS. Sin registro."><meta property="og:url" content="https://estratego.com.mx/calculadoras/sueldo-neto.html">
+<meta property="og:locale" content="es_MX">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E8B4A0'/%3E%3Crect x='24' y='24' width='52' height='52' fill='%237BA7B0' rx='3'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%231B3A5C'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto me descuentan de mi sueldo en México?","acceptedAnswer":{"@type":"Answer","text":"Te descuentan ISR (Impuesto Sobre la Renta) según tablas mensuales del SAT y cuotas obrero del IMSS (aproximadamente 2.375% de tu salario base de cotización). Un sueldo de $30,000 bruto típicamente recibe $24,000–$25,500 netos."}},{"@type":"Question","name":"¿Qué incluye la cuota obrera del IMSS?","acceptedAnswer":{"@type":"Answer","text":"Enfermedades y maternidad en especie (0.4%), invalidez y vida (0.625%), cesantía en edad avanzada y vejez (1.125%) y gastos médicos para pensionados (0.375%). Total aproximado: 2.525% sobre el salario base de cotización (SBC), topado a 25 UMAs diarias."}},{"@type":"Question","name":"¿El subsidio al empleo todavía aplica en 2026?","acceptedAnswer":{"@type":"Answer","text":"Sí. El subsidio al empleo aplica para trabajadores con ingresos mensuales menores a aproximadamente $10,171 pesos. Esta calculadora no lo incluye por simplicidad; si tu sueldo es bajo, tu retención real será menor."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://estratego.com.mx/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://estratego.com.mx/calculadoras/"},{"@type":"ListItem","position":3,"name":"Calculadora de sueldo neto","item":"https://estratego.com.mx/calculadoras/sueldo-neto.html"}]}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#FAF8F6;color:#1B2A38;line-height:1.7}
+a{color:#1B3A5C}
+.wrap{max-width:880px;margin:0 auto;padding:48px 24px}
+.hero{background:#1B3A5C;color:#fff;padding:48px 24px}
+.hero .in{max-width:880px;margin:0 auto}
+.tag{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#E8B4A0;margin-bottom:14px}
+h1{font-size:30px;font-weight:800;line-height:1.2}
+.hero p{font-size:16px;color:rgba(255,255,255,.85);margin-top:12px;max-width:680px}
+h2{font-size:22px;font-weight:700;color:#1B3A5C;margin:34px 0 12px}
+h3{font-size:16px;font-weight:700;color:#1B2A38;margin:20px 0 6px}
+p{margin-bottom:14px}
+ul{margin:0 0 14px 22px}
+li{margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:#1B3A5C;color:#fff;border:none;font-family:inherit;cursor:pointer;font-weight:600;font-size:15px;padding:14px 26px;border-radius:12px;margin-top:8px}
+.btn:hover{background:#0F2540}
+.card{background:#fff;border:1px solid #ECE7DF;border-radius:16px;padding:24px;box-shadow:0 1px 2px rgba(27,42,56,.04);margin-bottom:14px}
+.muted{color:#5C6B78}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:600;color:#5C6B78;margin-bottom:6px}
+.field input,.field select{width:100%;height:44px;padding:0 14px;font-size:15px;font-family:inherit;color:#1B2A38;background:#fff;border:1px solid #D8D0C5;border-radius:10px;outline:none}
+.field input:focus,.field select:focus{border-color:#1B3A5C;box-shadow:0 0 0 3px rgba(27,58,92,.12)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.cols{grid-template-columns:1fr}}
+.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #ECE7DF}
+.row:last-child{border-bottom:none}
+.row strong{color:#1B2A38;font-variant-numeric:tabular-nums}
+.total{background:#1B3A5C;color:#fff;padding:18px;border-radius:12px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+.total div:first-child{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#B8D3D8}
+.total div:last-child{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#1B3A5C;background:#E7EDF3;padding:4px 10px;border-radius:999px;margin-bottom:8px}
+.disclaimer{background:#FBF6F0;border:1px solid #EAD9C8;border-radius:10px;padding:14px 16px;font-size:13px;color:#5C6B78;margin:20px 0}
+.faq summary{cursor:pointer;font-weight:600;color:#1B3A5C;padding:14px 0;border-bottom:1px solid #ECE7DF;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq[open] p{padding:10px 0 16px;color:#5C6B78}
+.toggle{display:inline-flex;background:#F4F1EC;border-radius:10px;padding:4px}
+.toggle button{flex:1;padding:8px 16px;font-size:13px;font-weight:600;background:transparent;border:none;border-radius:8px;cursor:pointer;color:#5C6B78}
+.toggle button.on{background:#fff;color:#1B3A5C;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+</style></head><body>
+
+<nav style="display:flex;align-items:center;justify-content:space-between;padding:14px 36px;background:#091929;position:sticky;top:0;z-index:100">
+  <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+    <svg width="26" height="26" viewBox="0 0 100 100"><polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#E8B4A0"/><rect x="24" y="24" width="52" height="52" fill="#7BA7B0" rx="3"/><circle cx="50" cy="50" r="16" fill="#1B3A5C"/></svg>
+    <span style="font-size:13px;font-weight:600;letter-spacing:.18em;color:#fff;text-transform:uppercase">Estratego Talent</span>
+  </a>
+  <div style="display:flex;gap:18px;align-items:center">
+    <a href="/vacantes/" style="font-size:13px;color:#B8D3D8;text-decoration:none">Vacantes</a>
+    <a href="https://portal.estratego.com.mx/contacto-empresas" style="font-size:12px;font-weight:600;background:#E8B4A0;color:#0F2540;padding:8px 16px;border-radius:8px;text-decoration:none">Solicitar propuesta</a>
+  </div>
+</nav>
+
+<header class="hero"><div class="in">
+  <span class="tag">Calculadora · México 2026</span>
+  <h1>Calculadora de sueldo bruto a neto</h1>
+  <p>Cuánto te queda en la mano después de ISR e IMSS. Tablas de ISR mensual del SAT y cuotas obrero IMSS vigentes. Sin registro.</p>
+</div></header>
+
+<div class="wrap">
+
+  <form id="form-neto" class="card" onsubmit="return false;">
+    <h2 style="margin-top:0">Tus datos</h2>
+
+    <div class="field">
+      <label>¿Qué quieres calcular?</label>
+      <div class="toggle">
+        <button type="button" class="on" data-modo="bruto-neto" onclick="setModo('bruto-neto', this)">Tengo el bruto → Quiero el neto</button>
+        <button type="button" data-modo="neto-bruto" onclick="setModo('neto-bruto', this)">Tengo el neto → ¿Cuál es el bruto?</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="sueldo" id="lbl-sueldo">Sueldo mensual bruto (MXN)</label>
+      <input type="number" id="sueldo" min="0" step="100" placeholder="Ej. 30000" required>
+    </div>
+
+    <button type="button" class="btn" onclick="calcular()">Calcular</button>
+  </form>
+
+  <div id="resultado" class="card" style="display:none">
+    <span class="chip">Resultado</span>
+    <h2 style="margin-top:0">Desglose mensual</h2>
+    <div id="meta" class="muted" style="font-size:13px;margin-bottom:12px"></div>
+    <div id="rows"></div>
+    <div class="total"><div id="lbl-total">Sueldo neto en la mano</div><div id="total">$0</div></div>
+    <p class="muted" style="font-size:13px;margin-top:14px">Cálculo aproximado. No considera subsidio al empleo (aplica para sueldos &lt; $10,171/mes), prestaciones gravables como vales, despensa o fondo de ahorro, ni deducciones personales. Es la base contractual; tu recibo real puede variar ligeramente.</p>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> Tablas de ISR mensual SAT 2025 (vigentes para 2026 hasta nueva publicación oficial). Cuota obrero IMSS aproximada (2.525% del SBC, topada a 25 UMAs diarias). Para un cálculo exacto consulta a tu departamento de nómina o a un contador público.
+  </div>
+
+  <h2>¿Por qué la diferencia entre bruto y neto?</h2>
+  <p>En México todo sueldo tiene dos descuentos principales antes de llegar a tu cuenta:</p>
+  <ul>
+    <li><strong>ISR</strong> (Impuesto Sobre la Renta) — calculado con tablas mensuales del SAT. Es progresivo: a mayor sueldo, mayor tasa marginal.</li>
+    <li><strong>IMSS (cuota obrera)</strong> — aproximadamente 2.525% de tu salario base de cotización (SBC), topado a 25 UMAs diarias. Cubre tu acceso a servicios médicos, invalidez, retiro y cesantía.</li>
+  </ul>
+  <p>Tu empleador también paga por su lado: cuota patronal IMSS (~25–30% del SBC), Infonavit (5%), SAR (2%) e ISR sobre nómina estatal (2–4%). Esto no se descuenta de tu sueldo pero <strong>es lo que tu empleador realmente desembolsa por ti</strong> (a esto se le llama "costo total del empleo").</p>
+
+  <h2>Tablas ISR mensual SAT 2025 (vigentes 2026 hasta publicación oficial)</h2>
+  <table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px">
+    <thead><tr style="background:#F4F1EC"><th style="text-align:left;padding:8px 12px;color:#5C6B78">Límite inferior</th><th style="text-align:left;padding:8px 12px;color:#5C6B78">Límite superior</th><th style="text-align:left;padding:8px 12px;color:#5C6B78">Cuota fija</th><th style="text-align:right;padding:8px 12px;color:#5C6B78">% sobre excedente</th></tr></thead>
+    <tbody>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$0.01</td><td style="padding:8px 12px">$746.04</td><td style="padding:8px 12px">$0.00</td><td style="padding:8px 12px;text-align:right">1.92%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$746.05</td><td style="padding:8px 12px">$6,332.05</td><td style="padding:8px 12px">$14.32</td><td style="padding:8px 12px;text-align:right">6.40%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$6,332.06</td><td style="padding:8px 12px">$11,128.01</td><td style="padding:8px 12px">$371.83</td><td style="padding:8px 12px;text-align:right">10.88%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$11,128.02</td><td style="padding:8px 12px">$12,935.82</td><td style="padding:8px 12px">$893.63</td><td style="padding:8px 12px;text-align:right">16.00%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$12,935.83</td><td style="padding:8px 12px">$15,487.71</td><td style="padding:8px 12px">$1,182.88</td><td style="padding:8px 12px;text-align:right">17.92%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$15,487.72</td><td style="padding:8px 12px">$31,236.49</td><td style="padding:8px 12px">$1,640.18</td><td style="padding:8px 12px;text-align:right">21.36%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$31,236.50</td><td style="padding:8px 12px">$49,233.00</td><td style="padding:8px 12px">$5,004.12</td><td style="padding:8px 12px;text-align:right">23.52%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$49,233.01</td><td style="padding:8px 12px">$93,993.90</td><td style="padding:8px 12px">$9,236.89</td><td style="padding:8px 12px;text-align:right">30.00%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$93,993.91</td><td style="padding:8px 12px">$125,325.20</td><td style="padding:8px 12px">$22,665.17</td><td style="padding:8px 12px;text-align:right">32.00%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$125,325.21</td><td style="padding:8px 12px">$375,975.61</td><td style="padding:8px 12px">$32,691.18</td><td style="padding:8px 12px;text-align:right">34.00%</td></tr>
+      <tr style="border-top:1px solid #ECE7DF"><td style="padding:8px 12px">$375,975.62</td><td style="padding:8px 12px">en adelante</td><td style="padding:8px 12px">$117,912.32</td><td style="padding:8px 12px;text-align:right">35.00%</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Preguntas frecuentes</h2>
+  <details class="faq" style="margin-bottom:8px"><summary>¿Qué porcentaje aproximado pierdo de mi sueldo?</summary><p>Depende del nivel: con $15,000 brutos pierdes ~10–12% (queda ~$13,400 neto). Con $30,000 brutos pierdes ~16–18% (queda ~$24,800). Con $60,000 brutos pierdes ~22–24%. Con $100,000+ pierdes 26–30%.</p></details>
+  <details class="faq" style="margin-bottom:8px"><summary>¿Por qué mi recibo real no coincide con esta calculadora?</summary><p>Causas típicas: vales de despensa o fondo de ahorro que reducen tu base gravable, percepciones gravables variables (comisiones, bonos), o el método que use tu patrón para calcular el ISR (método A vs B). Esta calculadora usa el método más común sin prestaciones especiales.</p></details>
+  <details class="faq" style="margin-bottom:8px"><summary>¿Qué es el SBC y por qué importa?</summary><p>El Salario Base de Cotización (SBC) es la base que usa el IMSS para calcular tus cuotas. Incluye salario diario más prestaciones gravables (aguinaldo, prima vacacional, despensa). El SBC está topado a 25 UMAs diarias (≈$2,828 al día en 2025), por lo que sueldos muy altos no pagan IMSS sobre el excedente.</p></details>
+  <details class="faq"><summary>¿Qué pasa con el aguinaldo y la PTU en este cálculo?</summary><p>El aguinaldo y la PTU se gravan por separado al momento de pagarse, no se prorratean mensualmente. Cada uno tiene su exención (30 UMAs para aguinaldo, 15 UMAs para PTU). Esta calculadora solo cubre el sueldo mensual ordinario.</p></details>
+
+  <div class="card" style="background:#F4F1EC;border:none;margin-top:30px">
+    <h3 style="margin:0 0 6px">Más calculadoras</h3>
+    <p style="margin:0 0 12px;color:#5C6B78">Revisa también lo que te toca por terminación o tu aguinaldo proporcional.</p>
+    <a href="/calculadoras/finiquito.html" class="btn" style="margin-right:8px">Calcular finiquito</a>
+    <a href="/calculadoras/aguinaldo.html" class="btn" style="background:#E8B4A0;color:#0F2540">Aguinaldo</a>
+  </div>
+
+</div>
+
+<footer style="background:#091929;color:rgba(255,255,255,.6);padding:36px;text-align:center;font-size:13px;line-height:1.9">
+  <div style="margin-bottom:8px">
+    <a href="/reclutamiento-y-seleccion-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Reclutamiento Monterrey</a> ·
+    <a href="/headhunting-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Headhunting</a> ·
+    <a href="/estudios-socioeconomicos-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Estudios socioeconómicos</a> ·
+    <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
+    <a href="/sueldos/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Sueldos</a> ·
+    <a href="/calculadoras/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Calculadoras</a> ·
+    <a href="/insights/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Insights</a> ·
+    <a href="/vacantes/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Vacantes</a>
+  </div>
+  © 2026 Estratego Talent · Reclutamiento y selección de personal en Monterrey, Nuevo León.
+</footer>
+
+<script>
+let modo = 'bruto-neto'
+
+const UMA_DIARIA = 113.14 // UMA 2025
+const SBC_TOPE_DIARIO = 25 * UMA_DIARIA // tope IMSS
+const IMSS_OBRERA = 0.02525 // cuota obrera aproximada como % del SBC
+
+function setModo(m, btn) {
+  modo = m
+  document.querySelectorAll('.toggle button').forEach(b => b.classList.remove('on'))
+  btn.classList.add('on')
+  document.getElementById('lbl-sueldo').textContent = m === 'bruto-neto'
+    ? 'Sueldo mensual bruto (MXN)'
+    : 'Sueldo mensual neto deseado (MXN)'
+  document.getElementById('lbl-total').textContent = m === 'bruto-neto'
+    ? 'Sueldo neto en la mano'
+    : 'Sueldo bruto equivalente'
+  document.getElementById('resultado').style.display = 'none'
+}
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString('es-MX') }
+
+// Tarifa mensual ISR 2025 — límite inferior, cuota fija, tasa marginal.
+const ISR_TARIFA = [
+  { li: 0.01,       cuota: 0,         tasa: 0.0192 },
+  { li: 746.05,     cuota: 14.32,     tasa: 0.0640 },
+  { li: 6332.06,    cuota: 371.83,    tasa: 0.1088 },
+  { li: 11128.02,   cuota: 893.63,    tasa: 0.1600 },
+  { li: 12935.83,   cuota: 1182.88,   tasa: 0.1792 },
+  { li: 15487.72,   cuota: 1640.18,   tasa: 0.2136 },
+  { li: 31236.50,   cuota: 5004.12,   tasa: 0.2352 },
+  { li: 49233.01,   cuota: 9236.89,   tasa: 0.3000 },
+  { li: 93993.91,   cuota: 22665.17,  tasa: 0.3200 },
+  { li: 125325.21,  cuota: 32691.18,  tasa: 0.3400 },
+  { li: 375975.62,  cuota: 117912.32, tasa: 0.3500 },
+]
+
+function isrMensual(base) {
+  let rango = ISR_TARIFA[0]
+  for (const r of ISR_TARIFA) { if (base >= r.li) rango = r; else break }
+  return rango.cuota + (base - rango.li) * rango.tasa
+}
+
+function calcularDescuentos(bruto) {
+  // IMSS sobre SBC (aproximación: SBC = sueldo, con tope 25 UMAs/día)
+  const sbcDiario = Math.min(bruto / 30, SBC_TOPE_DIARIO)
+  const sbcMensual = sbcDiario * 30
+  const imss = sbcMensual * IMSS_OBRERA
+  const isr = isrMensual(bruto)
+  return { isr, imss, sbcDiario }
+}
+
+function calcular() {
+  const input = +document.getElementById('sueldo').value
+  if (!input || input <= 0) { alert('Captura un sueldo válido.'); return }
+
+  let bruto, neto, isr, imss, sbcDiario
+  if (modo === 'bruto-neto') {
+    bruto = input
+    const d = calcularDescuentos(bruto)
+    isr = d.isr; imss = d.imss; sbcDiario = d.sbcDiario
+    neto = bruto - isr - imss
+  } else {
+    // Búsqueda binaria: encontrar el bruto que produce ese neto
+    let lo = input, hi = input * 2
+    for (let i = 0; i < 50; i++) {
+      const mid = (lo + hi) / 2
+      const d = calcularDescuentos(mid)
+      const n = mid - d.isr - d.imss
+      if (n < input) lo = mid; else hi = mid
+    }
+    bruto = (lo + hi) / 2
+    const d = calcularDescuentos(bruto)
+    isr = d.isr; imss = d.imss; sbcDiario = d.sbcDiario
+    neto = input
+  }
+
+  const pctIsr = (isr / bruto) * 100
+  const pctImss = (imss / bruto) * 100
+  const pctTotal = pctIsr + pctImss
+
+  document.getElementById('meta').innerHTML =
+    `Salario diario: <strong>${fmt(bruto / 30)}</strong> · SBC diario (para IMSS): <strong>${fmt(sbcDiario)}</strong>${sbcDiario === SBC_TOPE_DIARIO ? ' (topado a 25 UMAs)' : ''}`
+
+  document.getElementById('rows').innerHTML = `
+    <div class="row"><div>Sueldo bruto mensual</div><strong>${fmt(bruto)}</strong></div>
+    <div class="row" style="color:#9A4639"><div>ISR retenido (${pctIsr.toFixed(2)}%)</div><strong>−${fmt(isr)}</strong></div>
+    <div class="row" style="color:#9A4639"><div>IMSS cuota obrera (${pctImss.toFixed(2)}%)</div><strong>−${fmt(imss)}</strong></div>
+    <div class="row" style="font-weight:600"><div>Total retenciones (${pctTotal.toFixed(2)}%)</div><strong>−${fmt(isr + imss)}</strong></div>
+  `
+  document.getElementById('total').textContent = fmt(modo === 'bruto-neto' ? neto : bruto)
+  document.getElementById('resultado').style.display = 'block'
+  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' })
+}
+</script>
+</body></html>
