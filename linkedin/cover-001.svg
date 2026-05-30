@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1376" height="440" viewBox="0 0 1376 440"
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="960" viewBox="0 0 1920 960"
      font-family="Plus Jakarta Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
   <!--
     Portada LinkedIn Newsletter "Pulso del Talento NL" — Edición 001
-    Spec: 1376 × 440 px
+    Spec REAL de LinkedIn Newsletter: 1920 × 960 (ratio 2:1)
+    El 1376×440 anterior (3.13:1) salía cortado en los lados.
 
     Grilla:
-      Márgenes: 80 left / 80 right / 56 top / 56 bottom
-      Columna izquierda (contenido): x=80..820  (ancho 740)
-      Divisor vertical opcional: x=850
-      Columna derecha (callout):    x=900..1296 (ancho 396)
-      Bloques verticales con paso de 16px o 24px
+      Márgenes: 120 left/right, 100 top/bottom
+      Área segura LinkedIn (90% central): asegurar que TODO contenido crítico
+      esté dentro de x=192..1728, y=96..864
+      Columna izquierda: x=120..900 (ancho 780)
+      Columna derecha:   x=1020..1800 (ancho 780)
+      Gap entre columnas: 120 px
   -->
 
   <defs>
@@ -21,19 +23,19 @@
       <stop offset="100%" stop-color="#264C73"/>
     </linearGradient>
 
-    <!-- Brillo radial suave (atrás del título) -->
-    <radialGradient id="glow" cx="22%" cy="55%" r="50%">
-      <stop offset="0%"   stop-color="#7BA7B0" stop-opacity="0.32"/>
+    <!-- Brillo radial detrás del título -->
+    <radialGradient id="glow" cx="22%" cy="50%" r="55%">
+      <stop offset="0%"   stop-color="#7BA7B0" stop-opacity="0.30"/>
       <stop offset="100%" stop-color="#7BA7B0" stop-opacity="0"/>
     </radialGradient>
 
-    <!-- Fondo secundario del callout derecho -->
+    <!-- Fondo secundario del callout -->
     <linearGradient id="bgCallout" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.07"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.02"/>
     </linearGradient>
 
-    <!-- Logo canónico Estratego (idéntico al favicon del sitio) -->
+    <!-- Logo canónico Estratego -->
     <symbol id="estratego-logo" viewBox="0 0 100 100">
       <polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#E8B4A0"/>
       <rect x="24" y="24" width="52" height="52" fill="#7BA7B0" rx="3"/>
@@ -42,59 +44,73 @@
   </defs>
 
   <!-- 1) Fondo primario -->
-  <rect width="1376" height="440" fill="url(#bgPrimary)"/>
+  <rect width="1920" height="960" fill="url(#bgPrimary)"/>
 
-  <!-- 2) Brillo de fondo en zona del título -->
-  <rect width="1376" height="440" fill="url(#glow)"/>
-
-  <!-- 3) Divisor vertical sutil entre columnas (no a ras de bordes) -->
-  <line x1="868" y1="80" x2="868" y2="360" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1"/>
+  <!-- 2) Brillo de fondo -->
+  <rect width="1920" height="960" fill="url(#glow)"/>
 
   <!-- ===========================================================
-       COLUMNA IZQUIERDA — Brand + título + autor
-       Bloques en y: 56 (logo) → 144 (chip) → 192 (título) → 288 (subt.) → 364 (autor)
-       Todos arrancan en x=80
+       HEADER (y=100-180) — Brand mark
        =========================================================== -->
+  <use href="#estratego-logo" x="120" y="100" width="64" height="64"/>
+  <text x="204" y="132" fill="#FFFFFF" font-size="18" font-weight="800" letter-spacing="4">ESTRATEGO TALENT</text>
+  <text x="204" y="158" fill="#E8B4A0" font-size="14" font-weight="600" letter-spacing="1.4">Reclutamiento y selección · Monterrey, Nuevo León</text>
 
-  <!-- Brand mark + wordmark — ancla y=56, altura 44 -->
-  <use href="#estratego-logo" x="80" y="56" width="44" height="44"/>
-  <text x="138" y="78"  fill="#FFFFFF" font-size="13" font-weight="800" letter-spacing="2.8">ESTRATEGO TALENT</text>
-  <text x="138" y="96"  fill="#E8B4A0" font-size="11" font-weight="600" letter-spacing="1">Reclutamiento y selección · Monterrey, Nuevo León</text>
-
-  <!-- Chip de edición — ancho proporcional al título -->
-  <rect x="80" y="144" width="384" height="40" rx="20" fill="#E8B4A0"/>
-  <text x="100" y="170" fill="#0F2540" font-size="13" font-weight="800" letter-spacing="2.6">EDICIÓN 001  ·  MENSUAL  ·  MAYO 2026</text>
-
-  <!-- Título — baseline y=246, font 60 → visual top ≈ y=200 (16px bajo chip) -->
-  <text x="80" y="246" fill="#FFFFFF" font-size="60" font-weight="800" letter-spacing="-1.5">Pulso del Talento NL</text>
-
-  <!-- Subtítulo — 2 líneas, line-height 28 -->
-  <text x="80" y="288" fill="#B8D3D8" font-size="20" font-weight="500">Sueldos, vacantes y movimientos del mercado laboral</text>
-  <text x="80" y="316" fill="#B8D3D8" font-size="20" font-weight="500">en Monterrey y su zona metropolitana.</text>
-
-  <!-- Autor con barra de acento -->
-  <rect  x="80" y="364" width="48" height="2" fill="#E8B4A0"/>
-  <text  x="80"  y="392" fill="#FFFFFF" font-size="14" font-weight="700">Alejandro Russo</text>
-  <text  x="240" y="392" fill="#B8D3D8" font-size="13" font-weight="500">Director · Estratego Talent</text>
+  <!-- Divisor sutil debajo del header -->
+  <line x1="120" y1="220" x2="1800" y2="220" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
 
   <!-- ===========================================================
-       COLUMNA DERECHA — Callout numérico
-       Tarjeta con fondo translúcido. Centro del bloque ~ y=220
+       COLUMNA IZQUIERDA — Chip + Título + Subtítulo
        =========================================================== -->
 
-  <!-- Tarjeta de fondo del callout (alineada con título a la izquierda) -->
-  <rect x="900" y="120" rx="16" width="396" height="220" fill="url(#bgCallout)" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+  <!-- Chip de edición -->
+  <rect x="120" y="288" width="480" height="52" rx="26" fill="#E8B4A0"/>
+  <text x="148" y="322" fill="#0F2540" font-size="17" font-weight="800" letter-spacing="3">EDICIÓN 001  ·  MENSUAL  ·  MAYO 2026</text>
 
-  <!-- Logo Estratego como marca de agua, anclado en la esquina inferior derecha del callout -->
-  <use href="#estratego-logo" x="1140" y="208" width="140" height="140" opacity="0.10"/>
+  <!-- Título principal (puede ocupar 2 líneas si es necesario) -->
+  <text x="120" y="448" fill="#FFFFFF" font-size="92" font-weight="800" letter-spacing="-2.5">Pulso del</text>
+  <text x="120" y="548" fill="#FFFFFF" font-size="92" font-weight="800" letter-spacing="-2.5">Talento NL</text>
+
+  <!-- Subtítulo -->
+  <text x="120" y="620" fill="#B8D3D8" font-size="26" font-weight="500">Sueldos, vacantes y movimientos del mercado laboral</text>
+  <text x="120" y="656" fill="#B8D3D8" font-size="26" font-weight="500">en Monterrey y su zona metropolitana.</text>
+
+  <!-- ===========================================================
+       COLUMNA DERECHA — Callout métrica del mes
+       Card centrada verticalmente: y=300..680 (alto 380)
+       =========================================================== -->
+
+  <!-- Tarjeta translúcida -->
+  <rect x="1080" y="300" width="720" height="380" rx="20"
+        fill="url(#bgCallout)" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- Marca de agua: logo en esquina inferior derecha de la tarjeta -->
+  <use href="#estratego-logo" x="1620" y="500" width="170" height="170" opacity="0.10"/>
 
   <!-- Etiqueta -->
-  <text x="924" y="158" fill="#E8B4A0" font-size="13" font-weight="800" letter-spacing="2.4">MÉTRICA DEL MES</text>
+  <text x="1116" y="362" fill="#E8B4A0" font-size="18" font-weight="800" letter-spacing="3">MÉTRICA DEL MES</text>
 
   <!-- Número grande -->
-  <text x="924" y="260" fill="#FFFFFF" font-size="112" font-weight="800" letter-spacing="-3">38</text>
+  <text x="1116" y="540" fill="#FFFFFF" font-size="200" font-weight="800" letter-spacing="-6">38</text>
 
-  <!-- Texto descriptivo (2 líneas) -->
-  <text x="924" y="296" fill="#B8D3D8" font-size="17" font-weight="500">días para cerrar una gerencia</text>
-  <text x="924" y="318" fill="#B8D3D8" font-size="17" font-weight="500">en Monterrey hoy.</text>
+  <!-- Descripción del número -->
+  <text x="1116" y="600" fill="#B8D3D8" font-size="24" font-weight="500">días para cerrar una gerencia</text>
+  <text x="1116" y="634" fill="#B8D3D8" font-size="24" font-weight="500">en Monterrey hoy.</text>
+
+  <!-- ===========================================================
+       FOOTER (y=780-860) — Autor + URL
+       =========================================================== -->
+
+  <!-- Divisor superior del footer -->
+  <line x1="120" y1="760" x2="1800" y2="760" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="1"/>
+
+  <!-- Barra de acento -->
+  <rect x="120" y="800" width="64" height="3" fill="#E8B4A0"/>
+
+  <!-- Autor -->
+  <text x="120" y="848" fill="#FFFFFF" font-size="20" font-weight="700">Alejandro Russo</text>
+  <text x="320" y="848" fill="#B8D3D8" font-size="18" font-weight="500">Director · Estratego Talent</text>
+
+  <!-- URL en el lado derecho -->
+  <text x="1800" y="848" fill="#B8D3D8" font-size="18" font-weight="500" text-anchor="end">estratego.com.mx</text>
 </svg>
