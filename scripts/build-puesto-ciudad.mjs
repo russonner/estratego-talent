@@ -350,7 +350,7 @@ function renderLanding(puesto, ciudad) {
   <div class="card" style="background:#F4F1EC;border:none;margin:30px 0">
     <h3 style="margin:0 0 6px">¿Listo para buscar tu próximo ${esc(puesto.nombre.toLowerCase())}?</h3>
     <p style="margin:0 0 12px;color:#5C6B78">Solicita una propuesta sin costo. Te respondemos en menos de 24 horas con tiempos, costo y siguiente paso.</p>
-    <a href="https://portal.estratego.com.mx/contacto-empresas" class="btn">Solicitar propuesta</a>
+    <a href="https://portal.estratego.com.mx/contacto-empresas" class="btn" onclick="gtag('event','cta_click',{event_category:'reclutamiento_landing',event_label:'${esc(puesto.slug)}_${esc(ciudad.slug)}'})">Solicitar propuesta</a>
   </div>
 
   <h2>Preguntas frecuentes</h2>
@@ -379,6 +379,8 @@ function renderLanding(puesto, ciudad) {
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E8B4A0'/%3E%3Crect x='24' y='24' width='52' height='52' fill='%237BA7B0' rx='3'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%231B3A5C'/%3E%3C/svg%3E">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCYEFGW93V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JCYEFGW93V');</script>
 ${jsonLd.map(b => `<script type="application/ld+json">${JSON.stringify(b)}</script>`).join('\n')}
 <style>${shellCss()}</style>
 </head><body>
@@ -432,7 +434,7 @@ function renderHub() {
   <div class="card" style="background:#F4F1EC;border:none;margin-top:30px">
     <h3 style="margin:0 0 6px">¿No encuentras el puesto que buscas?</h3>
     <p style="margin:0 0 12px;color:#5C6B78">Buscamos cualquier perfil especializado, gerencial o directivo en Nuevo León. Cuéntanos el puesto y te respondemos en menos de 24 horas.</p>
-    <a href="https://portal.estratego.com.mx/contacto-empresas" class="btn">Solicitar propuesta</a>
+    <a href="https://portal.estratego.com.mx/contacto-empresas" class="btn" onclick="gtag('event','cta_click',{event_category:'reclutamiento_landing',event_label:'hub_propuesta'})">Solicitar propuesta</a>
   </div>
 
 </div>`
@@ -448,6 +450,8 @@ function renderHub() {
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E8B4A0'/%3E%3Crect x='24' y='24' width='52' height='52' fill='%237BA7B0' rx='3'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%231B3A5C'/%3E%3C/svg%3E">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCYEFGW93V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JCYEFGW93V');</script>
 ${jsonLd.map(b => `<script type="application/ld+json">${JSON.stringify(b)}</script>`).join('\n')}
 <style>${shellCss()}</style>
 </head><body>
@@ -464,8 +468,10 @@ async function updateSitemap(urls) {
   const path = join(ROOT, 'sitemap.xml')
   let xml
   try { xml = await readFile(path, 'utf8') } catch { return }
-  // Quita entradas previas de /reclutamiento/* (excepto reclutamiento-y-seleccion-monterrey.html)
-  xml = xml.replace(/\s*<url><loc>https:\/\/estratego\.com\.mx\/reclutamiento\/[^<]+<\/loc>[^<]*(<[^>]+>[^<]*)*<\/url>/g, '')
+  // Quita entradas previas de /reclutamiento/* (incluyendo el hub que termina en /).
+  // Cuidado: la URL del hub https://estratego.com.mx/reclutamiento/ no tiene chars
+  // después del slash, por eso usamos [^<]* (cero o más) en lugar de [^<]+.
+  xml = xml.replace(/\s*<url><loc>https:\/\/estratego\.com\.mx\/reclutamiento\/[^<]*<\/loc>[^<]*(<[^>]+>[^<]*)*<\/url>/g, '')
   const block = urls.map(u => `  <url><loc>${u}</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>`).join('\n')
   xml = xml.replace('</urlset>', `${block}\n</urlset>`)
   await writeFile(path, xml, 'utf8')

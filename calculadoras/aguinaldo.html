@@ -9,6 +9,8 @@
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E8B4A0'/%3E%3Crect x='24' y='24' width='52' height='52' fill='%237BA7B0' rx='3'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%231B3A5C'/%3E%3C/svg%3E">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCYEFGW93V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JCYEFGW93V');</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuántos días de aguinaldo me corresponden en México?","acceptedAnswer":{"@type":"Answer","text":"Por ley, todos los trabajadores en México tienen derecho a un aguinaldo equivalente a 15 días de salario como mínimo, pagadero antes del 20 de diciembre (artículo 87 de la LFT). Las empresas pueden ofrecer más por contrato colectivo o política interna."}},{"@type":"Question","name":"¿Cómo se calcula el aguinaldo proporcional?","acceptedAnswer":{"@type":"Answer","text":"Si no trabajaste el año completo, el aguinaldo es proporcional: (días de aguinaldo / 365) × días trabajados en el año × salario diario. Por ejemplo: 15 días × salario diario × (días trabajados / 365)."}},{"@type":"Question","name":"¿El aguinaldo paga ISR?","acceptedAnswer":{"@type":"Answer","text":"Sí, pero hay una exención de hasta 30 UMAs sobre el aguinaldo (LISR art. 93). En 2025 eso equivale a aproximadamente $3,394 pesos exentos. El excedente paga ISR según las tablas mensuales del SAT."}},{"@type":"Question","name":"¿Cuándo debe pagarse el aguinaldo?","acceptedAnswer":{"@type":"Answer","text":"Antes del 20 de diciembre de cada año. Si no se paga en esa fecha, la empresa puede ser sancionada por la STPS y el trabajador puede demandar el pago."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://estratego.com.mx/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://estratego.com.mx/calculadoras/"},{"@type":"ListItem","position":3,"name":"Calculadora de aguinaldo","item":"https://estratego.com.mx/calculadoras/aguinaldo.html"}]}</script>
 <style>
@@ -144,8 +146,8 @@ li{margin-bottom:6px}
   <div class="card" style="background:#F4F1EC;border:none;margin-top:30px">
     <h3 style="margin:0 0 6px">Más calculadoras</h3>
     <p style="margin:0 0 12px;color:#5C6B78">Revisa también lo que te toca por terminación de contrato o cuánto te queda neto al mes.</p>
-    <a href="/calculadoras/finiquito.html" class="btn" style="margin-right:8px">Calcular finiquito</a>
-    <a href="/calculadoras/sueldo-neto.html" class="btn" style="background:#E8B4A0;color:#0F2540">Sueldo neto</a>
+    <a href="/calculadoras/finiquito.html" class="btn" style="margin-right:8px" onclick="gtag('event','cta_click',{event_category:'calculadoras',event_label:'aguinaldo_to_finiquito'})">Calcular finiquito</a>
+    <a href="/calculadoras/sueldo-neto.html" class="btn" style="background:#E8B4A0;color:#0F2540" onclick="gtag('event','cta_click',{event_category:'calculadoras',event_label:'aguinaldo_to_sueldo_neto'})">Sueldo neto</a>
   </div>
 
 </div>
@@ -212,34 +214,35 @@ function calcular() {
   document.getElementById('total').textContent = fmt(neto)
   document.getElementById('resultado').style.display = 'block'
   document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' })
+
+  const bucket = neto < 5000 ? '0-5k' : neto < 15000 ? '5-15k' : neto < 30000 ? '15-30k' : neto < 60000 ? '30-60k' : '60k+'
+  gtag('event','calculator_used',{ event_category:'calculadoras', event_label:'aguinaldo', dias_aguinaldo: dias, total_bucket: bucket })
 }
 
 // Tarifa mensual ISR 2025 (Resolución Miscelánea Fiscal 2025, Anexo 8).
-// Aproximada — el patrón puede usar método A o B; aquí usamos método A directo.
+// `li` = límite inferior del rango. La fórmula SAT es:
+//   ISR = cuota fija + (base − límite_inferior) × % sobre excedente
+// Verificación rápida (ejemplos canónicos):
+//   base $10,000  → 371.83 + (10000-6332.06) × 0.1088 ≈ $770.91
+//   base $30,000  → 1640.18 + (30000-15487.72) × 0.2136 ≈ $4,740.13
+//   base $60,000  → 9236.89 + (60000-49233.01) × 0.3000 ≈ $12,467.79
+const ISR_TARIFA = [
+  { li: 0.01,       cuota: 0,         tasa: 0.0192 },
+  { li: 746.05,     cuota: 14.32,     tasa: 0.0640 },
+  { li: 6332.06,    cuota: 371.83,    tasa: 0.1088 },
+  { li: 11128.02,   cuota: 893.63,    tasa: 0.1600 },
+  { li: 12935.83,   cuota: 1182.88,   tasa: 0.1792 },
+  { li: 15487.72,   cuota: 1640.18,   tasa: 0.2136 },
+  { li: 31236.50,   cuota: 5004.12,   tasa: 0.2352 },
+  { li: 49233.01,   cuota: 9236.89,   tasa: 0.3000 },
+  { li: 93993.91,   cuota: 22665.17,  tasa: 0.3200 },
+  { li: 125325.21,  cuota: 32691.18,  tasa: 0.3400 },
+  { li: 375975.62,  cuota: 117912.32, tasa: 0.3500 },
+]
 function isrMensual(base) {
-  const t = [
-    { tope: 746.04,     cuota: 0,         tasa: 0.0192 },
-    { tope: 6332.05,    cuota: 14.32,     tasa: 0.0640 },
-    { tope: 11128.01,   cuota: 371.83,    tasa: 0.1088 },
-    { tope: 12935.82,   cuota: 893.63,    tasa: 0.1600 },
-    { tope: 15487.71,   cuota: 1182.88,   tasa: 0.1792 },
-    { tope: 31236.49,   cuota: 1640.18,   tasa: 0.2136 },
-    { tope: 49233.00,   cuota: 5004.12,   tasa: 0.2352 },
-    { tope: 93993.90,   cuota: 9236.89,   tasa: 0.3000 },
-    { tope: 125325.20,  cuota: 22665.17,  tasa: 0.3200 },
-    { tope: 375975.61,  cuota: 32691.18,  tasa: 0.3400 },
-    { tope: Infinity,   cuota: 117912.32, tasa: 0.3500 },
-  ]
-  // Encuentra el rango: la "base" es lo que excede del LÍMITE INFERIOR del rango.
-  // La tabla SAT publica límite inferior + cuota fija. Aquí guardamos LÍMITE SUPERIOR para detectar el rango.
-  let prevTope = 0.01
-  for (const r of t) {
-    if (base <= r.tope) {
-      return r.cuota + (base - prevTope + 0.01) * r.tasa
-    }
-    prevTope = r.tope
-  }
-  return 0
+  let rango = ISR_TARIFA[0]
+  for (const r of ISR_TARIFA) { if (base >= r.li) rango = r; else break }
+  return rango.cuota + (base - rango.li) * rango.tasa
 }
 </script>
 </body></html>

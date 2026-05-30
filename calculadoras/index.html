@@ -9,6 +9,8 @@
 <meta property="og:locale" content="es_MX">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 93,27 93,73 50,96 7,73 7,27' fill='%23E8B4A0'/%3E%3Crect x='24' y='24' width='52' height='52' fill='%237BA7B0' rx='3'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%231B3A5C'/%3E%3C/svg%3E">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCYEFGW93V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JCYEFGW93V');</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Calculadoras laborales","url":"https://estratego.com.mx/calculadoras/"}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -88,9 +90,15 @@ li{margin-bottom:6px}
 
   <h2>¿Necesitas más?</h2>
   <p>Si eres empresa y quieres asesoría sobre liquidaciones, outplacement o estructuración de paquetes de salida, escríbenos.</p>
-  <a href="https://portal.estratego.com.mx/contacto-empresas" class="btn">Solicitar asesoría</a>
+  <a href="https://portal.estratego.com.mx/contacto-empresas" class="btn" onclick="gtag('event','cta_click',{event_category:'calculadoras',event_label:'hub_asesoria'})">Solicitar asesoría</a>
 
 </div>
+<script>
+// Tracking: clic en cualquier card de calculadora (entrada al funnel)
+document.querySelectorAll('.wrap a.card').forEach(a => {
+  a.addEventListener('click', () => gtag('event','calculadora_open',{ event_category:'calculadoras', event_label:a.getAttribute('href') }))
+})
+</script>
 
 <footer style="background:#091929;color:rgba(255,255,255,.6);padding:36px;text-align:center;font-size:13px;line-height:1.9">
   <div style="margin-bottom:8px">

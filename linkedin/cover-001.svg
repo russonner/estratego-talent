@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1376" height="440" viewBox="0 0 1376 440" font-family="Plus Jakarta Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif">
+  <!--
+    Portada de LinkedIn Newsletter "Pulso del Talento NL"
+    Spec LinkedIn: 1376 × 440 px
+    Edición 001 — Estratego Talent
+    Para exportar a PNG: abre en cualquier navegador, click derecho → Guardar como PNG,
+    o usa: npx svgexport cover-001.svg cover-001.png 1376:440
+  -->
+
+  <!-- Background gradient navy -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F2540"/>
+      <stop offset="55%" stop-color="#1B3A5C"/>
+      <stop offset="100%" stop-color="#264C73"/>
+    </linearGradient>
+    <linearGradient id="orb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8B4A0" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#E8B4A0" stop-opacity="0.35"/>
+    </linearGradient>
+    <radialGradient id="dot" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7BA7B0" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#7BA7B0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1376" height="440" fill="url(#bg)"/>
+
+  <!-- Decorative geometry: hexagon family on the right (Estratego brand mark scale-up) -->
+  <g opacity="0.10">
+    <polygon points="1140,90 1280,170 1280,330 1140,410 1000,330 1000,170" fill="#E8B4A0"/>
+    <polygon points="1180,150 1300,220 1300,360 1180,430 1060,360 1060,220" fill="none" stroke="#7BA7B0" stroke-width="2"/>
+  </g>
+
+  <!-- Soft glow blob behind text for depth -->
+  <circle cx="240" cy="240" r="280" fill="url(#dot)"/>
+
+  <!-- Brand mark (top-left) -->
+  <g transform="translate(72,72)">
+    <polygon points="22,2 41,12 41,30 22,40 3,30 3,12" fill="#E8B4A0"/>
+    <rect x="13" y="13" width="18" height="18" fill="#7BA7B0" rx="2"/>
+    <circle cx="22" cy="22" r="6" fill="#FFFFFF"/>
+    <text x="52" y="20" fill="#FFFFFF" font-size="11" font-weight="700" letter-spacing="2.5">ESTRATEGO TALENT</text>
+    <text x="52" y="34" fill="#E8B4A0" font-size="10" font-weight="600" letter-spacing="1">Reclutamiento y selección · Monterrey</text>
+  </g>
+
+  <!-- Issue chip -->
+  <g transform="translate(72,156)">
+    <rect x="0" y="0" width="148" height="30" rx="15" fill="#E8B4A0"/>
+    <text x="14" y="20" fill="#0F2540" font-size="12" font-weight="800" letter-spacing="1.2">EDICIÓN 001 · MENSUAL</text>
+  </g>
+
+  <!-- Main title -->
+  <text x="72" y="240" fill="#FFFFFF" font-size="60" font-weight="800" letter-spacing="-1">Pulso del Talento NL</text>
+
+  <!-- Subtitle -->
+  <text x="72" y="290" fill="#B8D3D8" font-size="22" font-weight="500">Sueldos, vacantes y movimientos del mercado</text>
+  <text x="72" y="320" fill="#B8D3D8" font-size="22" font-weight="500">laboral en Monterrey y su zona metropolitana.</text>
+
+  <!-- Author footer line -->
+  <g transform="translate(72,380)">
+    <rect x="0" y="0" width="56" height="2" fill="#E8B4A0"/>
+    <text x="0" y="26" fill="#FFFFFF" font-size="14" font-weight="700">Alejandro Russo</text>
+    <text x="118" y="26" fill="#B8D3D8" font-size="13" font-weight="500">Director · Estratego Talent</text>
+  </g>
+
+  <!-- Big number callout (right side) -->
+  <g transform="translate(960,170)">
+    <text x="0" y="0" fill="#E8B4A0" font-size="14" font-weight="700" letter-spacing="2">MÉTRICA DEL MES</text>
+    <text x="0" y="90" fill="#FFFFFF" font-size="120" font-weight="800" letter-spacing="-3">38</text>
+    <text x="0" y="125" fill="#B8D3D8" font-size="18" font-weight="500">días para cerrar una gerencia</text>
+    <text x="0" y="150" fill="#B8D3D8" font-size="18" font-weight="500">en Monterrey hoy.</text>
+  </g>
+</svg>
