@@ -63,6 +63,7 @@ const FOOT = `
     <a href="/pruebas-psicometricas-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Psicometría</a> ·
     <a href="/agencia-de-empleo-monterrey.html" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Agencia de empleo</a> ·
     <a href="/talent-sprints/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Talent Sprints</a> ·
+    <a href="/embedded-recruiting/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Embedded</a> ·
     <a href="/triage-ia/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Triage IA</a> ·
     <a href="/reportes-ejecutivos/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Reportes ejecutivos</a> ·
     <a href="/red-global-npaworldwide/" style="color:#B8D3D8;text-decoration:none;margin:0 8px">Red global NPA</a> ·
