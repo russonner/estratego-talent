@@ -13,10 +13,13 @@
 1. Entra a la página de empresa de Estratego Talent en LinkedIn
 2. Botón "Crear" → "Crear newsletter"
 3. **Título del newsletter:** Pulso del Talento NL
-4. **Subtítulo:** Análisis mensual del mercado laboral y de talento en Monterrey y su zona metropolitana
+4. **Descripción del newsletter (lo que ven antes de suscribirse):**
+
+   > Análisis mensual del mercado laboral en Monterrey desde la trinchera de los reclutadores: métricas reales del pipeline, los perfiles más buscados del momento y lecciones de selección que no encuentras en otro lado. Para directores de RH, founders y profesionales que se mueven en el corredor industrial y los corporativos de San Pedro.
+
 5. **Frecuencia:** Mensual
 6. **Logo:** logo Estratego cuadrado
-7. **Imagen de portada:** 1376×440 px (Canva tiene plantillas)
+7. **Imagen de portada:** 1920×960 px (usa `Estratego-Newsletter-Portada.png` del escritorio)
 8. Publica este primer issue. LinkedIn notificará a TODOS los seguidores de la página (alcance de 100% el primer día).
 
 A partir del segundo issue, solo notifica a quienes se suscribieron explícitamente — por eso el primer issue es el de mayor reach.
@@ -29,17 +32,15 @@ A partir del segundo issue, solo notifica a quienes se suscribieron explícitame
 
 ### 👋 Empezamos algo nuevo
 
-Bienvenida y bienvenido al primer número de **Pulso del Talento NL**, el reporte mensual donde compartimos lo que vemos en el mercado laboral de Monterrey desde nuestra trinchera como reclutadores.
-
-No es teoría ni notas de prensa. Es lo que cierra y lo que se atora cada semana en las posiciones que trabajamos para empresas del corredor industrial, los corporativos de San Pedro y la economía digital que está creciendo en Nuevo León.
+Este es el primer número de **Pulso del Talento NL**, el reporte mensual donde los reclutadores de Estratego Talent compartimos lo que vemos en el mercado laboral de Monterrey desde nuestra trinchera. Sin teoría reciclada de blogs de RH internacionales: es lo que cierra y lo que se atora cada semana en las posiciones que trabajamos para empresas del corredor industrial, los corporativos de San Pedro y la economía digital que está creciendo en Nuevo León.
 
 Cada mes vas a encontrar tres cosas:
 
-1. **Una métrica del mes** — dato duro de nuestro pipeline o del mercado.
-2. **Un perfil que está caliente** — qué se está buscando, cuánto se está pagando y qué empresa lo necesita.
+1. **Una métrica del mes** — un dato duro de nuestro pipeline o del mercado, con qué hacer con ese dato.
+2. **Un perfil que está caliente** — qué se está buscando ahora, cuánto se está pagando y qué tan disponible está el talento.
 3. **Una lección de selección** — algo concreto que aprendimos cerrando o perdiendo una búsqueda este mes.
 
-Empezamos.
+Si trabajas en RH, lideras un equipo o estás en búsqueda activa de tu próxima oportunidad, vas a sacar valor de cada edición. Empezamos.
 
 ---
 
