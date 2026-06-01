@@ -79,6 +79,15 @@ const FOOT = `
     <a href="https://x.com/estrategotalent" target="_blank" rel="noopener" aria-label="X" style="color:#B8D3D8"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h2.9l-6.34 7.25L21.5 21h-5.84l-4.57-5.98L5.86 21H2.96l6.78-7.75L2.5 3h6l4.13 5.46L17.5 3zm-1.02 16.2h1.6L7.6 4.7H5.88l10.6 14.5z"/></svg></a>
   </div>
   © ${new Date().getFullYear()} Estratego Talent · Reclutamiento y selección de personal en Monterrey, Nuevo León.
+  <!-- powered-trapecio -->
+  <div style="margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:rgba(255,255,255,.42);flex-wrap:wrap">
+    <span>Powered by</span>
+    <a href="https://trapecio.io" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;color:rgba(255,255,255,.7);text-decoration:none;font-weight:600">
+      <svg width="15" height="15" viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M4 14 L50 14 L43 38 L13 38 Z" fill="#00E6A4"/><path d="M30 44 L72 44 L66 68 L37 68 Z" fill="#00E6A4" opacity="0.5"/></svg>
+      <span style="letter-spacing:.14em">TRAPECIO</span>
+    </a>
+    <span style="opacity:.75">· Tecnología que transforma</span>
+  </div>
 </footer>`
 
 function page({ title, description, canonical, body, jsonLd = [] }) {
