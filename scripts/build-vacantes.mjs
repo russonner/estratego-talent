@@ -146,7 +146,7 @@ const LANDINGS = [
     h1: 'Reclutamiento y selección de personal en Monterrey',
     lead: 'Encontramos al talento que tu empresa necesita en Monterrey y su zona metropolitana, con una metodología propia que va más allá del CV: evaluamos competencias, fit cultural e integridad.',
     sections: [
-      { h: '¿Qué hacemos?', html: `<p>En Estratego Talent nos especializamos en <strong>reclutamiento y selección de personal especializado, gerencial y directivo</strong> para empresas en Monterrey, San Pedro, Apodaca, Santa Catarina y todo Nuevo León. No llenamos vacantes: construimos equipos.</p>
+      { h: '¿Qué hacemos?', html: `<p>En Estratego Talent nos especializamos en <strong>reclutamiento y selección de personal especializado, gerencial y directivo</strong> para empresas en Monterrey, San Pedro, Apodaca, Santa Catarina y todo Nuevo León. La clave es elegir: ayudamos a las empresas a construir equipos sólidos con el talento exacto que necesitan.</p>
       <p>Cada proceso incluye definición del perfil real (no el de papel), búsqueda activa de candidatos pasivos, entrevistas por competencias, pruebas psicométricas y verificación de referencias.</p>` },
       { h: 'Industrias que atendemos', html: `<ul>
         <li>Manufactura y producción</li>
