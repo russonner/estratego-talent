@@ -112,6 +112,10 @@ footer a{color:var(--teal-light);text-decoration:none}
 // candidato quede etiquetado al cliente cuyo enlace usó.
 (function(){
   var ref = new URLSearchParams(location.search).get('ref');
+  if(!ref){
+    var parts = location.pathname.split('/').filter(Boolean); // ej. ['unete','xe']
+    if(parts[0] === 'unete' && parts[1] && parts[1].toLowerCase() !== 'index.html') ref = parts[1];
+  }
   if(!ref) return;
   document.querySelectorAll('a.cta').forEach(function(a){
     try{ var u = new URL(a.href); u.searchParams.set('ref', ref); a.href = u.toString(); }catch(e){}
