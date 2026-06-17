@@ -107,4 +107,15 @@ footer a{color:var(--teal-light);text-decoration:none}
     <span style="opacity:.8">· Tecnología que transforma</span>
   </div>
 </footer>
+<script>
+// Propaga el ?ref=<token> del cliente a los botones de registro, para que el
+// candidato quede etiquetado al cliente cuyo enlace usó.
+(function(){
+  var ref = new URLSearchParams(location.search).get('ref');
+  if(!ref) return;
+  document.querySelectorAll('a.cta').forEach(function(a){
+    try{ var u = new URL(a.href); u.searchParams.set('ref', ref); a.href = u.toString(); }catch(e){}
+  });
+})();
+</script>
 </body></html>
